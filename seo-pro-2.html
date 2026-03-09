@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SEO Intelligence Platform — Beyond Any Tool in Market</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --ink:#0a0a0f;
+  --ink2:#1a1a24;
+  --ink3:#2a2a38;
+  --border:#e8e8f0;
+  --border2:#f0f0f6;
+  --surface:#ffffff;
+  --surface2:#fafafa;
+  --surface3:#f5f5fa;
+  --text:#0a0a0f;
+  --text2:#4a4a5a;
+  --text3:#8a8a9a;
+  --accent:#1a56db;
+  --accent-light:#eff6ff;
+  --green:#059669;
+  --green-l:#ecfdf5;
+  --red:#dc2626;
+  --red-l:#fef2f2;
+  --amber:#d97706;
+  --amber-l:#fffbeb;
+  --purple:#7c3aed;
+  --purple-l:#f5f3ff;
+  --teal:#0891b2;
+  --teal-l:#ecfeff;
+  --rose:#e11d48;
+  --rose-l:#fff1f2;
+  --font:'Instrument Sans',sans-serif;
+  --serif:'Instrument Serif',serif;
+  --mono:'JetBrains Mono',monospace;
+  --r:10px;
+  --r-sm:6px;
+  --sh:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);
+  --sh-md:0 4px 12px rgba(0,0,0,.08),0 2px 4px rgba(0,0,0,.04);
+  --sh-lg:0 16px 40px rgba(0,0,0,.1),0 4px 12px rgba(0,0,0,.06);
+}
+body{font-family:var(--font);background:var(--surface2);color:var(--text);-webkit-font-smoothing:antialiased;min-height:100vh}
+
+/* NAV */
+.nav{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200}
+.nav-i{max-width:1400px;margin:0 auto;padding:0 28px;height:56px;display:flex;align-items:center;gap:32px}
+.logo{display:flex;align-items:center;gap:10px;font-size:17px;font-weight:700;letter-spacing:-.3px}
+.logo-mark{width:28px;height:28px;background:var(--ink);border-radius:6px;display:flex;align-items:center;justify-content:center;color:white;font-size:13px;font-weight:700}
+.nav-pills{display:flex;gap:2px;flex:1}
+.np{padding:5px 12px;font-size:13px;font-weight:500;color:var(--text3);border-radius:5px;cursor:pointer;border:none;background:none;transition:.15s}
+.np:hover{background:var(--surface3);color:var(--text)}
+.np.a{background:var(--accent-light);color:var(--accent)}
+.nav-r{display:flex;align-items:center;gap:8px;margin-left:auto}
+.btn-outline{padding:6px 14px;font-size:13px;font-weight:600;border:1.5px solid var(--border);border-radius:7px;cursor:pointer;background:none;color:var(--text);font-family:var(--font);transition:.15s}
+.btn-outline:hover{border-color:var(--ink3)}
+.btn-primary{padding:7px 16px;font-size:13px;font-weight:600;border:none;border-radius:7px;cursor:pointer;background:var(--ink);color:white;font-family:var(--font);transition:.15s}
+.btn-primary:hover{background:var(--ink2)}
+
+/* HERO */
+.hero{background:var(--surface);border-bottom:1px solid var(--border);padding:52px 28px 48px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% -10%,rgba(26,86,219,.06),transparent);pointer-events:none}
+.hero-kicker{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:var(--accent);background:var(--accent-light);padding:5px 14px;border-radius:20px;margin-bottom:18px;letter-spacing:.2px}
+.hero-kicker-dot{width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.hero h1{font-family:var(--serif);font-size:clamp(36px,5.5vw,62px);font-weight:400;line-height:1.08;letter-spacing:-.5px;margin-bottom:14px;color:var(--ink)}
+.hero h1 em{font-style:italic;color:var(--accent)}
+.hero-sub{font-size:16px;color:var(--text2);max-width:580px;margin:0 auto 36px;line-height:1.65}
+
+/* SEARCH */
+.search-wrap{max-width:660px;margin:0 auto}
+.search-row{display:flex;background:var(--surface);border:1.5px solid var(--border);border-radius:10px;box-shadow:var(--sh-md);overflow:hidden;transition:.2s}
+.search-row:focus-within{border-color:var(--accent);box-shadow:0 0 0 4px rgba(26,86,219,.1),var(--sh-md)}
+.search-pfx{padding:0 14px;display:flex;align-items:center;color:var(--text3);font-size:15px}
+.search-input{flex:1;border:none;outline:none;font:500 15px/1 var(--font);color:var(--text);padding:16px 0;background:transparent}
+.search-input::placeholder{color:var(--text3);font-weight:400}
+.search-go{background:var(--ink);color:white;border:none;padding:13px 24px;font:600 14px var(--font);cursor:pointer;margin:3px;border-radius:7px;transition:.15s;white-space:nowrap}
+.search-go:hover{background:var(--ink2)}
+.search-go:disabled{opacity:.5;cursor:not-allowed}
+.hero-chips{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:20px;flex-wrap:wrap}
+.hc{font-size:12.5px;color:var(--text3);display:flex;align-items:center;gap:5px}
+
+/* PROGRESS */
+.prog-wrap{display:none;max-width:560px;margin:32px auto;padding:0 24px}
+.prog-wrap.show{display:block}
+.prog-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:28px;box-shadow:var(--sh)}
+.prog-title{font-size:15px;font-weight:600;margin-bottom:4px}
+.prog-url{font-family:var(--mono);font-size:12px;color:var(--accent);margin-bottom:20px}
+.prog-track{height:6px;background:var(--border2);border-radius:99px;overflow:hidden;margin-bottom:10px}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--accent),#60a5fa);border-radius:99px;width:0%;transition:width .5s cubic-bezier(.4,0,.2,1)}
+.prog-pct{font-family:var(--mono);font-size:12px;color:var(--text3);margin-bottom:16px}
+.prog-steps{display:flex;flex-direction:column;gap:5px}
+.ps{display:flex;align-items:center;gap:9px;font-size:13px;color:var(--text3);transition:color .3s}
+.ps.done{color:var(--green)}
+.ps.act{color:var(--text);font-weight:500}
+.ps-dot{width:7px;height:7px;border-radius:50%;background:var(--border);flex-shrink:0;transition:background .3s}
+.ps.done .ps-dot{background:var(--green)}
+.ps.act .ps-dot{background:var(--accent);box-shadow:0 0 0 3px rgba(26,86,219,.15)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.spinner{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,.3);border-top-color:white;border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:5px}
+
+/* MAIN */
+.main{max-width:1400px;margin:0 auto;padding:28px 28px 80px;display:none}
+.main.show{display:block;animation:fadeUp .4s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+/* ── THE REVENUE IMPACT BANNER (UNIQUE FEATURE) ── */
+.revenue-banner{background:var(--ink);color:white;border-radius:var(--r);padding:28px 32px;margin-bottom:24px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center}
+.rb-left h2{font-family:var(--serif);font-size:26px;font-weight:400;line-height:1.2;margin-bottom:6px}
+.rb-left h2 em{font-style:italic;color:#93c5fd}
+.rb-left p{font-size:14px;color:rgba(255,255,255,.6);line-height:1.5}
+.rb-right{display:flex;gap:20px}
+.rb-stat{text-align:center}
+.rb-val{font-size:32px;font-weight:700;letter-spacing:-1px;line-height:1}
+.rb-lbl{font-size:11px;color:rgba(255,255,255,.5);font-weight:500;text-transform:uppercase;letter-spacing:.5px;margin-top:4px}
+.rb-val.red{color:#fca5a5}
+.rb-val.amber{color:#fcd34d}
+.rb-val.green{color:#6ee7b7}
+
+/* ── OVERVIEW GRID ── */
+.ov-grid{display:grid;grid-template-columns:220px 1fr;gap:20px;margin-bottom:24px}
+
+/* SCORE */
+.score-c{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:24px;box-shadow:var(--sh)}
+.donut-wrap{position:relative;width:110px;height:110px;margin:0 auto 14px}
+.donut-wrap svg{transform:rotate(-90deg)}
+.dc{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.dc-score{font-size:28px;font-weight:700;letter-spacing:-1px;line-height:1}
+.dc-lbl{font-size:10px;color:var(--text3);font-weight:500;text-transform:uppercase;letter-spacing:.5px}
+.score-grade{text-align:center;font-size:13px;font-weight:600;padding:4px 12px;border-radius:5px;margin-bottom:14px}
+.score-rows{display:flex;flex-direction:column;gap:5px}
+.sr{display:flex;justify-content:space-between;font-size:12px;align-items:center}
+.sr-lbl{display:flex;align-items:center;gap:6px;color:var(--text2)}
+.sr-dot{width:7px;height:7px;border-radius:50%}
+.sr-val{font-weight:700;font-size:13px}
+
+/* METRICS */
+.mx-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.mx-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:18px 20px;box-shadow:var(--sh);transition:.2s}
+.mx-card:hover{box-shadow:var(--sh-md)}
+.mx-ico{width:32px;height:32px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px;margin-bottom:9px}
+.mx-val{font-size:24px;font-weight:700;letter-spacing:-.5px;line-height:1;margin-bottom:2px}
+.mx-name{font-size:12.5px;font-weight:600;margin-bottom:1px}
+.mx-sub{font-size:11.5px;color:var(--text3)}
+.mx-tag{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;padding:2px 8px;border-radius:4px;margin-top:6px}
+
+/* TABS */
+.tabs-row{display:flex;gap:2px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:4px;margin-bottom:20px;box-shadow:var(--sh);overflow-x:auto}
+.tab-b{display:flex;align-items:center;gap:6px;padding:8px 14px;font-size:13px;font-weight:500;color:var(--text3);background:none;border:none;border-radius:7px;cursor:pointer;white-space:nowrap;transition:.15s;font-family:var(--font)}
+.tab-b:hover{background:var(--surface3);color:var(--text)}
+.tab-b.a{background:var(--ink);color:white;font-weight:600;box-shadow:0 2px 6px rgba(0,0,0,.15)}
+.tab-b.a .tc{background:rgba(255,255,255,.2)}
+.tc{font-size:10.5px;font-weight:700;padding:1px 6px;border-radius:4px;background:var(--surface3);color:var(--text3)}
+.tab-icon{font-size:13px}
+
+/* PANELS */
+.panel{display:none}.panel.a{display:block;animation:fadeIn .25s ease}
+
+/* SECTION HEAD */
+.sh{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px;gap:12px}
+.sh-left h3{font-size:15px;font-weight:700;margin-bottom:2px}
+.sh-left p{font-size:12.5px;color:var(--text3)}
+.sh-right{display:flex;gap:8px;flex-shrink:0}
+
+/* ── UNIQUE FEATURE: ROI TABLE ── */
+.roi-table-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);margin-bottom:20px}
+.roi-table-head{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:linear-gradient(135deg,#0a0a0f 0%,#1a1a2e 100%)}
+.roi-table-head h3{font-size:14px;font-weight:600;color:white;display:flex;align-items:center;gap:8px}
+.roi-table-head p{font-size:12px;color:rgba(255,255,255,.5)}
+table.roi{width:100%;border-collapse:collapse}
+table.roi th{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--text3);padding:10px 18px;text-align:left;background:var(--surface2);border-bottom:1px solid var(--border)}
+table.roi td{padding:13px 18px;border-bottom:1px solid var(--border2);font-size:13px;vertical-align:middle}
+table.roi tr:last-child td{border-bottom:none}
+table.roi tr:hover td{background:var(--surface2)}
+.roi-fix{font-weight:600;font-size:13.5px;color:var(--text)}
+.roi-fix-sub{font-size:11.5px;color:var(--text3);margin-top:1px}
+.effort-dot{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600}
+.impact-bar-w{width:90px;height:6px;background:var(--border2);border-radius:99px;overflow:hidden;display:inline-block;vertical-align:middle;margin-right:6px}
+.impact-bar-f{height:100%;border-radius:99px}
+.roi-val{font-size:14px;font-weight:700}
+.roi-rank{width:28px;height:28px;border-radius:50%;background:var(--ink);color:white;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;font-family:var(--mono)}
+
+/* ── UNIQUE: SERP FEATURE MAP ── */
+.serp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
+.serp-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px;box-shadow:var(--sh);position:relative;overflow:hidden;transition:.2s}
+.serp-card:hover{box-shadow:var(--sh-md)}
+.serp-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.serp-card.owned::before{background:var(--green)}
+.serp-card.competitor::before{background:var(--red)}
+.serp-card.opportunity::before{background:var(--amber)}
+.sc-type{font-family:var(--mono);font-size:10px;color:var(--text3);margin-bottom:6px;letter-spacing:.5px}
+.sc-name{font-size:14px;font-weight:700;margin-bottom:4px}
+.sc-kw{font-size:12px;color:var(--text2);margin-bottom:10px;line-height:1.4}
+.sc-status{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:600;padding:3px 9px;border-radius:5px}
+
+/* ── UNIQUE: EEAT SCORE ── */
+.eeat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}
+.eeat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:20px;box-shadow:var(--sh);text-align:center}
+.eeat-letter{font-family:var(--serif);font-size:32px;font-weight:400;line-height:1;margin-bottom:4px}
+.eeat-word{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--text3);margin-bottom:14px}
+.eeat-score{font-size:26px;font-weight:700;letter-spacing:-1px;margin-bottom:6px}
+.eeat-bar-w{height:5px;background:var(--border2);border-radius:99px;overflow:hidden;margin-bottom:10px}
+.eeat-bar-f{height:100%;border-radius:99px}
+.eeat-tip{font-size:11.5px;color:var(--text2);line-height:1.5}
+
+/* ── UNIQUE: ENTITY / KNOWLEDGE GRAPH ── */
+.entity-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:20px;margin-bottom:20px;box-shadow:var(--sh)}
+.entity-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border2)}
+.entity-row:last-child{border-bottom:none}
+.entity-name{font-size:13.5px;font-weight:600;flex:1}
+.entity-type{font-family:var(--mono);font-size:10.5px;color:var(--text3);width:120px}
+.entity-strength{display:flex;align-items:center;gap:8px;width:160px}
+.es-bar{flex:1;height:5px;background:var(--border2);border-radius:99px;overflow:hidden}
+.es-fill{height:100%;border-radius:99px}
+.entity-signal{font-size:11px;font-weight:600;padding:2px 8px;border-radius:4px}
+
+/* ── UNIQUE: ALGORITHM TIMELINE ── */
+.algo-timeline{position:relative;padding-left:24px;margin-bottom:20px}
+.algo-line{position:absolute;left:7px;top:8px;bottom:8px;width:2px;background:var(--border)}
+.algo-item{position:relative;margin-bottom:16px}
+.algo-dot{position:absolute;left:-21px;width:14px;height:14px;border-radius:50%;border:2px solid var(--surface);top:3px}
+.algo-meta{font-family:var(--mono);font-size:10.5px;color:var(--text3);margin-bottom:3px}
+.algo-name{font-size:13.5px;font-weight:600;margin-bottom:3px}
+.algo-impact{font-size:12.5px;color:var(--text2);line-height:1.5}
+.algo-delta{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:700;padding:2px 8px;border-radius:4px;margin-top:4px}
+
+/* ── UNIQUE: CANNIBALIZATION MAP ── */
+.cann-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:12px;box-shadow:var(--sh)}
+.cann-head{padding:14px 18px;background:var(--rose-l);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.cann-kw{font-size:14px;font-weight:700;color:var(--rose)}
+.cann-pages{display:flex;flex-direction:column;gap:0}
+.cp-row{display:flex;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid var(--border2)}
+.cp-row:last-child{border-bottom:none}
+.cp-url{font-family:var(--mono);font-size:12px;color:var(--accent);flex:1}
+.cp-pos{font-size:13px;font-weight:700;width:60px}
+.cp-traffic{font-size:12px;color:var(--text3);width:80px}
+.cp-action{font-size:11.5px;font-weight:600;padding:3px 10px;border-radius:4px;cursor:pointer;border:none;font-family:var(--font)}
+
+/* ── UNIQUE: INTERNAL LINK EQUITY ── */
+.link-equity{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:20px;margin-bottom:20px;box-shadow:var(--sh)}
+.le-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--border2)}
+.le-row:last-child{border-bottom:none}
+.le-page{font-family:var(--mono);font-size:12px;color:var(--accent);flex:1}
+.le-bar-w{width:120px;height:8px;background:var(--border2);border-radius:99px;overflow:hidden}
+.le-bar-f{height:100%;border-radius:99px}
+.le-score{font-size:12px;font-weight:700;font-family:var(--mono);width:40px;text-align:right}
+.le-status{font-size:11px;font-weight:600;padding:2px 7px;border-radius:4px}
+
+/* ISSUE LIST */
+.issue-list{display:flex;flex-direction:column;gap:10px}
+.ii{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);transition:.2s}
+.ii:hover{box-shadow:var(--sh-md)}
+.ii-head{display:flex;align-items:center;gap:12px;padding:15px 18px;cursor:pointer}
+.ii-bar{width:3px;border-radius:2px;align-self:stretch;flex-shrink:0;min-height:18px}
+.ii-ico{width:30px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.ii-main{flex:1}
+.ii-name{font-size:13.5px;font-weight:700;margin-bottom:2px}
+.ii-brief{font-size:12px;color:var(--text3)}
+.ii-right{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.ii-pill{font-size:10.5px;font-weight:700;padding:2px 9px;border-radius:5px;letter-spacing:.2px}
+.ii-impact{text-align:center}
+.ii-impact-n{font-size:13px;font-weight:700;line-height:1}
+.ii-impact-l{font-size:9.5px;color:var(--text3);font-weight:500;text-transform:uppercase;letter-spacing:.3px}
+.ii-chev{color:var(--text3);font-size:11px;transition:transform .2s}
+.ii.open .ii-chev{transform:rotate(180deg)}
+.ii-body{display:none;padding:16px 18px 18px 63px;border-top:1px solid var(--border2)}
+.ii.open .ii-body{display:block}
+.ii-desc{font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:14px}
+.fix-box{background:var(--green-l);border:1px solid #a7f3d0;border-radius:7px;padding:13px 15px;margin-bottom:10px}
+.fb-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--green);margin-bottom:5px}
+.fb-text{font-size:13px;color:#065f46;line-height:1.65}
+.code-b{background:#1e1e2e;border-radius:7px;padding:13px 15px;font-family:var(--mono);font-size:11.5px;color:#a6e3a1;overflow-x:auto;white-space:pre;line-height:1.7}
+
+/* DATA TABLE */
+.dt-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);margin-bottom:20px}
+.dt-head{padding:15px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.dt-title{font-size:14px;font-weight:700}
+table.dt{width:100%;border-collapse:collapse}
+table.dt th{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.4px;color:var(--text3);padding:9px 18px;text-align:left;background:var(--surface2);border-bottom:1px solid var(--border)}
+table.dt td{padding:12px 18px;font-size:13px;border-bottom:1px solid var(--border2);color:var(--text2)}
+table.dt tr:last-child td{border-bottom:none}
+table.dt tr:hover td{background:var(--surface2)}
+table.dt td:first-child{font-weight:600;color:var(--text)}
+.pill{display:inline-flex;align-items:center;font-size:11.5px;font-weight:600;padding:2px 8px;border-radius:5px}
+.den-wrap{display:flex;align-items:center;gap:6px}
+.den-b{width:70px;height:5px;background:var(--border2);border-radius:99px;overflow:hidden}
+.den-f{height:100%;background:var(--purple);border-radius:99px}
+
+/* WATERFALL */
+.wf-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:20px;box-shadow:var(--sh)}
+.wf-title{font-size:14px;font-weight:700;margin-bottom:18px}
+.wf-row{display:flex;align-items:center;gap:10px;margin-bottom:9px}
+.wf-lbl{width:120px;font-size:11.5px;color:var(--text3);font-family:var(--mono);flex-shrink:0}
+.wf-track{flex:1;height:20px;background:var(--surface2);border-radius:4px;position:relative;overflow:hidden}
+.wf-bar{position:absolute;left:0;top:0;height:100%;border-radius:4px;display:flex;align-items:center;padding-left:7px;font-size:10px;font-weight:700;color:white;white-space:nowrap;overflow:hidden}
+.wf-val{font-family:var(--mono);font-size:11.5px;color:var(--text3);width:55px;text-align:right;flex-shrink:0}
+
+/* SCHEMA */
+.schema-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
+.sc-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:15px;box-shadow:var(--sh)}
+.sc-type-l{font-family:var(--mono);font-size:10px;color:var(--text3);margin-bottom:4px}
+.sc-name-l{font-size:13.5px;font-weight:700;margin-bottom:8px}
+.sc-badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;padding:3px 9px;border-radius:5px;margin-bottom:6px}
+.sc-note{font-size:12px;color:var(--text2);line-height:1.5}
+
+/* COMP */
+.comp-list{display:flex;flex-direction:column;gap:10px;margin-bottom:20px}
+.comp-c{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px 20px;display:flex;align-items:center;gap:16px;box-shadow:var(--sh);transition:.2s}
+.comp-c:hover{box-shadow:var(--sh-md)}
+.comp-c.you{border-color:var(--accent);background:var(--accent-light)}
+.comp-rank{font-size:20px;font-weight:700;color:var(--text3);width:28px;font-family:var(--mono)}
+.comp-info{flex:1}
+.comp-domain{font-size:14px;font-weight:700;margin-bottom:2px}
+.comp-note{font-size:12px;color:var(--text3)}
+.comp-badges{display:flex;gap:7px;margin-top:6px}
+.cb{font-size:11px;font-weight:600;padding:2px 8px;border-radius:4px;background:var(--surface2);border:1px solid var(--border);color:var(--text2)}
+.comp-score-b{text-align:right}
+.comp-score-v{font-size:26px;font-weight:700;letter-spacing:-.5px;line-height:1}
+.comp-score-l{font-size:10px;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:.3px}
+
+/* CONTENT BRIEF (UNIQUE) */
+.brief-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);margin-bottom:20px}
+.brief-head{padding:16px 20px;background:linear-gradient(135deg,var(--purple-l),var(--accent-light));border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.brief-head h3{font-size:14px;font-weight:700;color:var(--purple)}
+.brief-body{padding:20px;display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.brief-section h4{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text3);margin-bottom:10px}
+.brief-kw-list{display:flex;flex-direction:column;gap:6px}
+.bkw{display:flex;justify-content:space-between;align-items:center;padding:6px 10px;background:var(--surface2);border-radius:5px;font-size:12.5px}
+.bkw-tag{font-size:11px;font-weight:600;padding:1px 6px;border-radius:3px}
+.brief-outline{display:flex;flex-direction:column;gap:5px}
+.bo-item{font-size:12.5px;color:var(--text2);padding:5px 0;border-bottom:1px solid var(--border2);display:flex;align-items:flex-start;gap:7px}
+.bo-h{font-family:var(--mono);font-size:10px;color:var(--purple);font-weight:600;flex-shrink:0;margin-top:2px}
+
+/* PRIORITY BOARD */
+.prio-board{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:24px;box-shadow:var(--sh)}
+.pb-cell{background:var(--surface);padding:18px}
+.pb-head{display:flex;align-items:center;gap:7px;margin-bottom:12px}
+.pb-label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.4px}
+.pb-items{display:flex;flex-direction:column;gap:5px}
+.pb-item{font-size:12.5px;color:var(--text2);display:flex;align-items:flex-start;gap:6px;line-height:1.4}
+.pb-item::before{content:'→';color:var(--text3);flex-shrink:0;margin-top:1px;font-size:11px;font-family:var(--mono)}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .ov-grid,.mx-grid{grid-template-columns:1fr}
+  .serp-grid,.eeat-grid,.schema-grid{grid-template-columns:repeat(2,1fr)}
+  .prio-board{grid-template-columns:repeat(2,1fr)}
+  .brief-body{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  .serp-grid,.eeat-grid,.schema-grid{grid-template-columns:1fr}
+  .rb-right{flex-direction:column;gap:8px}
+  .prio-board{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-i">
+    <div class="logo"><div class="logo-mark">S</div>SEOIntel</div>
+    <div class="nav-pills">
+      <button class="np a">Site Audit</button>
+      <button class="np">Rank Tracker</button>
+      <button class="np">Backlinks</button>
+      <button class="np">Content AI</button>
+      <button class="np">Competitors</button>
+    </div>
+    <div class="nav-r">
+      <button class="btn-outline">Sign In</button>
+      <button class="btn-primary">Start Free Trial</button>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-kicker"><div class="hero-kicker-dot"></div>The only SEO tool that shows revenue impact</div>
+  <h1>Stop guessing.<br>Start <em>knowing</em> what to fix.</h1>
+  <p class="hero-sub">Every competitor shows you what's broken. We show you what it costs you, what to fix first, and exactly how much you'll gain — ranked by ROI, not just severity.</p>
+  <div class="search-wrap">
+    <div class="search-row">
+      <div class="search-pfx">🌐</div>
+      <input type="text" class="search-input" id="urlInput" placeholder="Enter your website URL" value="https://example.com">
+      <button class="search-go" id="scanBtn" onclick="startScan()">Run Full Audit →</button>
+    </div>
+  </div>
+  <div class="hero-chips">
+    <div class="hc">💰 Revenue impact per issue</div>
+    <div class="hc">🧠 E-E-A-T scoring</div>
+    <div class="hc">🗺 SERP feature map</div>
+    <div class="hc">🔄 Cannibalization detector</div>
+    <div class="hc">📡 Algorithm impact tracker</div>
+  </div>
+</section>
+
+<div class="prog-wrap" id="progWrap">
+  <div class="prog-card">
+    <div class="prog-title">Running deep site intelligence scan…</div>
+    <div class="prog-url" id="progUrl">https://example.com</div>
+    <div class="prog-track"><div class="prog-fill" id="progFill"></div></div>
+    <div class="prog-pct"><span id="progPct">0%</span> — <span id="progStep">Initializing…</span></div>
+    <div class="prog-steps" id="progSteps"></div>
+  </div>
+</div>
+
+<div class="main" id="main">
+
+  <!-- REVENUE BANNER -->
+  <div class="revenue-banner">
+    <div class="rb-left">
+      <h2>You're leaving <em>~$8,400/mo</em> on the table</h2>
+      <p>Based on your traffic, keyword positions, and industry avg conversion rates — fixing your top 7 issues could recover this revenue within 90 days.</p>
+    </div>
+    <div class="rb-right">
+      <div class="rb-stat"><div class="rb-val red">$8,400</div><div class="rb-lbl">Monthly loss est.</div></div>
+      <div class="rb-stat"><div class="rb-val amber">62</div><div class="rb-lbl">Health score</div></div>
+      <div class="rb-stat"><div class="rb-val green">+29pts</div><div class="rb-lbl">Potential gain</div></div>
+    </div>
+  </div>
+
+  <!-- OVERVIEW -->
+  <div class="ov-grid">
+    <div class="score-c">
+      <div class="donut-wrap">
+        <svg width="110" height="110" viewBox="0 0 110 110">
+          <circle cx="55" cy="55" r="46" fill="none" stroke="#f0f0f6" stroke-width="10"/>
+          <circle cx="55" cy="55" r="46" fill="none" stroke="#d97706" stroke-width="10"
+            stroke-dasharray="289.0" stroke-dashoffset="110" stroke-linecap="round"/>
+        </svg>
+        <div class="dc"><div class="dc-score" style="color:var(--amber)">62</div><div class="dc-lbl">/ 100</div></div>
+      </div>
+      <div class="score-grade" style="background:var(--amber-l);color:var(--amber)">Needs Improvement</div>
+      <div class="score-rows">
+        <div class="sr"><div class="sr-lbl"><div class="sr-dot" style="background:var(--red)"></div>Critical</div><div class="sr-val" style="color:var(--red)">7</div></div>
+        <div class="sr"><div class="sr-lbl"><div class="sr-dot" style="background:var(--amber)"></div>Warnings</div><div class="sr-val" style="color:var(--amber)">12</div></div>
+        <div class="sr"><div class="sr-lbl"><div class="sr-dot" style="background:var(--green)"></div>Passed</div><div class="sr-val" style="color:var(--green)">24</div></div>
+        <div class="sr"><div class="sr-lbl"><div class="sr-dot" style="background:var(--purple)"></div>Opportunities</div><div class="sr-val" style="color:var(--purple)">9</div></div>
+      </div>
+    </div>
+    <div class="mx-grid">
+      <div class="mx-card"><div class="mx-ico" style="background:var(--red-l)">⚡</div><div class="mx-val" style="color:var(--red)">3.8s</div><div class="mx-name">LCP</div><div class="mx-sub">Target &lt;2.5s</div><div class="mx-tag" style="background:var(--red-l);color:var(--red)">▼ Slow</div></div>
+      <div class="mx-card"><div class="mx-ico" style="background:var(--amber-l)">📱</div><div class="mx-val" style="color:var(--amber)">71</div><div class="mx-name">Mobile Score</div><div class="mx-sub">Viewport issues</div><div class="mx-tag" style="background:var(--amber-l);color:var(--amber)">⚠ Fix needed</div></div>
+      <div class="mx-card"><div class="mx-ico" style="background:var(--green-l)">🔒</div><div class="mx-val" style="color:var(--green)">✓</div><div class="mx-name">HTTPS / SSL</div><div class="mx-sub">Valid · 287 days</div><div class="mx-tag" style="background:var(--green-l);color:var(--green)">✓ Secure</div></div>
+      <div class="mx-card"><div class="mx-ico" style="background:var(--red-l)">🔗</div><div class="mx-val" style="color:var(--red)">34</div><div class="mx-name">Domain Authority</div><div class="mx-sub">Industry avg: 51</div><div class="mx-tag" style="background:var(--red-l);color:var(--red)">▼ Below avg</div></div>
+      <div class="mx-card"><div class="mx-ico" style="background:var(--amber-l)">📐</div><div class="mx-val" style="color:var(--amber)">0.18</div><div class="mx-name">CLS Score</div><div class="mx-sub">Target &lt;0.10</div><div class="mx-tag" style="background:var(--amber-l);color:var(--amber)">⚠ Poor</div></div>
+      <div class="mx-card"><div class="mx-ico" style="background:var(--purple-l)">📄</div><div class="mx-val" style="color:var(--purple)">142</div><div class="mx-name">Indexed Pages</div><div class="mx-sub">8 blocked</div><div class="mx-tag" style="background:var(--purple-l);color:var(--purple)">⚠ Check</div></div>
+    </div>
+  </div>
+
+  <!-- PRIORITY BOARD -->
+  <div class="prio-board">
+    <div class="pb-cell">
+      <div class="pb-head"><span>🚨</span><span class="pb-label" style="color:var(--red)">Fix Today</span></div>
+      <div class="pb-items">
+        <div class="pb-item">LCP image not preloaded (+1.3s)</div>
+        <div class="pb-item">7 pages missing meta descriptions</div>
+        <div class="pb-item">No schema on product pages</div>
+        <div class="pb-item">H1 missing on 3 landing pages</div>
+        <div class="pb-item">12 broken internal links (404)</div>
+      </div>
+    </div>
+    <div class="pb-cell">
+      <div class="pb-head"><span>⚠️</span><span class="pb-label" style="color:var(--amber)">Fix This Week</span></div>
+      <div class="pb-items">
+        <div class="pb-item">Duplicate title tags on 5 posts</div>
+        <div class="pb-item">34 images missing alt text</div>
+        <div class="pb-item">Sitemap missing 18 recent URLs</div>
+        <div class="pb-item">Render-blocking JS in head</div>
+        <div class="pb-item">Canonical conflicts on /blog</div>
+      </div>
+    </div>
+    <div class="pb-cell">
+      <div class="pb-head"><span>📈</span><span class="pb-label" style="color:var(--accent)">Grow This Month</span></div>
+      <div class="pb-items">
+        <div class="pb-item">Thin content on 8 category pages</div>
+        <div class="pb-item">FAQ schema (losing SERP space)</div>
+        <div class="pb-item">3 keyword cannibalization issues</div>
+        <div class="pb-item">E-E-A-T signals too weak</div>
+      </div>
+    </div>
+    <div class="pb-cell">
+      <div class="pb-head"><span>✅</span><span class="pb-label" style="color:var(--green)">Already Good</span></div>
+      <div class="pb-items">
+        <div class="pb-item">HTTPS fully configured</div>
+        <div class="pb-item">Robots.txt well-structured</div>
+        <div class="pb-item">TTFB healthy at 310ms</div>
+        <div class="pb-item">Mobile-first compatible</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs-row" id="tabsRow">
+    <button class="tab-b a" onclick="sw('technical',this)"><span class="tab-icon">🔧</span>Technical <span class="tc">7</span></button>
+    <button class="tab-b" onclick="sw('onpage',this)"><span class="tab-icon">📝</span>On-Page <span class="tc">6</span></button>
+    <button class="tab-b" onclick="sw('content',this)"><span class="tab-icon">📖</span>Content <span class="tc">3</span></button>
+    <button class="tab-b" onclick="sw('roi',this)"><span class="tab-icon">💰</span>ROI Ranking <span class="tc">NEW</span></button>
+    <button class="tab-b" onclick="sw('serp',this)"><span class="tab-icon">🎯</span>SERP Features <span class="tc">NEW</span></button>
+    <button class="tab-b" onclick="sw('eeat',this)"><span class="tab-icon">🧠</span>E-E-A-T <span class="tc">NEW</span></button>
+    <button class="tab-b" onclick="sw('entities',this)"><span class="tab-icon">🕸</span>Entities <span class="tc">NEW</span></button>
+    <button class="tab-b" onclick="sw('algo',this)"><span class="tab-icon">📡</span>Algorithm <span class="tc">NEW</span></button>
+    <button class="tab-b" onclick="sw('cann',this)"><span class="tab-icon">🔁</span>Cannibalization <span class="tc">NEW</span></button>
+    <button class="tab-b" onclick="sw('links',this)"><span class="tab-icon">🗺</span>Link Equity <span class="tc">NEW</span></button>
+    <button class="tab-b" onclick="sw('perf',this)"><span class="tab-icon">⚡</span>CWV <span class="tc">4</span></button>
+    <button class="tab-b" onclick="sw('schema',this)"><span class="tab-icon">🏷</span>Schema <span class="tc">4</span></button>
+    <button class="tab-b" onclick="sw('comp',this)"><span class="tab-icon">🏁</span>Competitors <span class="tc">5</span></button>
+  </div>
+
+  <!-- PANEL: TECHNICAL -->
+  <div class="panel a" id="p-technical">
+    <div class="sh"><div class="sh-left"><h3>Technical SEO Audit</h3><p>19 checks across crawl, indexing, and site structure</p></div></div>
+    <div class="issue-list" id="l-technical"></div>
+  </div>
+
+  <!-- PANEL: ON-PAGE -->
+  <div class="panel" id="p-onpage">
+    <div class="sh"><div class="sh-left"><h3>On-Page SEO</h3><p>Titles, headings, meta, and content structure</p></div></div>
+    <div class="issue-list" id="l-onpage"></div>
+  </div>
+
+  <!-- PANEL: CONTENT -->
+  <div class="panel" id="p-content">
+    <div class="sh"><div class="sh-left"><h3>Content Intelligence</h3><p>NLP analysis + content brief generator</p></div></div>
+    <!-- CONTENT BRIEF -->
+    <div class="brief-card">
+      <div class="brief-head"><h3>🤖 AI-Generated Content Brief — "web design services Austin"</h3><button class="btn-primary" style="font-size:12px;padding:6px 14px">Generate Full Brief</button></div>
+      <div class="brief-body">
+        <div>
+          <div class="brief-section"><h4>Target Keywords</h4></div>
+          <div class="brief-kw-list" id="briefKws"></div>
+        </div>
+        <div>
+          <div class="brief-section"><h4>Recommended Outline</h4></div>
+          <div class="brief-outline" id="briefOutline"></div>
+        </div>
+      </div>
+    </div>
+    <div class="dt-wrap">
+      <div class="dt-head"><div class="dt-title">Keyword Placement Analysis</div></div>
+      <table class="dt"><thead><tr><th>Keyword</th><th>Freq</th><th>Density</th><th>Placement Score</th><th>Opportunity</th></tr></thead>
+      <tbody id="kwTable"></tbody></table>
+    </div>
+    <div class="issue-list" id="l-content"></div>
+  </div>
+
+  <!-- PANEL: ROI RANKING (UNIQUE) -->
+  <div class="panel" id="p-roi">
+    <div class="sh"><div class="sh-left"><h3>ROI-Ranked Fix List</h3><p>Every issue ranked by estimated monthly revenue impact — not just severity</p></div></div>
+    <div class="roi-table-wrap">
+      <div class="roi-table-head"><h3>💰 Revenue Impact per Fix</h3><p>Based on traffic × CTR improvement × avg conversion value</p></div>
+      <table class="roi" id="roiTable">
+        <thead><tr><th>Priority</th><th>Issue</th><th>Effort</th><th>SEO Impact</th><th>Est. Monthly Value</th><th>Payback</th></tr></thead>
+        <tbody id="roiBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- PANEL: SERP FEATURES (UNIQUE) -->
+  <div class="panel" id="p-serp">
+    <div class="sh"><div class="sh-left"><h3>SERP Feature Opportunity Map</h3><p>Which rich results your competitors own — and what you need to claim them</p></div></div>
+    <div class="serp-grid" id="serpGrid"></div>
+    <div class="sh" style="margin-top:8px"><div class="sh-left"><h3>How to Win Each Feature</h3><p>Specific implementation steps</p></div></div>
+    <div class="issue-list" id="l-serp"></div>
+  </div>
+
+  <!-- PANEL: E-E-A-T (UNIQUE) -->
+  <div class="panel" id="p-eeat">
+    <div class="sh"><div class="sh-left"><h3>E-E-A-T Score Breakdown</h3><p>Google's quality signals — Experience, Expertise, Authoritativeness, Trustworthiness</p></div></div>
+    <div class="eeat-grid" id="eeatGrid"></div>
+    <div class="sh"><div class="sh-left"><h3>How to Improve Each Signal</h3></div></div>
+    <div class="issue-list" id="l-eeat"></div>
+  </div>
+
+  <!-- PANEL: ENTITIES (UNIQUE) -->
+  <div class="panel" id="p-entities">
+    <div class="sh"><div class="sh-left"><h3>Entity & Knowledge Graph Analysis</h3><p>How strongly Google's Knowledge Graph associates your site with key entities</p></div></div>
+    <div class="entity-wrap" id="entityWrap"></div>
+    <div class="sh"><div class="sh-left"><h3>Entity Optimization Opportunities</h3></div></div>
+    <div class="issue-list" id="l-entities"></div>
+  </div>
+
+  <!-- PANEL: ALGORITHM (UNIQUE) -->
+  <div class="panel" id="p-algo">
+    <div class="sh"><div class="sh-left"><h3>Google Algorithm Impact Tracker</h3><p>Did recent updates help or hurt you? Which signals are now being weighted differently?</p></div></div>
+    <div class="algo-timeline" id="algoTimeline"></div>
+    <div class="issue-list" id="l-algo"></div>
+  </div>
+
+  <!-- PANEL: CANNIBALIZATION (UNIQUE) -->
+  <div class="panel" id="p-cann">
+    <div class="sh"><div class="sh-left"><h3>Keyword Cannibalization Detector</h3><p>Pages competing against each other for the same keywords — with merge recommendations</p></div></div>
+    <div id="cannCards"></div>
+    <div class="issue-list" id="l-cann"></div>
+  </div>
+
+  <!-- PANEL: LINK EQUITY (UNIQUE) -->
+  <div class="panel" id="p-links">
+    <div class="sh"><div class="sh-left"><h3>Internal Link Equity Flow</h3><p>How PageRank distributes across your site — and which pages are starved of authority</p></div></div>
+    <div class="dt-wrap" style="margin-bottom:20px">
+      <div class="dt-head"><div class="dt-title">Page Authority Distribution</div><div style="font-size:12px;color:var(--text3)">Higher = more internal link equity received</div></div>
+      <div class="link-equity" id="linkEquity" style="border:none;border-radius:0;padding:0 18px"></div>
+    </div>
+    <div class="issue-list" id="l-links"></div>
+  </div>
+
+  <!-- PANEL: CWV -->
+  <div class="panel" id="p-perf">
+    <div class="sh"><div class="sh-left"><h3>Core Web Vitals</h3><p>Real-world load analysis — Google's direct ranking signals</p></div></div>
+    <div class="wf-wrap"><div class="wf-title">⏱ Load Waterfall — Where You're Losing Time</div><div id="wfRows"></div></div>
+    <div class="issue-list" id="l-perf"></div>
+  </div>
+
+  <!-- PANEL: SCHEMA -->
+  <div class="panel" id="p-schema">
+    <div class="sh"><div class="sh-left"><h3>Structured Data & Schema.org</h3><p>Rich result eligibility — win more SERP real estate</p></div></div>
+    <div class="schema-grid" id="schemaGrid"></div>
+    <div class="issue-list" id="l-schema"></div>
+  </div>
+
+  <!-- PANEL: COMPETITORS -->
+  <div class="panel" id="p-comp">
+    <div class="sh"><div class="sh-left"><h3>Competitive Gap Analysis</h3><p>vs. top 5 competitors</p></div></div>
+    <div class="comp-list" id="compList"></div>
+    <div class="issue-list" id="l-comp"></div>
+  </div>
+
+</div><!-- /main -->
+
+<script>
+// ─── ALL DATA ───
+
+const TECHNICAL = [
+  {sev:'critical',icon:'🔗',title:'12 Broken Internal Links (404s)',brief:'Dead ends wasting crawl budget & bleeding link equity',desc:'Google\'s crawlers hit 404 errors on 12 internal links, wasting crawl budget and passing zero link equity. These URLs appear in your sitemap but return 404.',impact:90,fix:'Audit with Screaming Frog or wget --spider. Set 301 redirects from broken URLs to correct destinations. Remove dead URLs from sitemap.',code:'# Find 404s:\nwget --spider -r https://yoursite.com 2>&1 | grep 404\n\n# .htaccess 301:\nRedirect 301 /old-page https://yoursite.com/new-page'},
+  {sev:'critical',icon:'🖼',title:'LCP Image Not Preloaded',brief:'Hero image loaded too late — 3.8s vs 2.5s target',desc:'Your Largest Contentful Paint element is discovered late in the render waterfall. This is a direct Google ranking signal. Adding preload alone can cut 1–2 seconds off your LCP.',impact:95,fix:'Add <link rel="preload"> for your hero image in <head> and fetchpriority="high" on the img tag.',code:'<!-- In head: -->\n<link rel="preload" as="image"\n  href="/hero.webp" fetchpriority="high">\n\n<!-- On img: -->\n<img src="/hero.webp" fetchpriority="high" loading="eager">'},
+  {sev:'warning',icon:'🤖',title:'Robots.txt Blocking 8 Valuable Pages',brief:'Legacy rule accidentally blocking /services/ pages',desc:'A Disallow: /services/ rule is blocking 8 important service pages from being crawled. These are likely ranking targets, not admin pages.',impact:65,fix:'Remove the Disallow: /services/ rule. Only block admin, login, and utility pages. Verify in Google Search Console.',code:'# FIXED robots.txt:\nUser-agent: *\nDisallow: /wp-admin/\nDisallow: /wp-login.php\nAllow: /services/\nSitemap: https://yoursite.com/sitemap.xml'},
+  {sev:'warning',icon:'🔀',title:'Missing Canonicals on Paginated Pages',brief:'/page/2, /page/3 splitting link equity',desc:'Paginated URLs lack canonical tags, causing Google to treat each as a unique document and split link equity instead of consolidating it.',impact:55,fix:'Add self-referencing canonical on each paginated page pointing back to page 1.',code:'<!-- On /blog/page/2/ -->\n<link rel="canonical"\n  href="https://yoursite.com/blog/">'},
+  {sev:'warning',icon:'🗺',title:'Sitemap 47 Days Out of Date',brief:'18 new pages not being crawl-discovered',desc:'18 pages published since the last sitemap regeneration aren\'t being discovered by Googlebot via sitemap — relying only on link discovery, which is much slower.',impact:60,fix:'Regenerate sitemap in your CMS. Set auto-regeneration on publish. Ping Google after every update.',code:'# Ping Google:\ncurl "https://www.google.com/ping?sitemap=https://yoursite.com/sitemap.xml"'},
+  {sev:'good',icon:'🔒',title:'HTTPS & SSL Fully Configured',brief:'Valid SSL, HSTS active, zero mixed content',desc:'SSL certificate is valid for 287 more days. HSTS active. All HTTP URLs redirect to HTTPS. Zero mixed content warnings.',impact:100,fix:null},
+  {sev:'info',icon:'🌍',title:'hreflang Tags Not Detected',brief:'No international targeting configured',desc:'If targeting multiple countries or languages, hreflang tags prevent duplicate content penalties. Not needed for single-locale sites.',impact:35,fix:'Only needed for multi-locale sites. Add hreflang in head or sitemap if serving international content.',code:'<link rel="alternate" hreflang="en-us"\n  href="https://example.com/page/">\n<link rel="alternate" hreflang="x-default"\n  href="https://example.com/page/">'},
+];
+
+const ONPAGE = [
+  {sev:'critical',icon:'📋',title:'7 Pages Missing Meta Descriptions',brief:'/about, /services, /contact + 4 blog posts',desc:'Without meta descriptions, Google auto-generates snippets from random content. Custom descriptions improve CTR by 5–10%, which is a measurable ranking signal.',impact:75,fix:'Write unique 150–160 char descriptions per page. Include primary keyword naturally. End with a call to action.',code:'<meta name="description" content="Award-winning web design\nin Austin, TX. We build fast, beautiful websites\nthat convert. Get a free quote today.">'},
+  {sev:'critical',icon:'📑',title:'Duplicate Title Tags on 5 Blog Posts',brief:'"Blog | YourSite" template used across multiple posts',desc:'Duplicate title tags cause Google to choose which to rank arbitrarily, splitting authority. Titles are the highest-weight on-page SEO element.',impact:80,fix:'Every page needs a unique title. Format: Primary Keyword — Brand Name (50–60 chars).',code:'<!-- Good -->\n<title>10 SEO Mistakes Hurting Your Rankings in 2025 | YourSite</title>'},
+  {sev:'critical',icon:'H1',title:'H1 Tags Missing on 3 Landing Pages',brief:'/pricing, /about, /faq have no H1',desc:'Without an H1, Google has reduced confidence in what the page is about. These are high-value pages being under-optimized.',impact:70,fix:'Add exactly one H1 per page containing your primary keyword.',code:'<h1>Simple, Transparent Web Design Pricing in Austin, TX</h1>'},
+  {sev:'warning',icon:'🖼',title:'34 Images Missing Alt Text',brief:'Invisible to Google Image Search + accessibility fail',desc:'Images without alt attributes can\'t be indexed in Google Image Search and provide zero keyword context to crawlers.',impact:50,fix:'Add descriptive alt text to all meaningful images. Include keyword naturally. No keyword stuffing.',code:'<img src="team.jpg"\n  alt="YourCompany design team collaborating\n  in our Austin, TX studio">'},
+  {sev:'warning',icon:'🔗',title:'Generic Anchor Text on 47 Internal Links',brief:'"Click here", "read more", "learn more" — zero SEO value',desc:'Internal links are free link equity distribution. Generic anchors tell Google nothing about the target page\'s topic.',impact:45,fix:'Replace generic anchors with keyword-descriptive text that accurately describes the linked page.'},
+  {sev:'good',icon:'📏',title:'Title Tag Lengths Are Optimal',brief:'All 50–60 chars — no SERP truncation',desc:'Every title falls in the Google-recommended 50–60 character range. No truncation in search results.',impact:100,fix:null},
+];
+
+const CONTENT = [
+  {sev:'critical',icon:'📝',title:'Thin Content on 8 Category Pages',brief:'Under 150 words — dragging entire domain quality score',desc:'Google\'s Helpful Content System evaluates content quality at site-wide level. Pages under 300 words drag down your entire domain. 8 category pages have under 150 words of actual content.',impact:85,fix:'Add 300–500 words of genuinely helpful content per category: intro copy, buying guides, FAQ, subcategory context.'},
+  {sev:'warning',icon:'🏆',title:'No Content Targeting Featured Snippets',brief:'Competitors own position zero on 6 of your keywords',desc:'Featured snippets get 8% of clicks — more than the #1 organic result. Your competitors capture position zero for 6 target keywords. None of your content uses the question-answer format needed.',impact:70,fix:'Structure Q&A sections with H2 as question, 40–60 word direct answer below. Use numbered lists for how-to queries.',code:'<h2>What is the average cost of web design in Austin?</h2>\n<p>Professional web design in Austin typically costs between\n$3,000–$15,000 depending on scope and features.</p>'},
+  {sev:'info',icon:'🔁',title:'3 Posts with Keyword Cannibalization',brief:'Competing against yourself for "web design Austin"',desc:'Three blog posts target near-identical keywords with overlapping search intent. Google will rank one and suppress the others.',impact:55,fix:'Merge the 3 posts into one comprehensive piece. 301 redirect the weaker two to the merged post.'},
+];
+
+const PERF = [
+  {sev:'critical',icon:'⛔',title:'Render-Blocking JS Delaying First Paint',brief:'analytics.js + widget.js blocking render — +800ms to FCP',desc:'Two JavaScript files loaded synchronously in head block all rendering. This inflates First Contentful Paint by ~800ms.',impact:90,fix:'Add defer to all non-critical scripts. Move analytics to bottom of body or use async.',code:'<!-- Non-blocking: -->\n<script src="analytics.js" defer><\/script>\n<script src="widget.js" async><\/script>'},
+  {sev:'warning',icon:'🖼',title:'67 Images Served as JPEG/PNG',brief:'Converting to WebP saves 30% bandwidth',desc:'Modern WebP format saves 25–35% file size vs JPEG at equivalent quality. Every KB matters for LCP.',impact:65,fix:'Convert to WebP with Squoosh. Serve with picture element + JPEG fallback for older browsers.',code:'<picture>\n  <source srcset="hero.webp" type="image/webp">\n  <img src="hero.jpg" alt="..." width="1200" height="600">\n</picture>'},
+  {sev:'warning',icon:'📐',title:'CLS of 0.18 — Significant Layout Shift',brief:'Content jumps on load — direct ranking penalty',desc:'CLS of 0.18 is in the Poor range (target: under 0.10). Caused by images without explicit dimensions and font swaps.',impact:70,fix:'Reserve space for all images with explicit width/height. Use font-display: optional.',code:'img { width:100%; height:auto; aspect-ratio:16/9; }\n@font-face { font-display: optional; }'},
+  {sev:'good',icon:'🚀',title:'TTFB Healthy at 310ms',brief:'Server response time within Google\'s recommended range',desc:'TTFB of 310ms is within the acceptable range. No server-side bottlenecks detected. Hosting is performing adequately.',impact:100,fix:null},
+];
+
+const SCHEMA_DATA = [
+  {type:'schema.org/Organization',name:'Organization',status:'present',ok:true,note:'Valid but missing telephone and sameAs social profiles.'},
+  {type:'schema.org/WebSite',name:'WebSite + Sitelinks',status:'missing',ok:false,note:'Missing. Enables branded search box directly in Google SERPs.'},
+  {type:'schema.org/Product',name:'Product + Reviews',status:'missing',ok:false,note:'Not on product pages. Competitors win star ratings in SERPs.'},
+  {type:'schema.org/FAQPage',name:'FAQPage',status:'missing',ok:false,note:'Missing. FAQ schema doubles SERP listing size.'},
+  {type:'schema.org/BreadcrumbList',name:'BreadcrumbList',status:'partial',ok:false,note:'Only on blog. Missing from product and service pages.'},
+  {type:'schema.org/Article',name:'Article',status:'present',ok:true,note:'Valid but missing dateModified — may show old dates.'},
+];
+
+const SCHEMA_ISSUES = [
+  {sev:'critical',icon:'⭐',title:'No Product Schema — Missing Rich Results',brief:'Competitors show stars + prices in SERPs; you don\'t',desc:'Product pages without schema are invisible in Google rich results. Competitors with Product + AggregateRating schema display star ratings and prices directly in the SERP.',impact:88,fix:'Add Product schema with AggregateRating + Offer to every product page.',code:'<script type="application/ld+json">\n{\n  "@context": "https://schema.org",\n  "@type": "Product",\n  "name": "Professional Web Design",\n  "offers": {"@type":"Offer","price":"2499","priceCurrency":"USD"},\n  "aggregateRating": {"@type":"AggregateRating","ratingValue":"4.9","reviewCount":"47"}\n}\n<\/script>'},
+  {sev:'warning',icon:'❓',title:'FAQPage Schema — Doubling SERP Footprint',brief:'Could add 3–4 Q&A rows below your main listing',desc:'FAQPage schema expands your SERP listing with expandable Q&A — more than doubling your visible real estate for informational queries.',impact:72,fix:'Add FAQPage schema to /faq and blog posts with Q&A sections.',code:'<script type="application/ld+json">\n{"@context":"https://schema.org","@type":"FAQPage",\n"mainEntity":[{"@type":"Question",\n"name":"How long does a project take?",\n"acceptedAnswer":{"@type":"Answer","text":"4–8 weeks typically."}}]}\n<\/script>'},
+];
+
+const COMPETITORS = [
+  {rank:1,domain:'designstudio-pro.com',score:91,da:58,speed:'1.2s',schema:true,note:'Full schema suite, strong CWV, active content strategy'},
+  {rank:2,domain:'creativeweb.io',score:84,da:47,speed:'1.9s',schema:true,note:'Captures 6 featured snippets, E-E-A-T signals strong'},
+  {rank:3,domain:'yoursite.com',score:62,da:34,speed:'3.8s',schema:false,note:'← You are here. 29 points behind #1.'},
+  {rank:4,domain:'webcraft-agency.com',score:59,da:31,speed:'4.1s',schema:false,note:'Similar profile — you overtake them with basic fixes'},
+  {rank:5,domain:'pixelstudio.net',score:55,da:28,speed:'5.2s',schema:false,note:'Weakest competitor — quick wins available'},
+];
+
+const COMP_ISSUES = [
+  {sev:'critical',icon:'🏆',title:'29-Point Gap vs #1 Competitor',brief:'Speed (1.2s vs 3.8s), schema, DA 58 vs 34',desc:'Three fixable gaps separate you from #1: page speed, schema completeness, and domain authority. All are actionable within 90 days.',impact:95,fix:'Phase 1: Fix Core Web Vitals. Phase 2: Implement Product + FAQ schema. Phase 3: Build 15–20 quality backlinks via digital PR.'},
+  {sev:'info',icon:'🎯',title:'Beat Positions #4 and #5 Quickly',brief:'Fixing critical issues alone would outscore both',desc:'webcraft-agency.com and pixelstudio.net have worse technical SEO than you. Fixing your 7 critical issues adds ~18–22 points and pushes you clearly above both.',impact:55,fix:'Focus on the 7 critical fixes. Estimated: +18–22 score points within 4–6 weeks.'},
+];
+
+const ROI_DATA = [
+  {rank:1,title:'Add Product Schema + Reviews',sub:'Win star ratings in SERPs',effort:'low',effortColor:'green',impact:95,monthly:'$2,800',payback:'2 weeks'},
+  {rank:2,title:'Fix LCP — Preload Hero Image',sub:'Cut load time from 3.8s to ~2.5s',effort:'low',effortColor:'green',impact:92,monthly:'$1,900',payback:'3 weeks'},
+  {rank:3,title:'Write 7 Missing Meta Descriptions',sub:'/about, /services, /contact + 4 posts',effort:'low',effortColor:'green',impact:78,monthly:'$1,200',payback:'1 week'},
+  {rank:4,title:'Add FAQ Schema to /faq & Blog',sub:'Double SERP listing size',effort:'low',effortColor:'green',impact:74,monthly:'$900',payback:'2 weeks'},
+  {rank:5,title:'Fix 12 Broken Internal Links (404)',sub:'Recover wasted crawl budget',effort:'medium',effortColor:'amber',impact:72,monthly:'$600',payback:'1 month'},
+  {rank:6,title:'Convert 67 Images to WebP',sub:'Save 30% bandwidth, improve LCP',effort:'medium',effortColor:'amber',impact:65,monthly:'$500',payback:'6 weeks'},
+  {rank:7,title:'Add H1 to /pricing, /about, /faq',sub:'Restore topical clarity for Google',effort:'low',effortColor:'green',impact:62,monthly:'$420',payback:'1 week'},
+  {rank:8,title:'Fix Thin Content on 8 Category Pages',sub:'Add 400+ words per page',effort:'high',effortColor:'red',impact:85,monthly:'$1,800',payback:'3 months'},
+  {rank:9,title:'Merge Cannibalized Blog Posts',sub:'Consolidate "web design Austin" posts',effort:'medium',effortColor:'amber',impact:58,monthly:'$380',payback:'6 weeks'},
+  {rank:10,title:'Build 15–20 Quality Backlinks',sub:'Raise DA from 34 toward 51',effort:'high',effortColor:'red',impact:88,monthly:'$2,200',payback:'4 months'},
+];
+
+const SERP_FEATURES = [
+  {type:'FEATURED SNIPPET',name:'Position Zero Answer Box',kw:'"how much does web design cost"',status:'competitor',who:'creativeweb.io',action:'Add 40–60 word direct answer to this question using H2 + paragraph structure'},
+  {type:'PEOPLE ALSO ASK',name:'PAA Expansion Box',kw:'"web design vs website builder"',status:'opportunity',who:'Not claimed',action:'Create dedicated FAQ section with these exact questions answered concisely'},
+  {type:'LOCAL PACK',name:'Google Business 3-Pack',kw:'"web design Austin TX"',status:'opportunity',who:'Not claimed',action:'Optimize Google Business Profile, add service area, collect 20+ reviews'},
+  {type:'REVIEW STARS',name:'Product Rich Result',kw:'"web design packages"',status:'competitor',who:'designstudio-pro.com',action:'Add Product + AggregateRating schema immediately'},
+  {type:'SITE LINKS',name:'Sitelinks Search Box',kw:'yoursite.com [branded]',status:'opportunity',who:'Not claimed',action:'Add WebSite schema with SearchAction to trigger sitelinks search'},
+  {type:'VIDEO CAROUSEL',name:'Video Results Row',kw:'"how to choose a web designer"',status:'opportunity',who:'Not claimed',action:'Create 3–5 min explainer video, upload to YouTube, add VideoObject schema'},
+];
+
+const SERP_ISSUES = [
+  {sev:'critical',icon:'🎯',title:'Competitor Owns Featured Snippet for Your #1 Keyword',brief:'creativeweb.io captures position zero for "how much does web design cost"',desc:'This keyword drives 1,200 searches/month in your area. Position zero gets ~8% CTR vs ~2.5% for #1 organic. Losing this costs you ~400 visits/month.',impact:88,fix:'Add a dedicated H2 with the exact question, followed by a 40–60 word direct answer. Then expand with detail. This is the proven structure to win featured snippets.',code:'<h2>How Much Does Web Design Cost?</h2>\n<p>Professional web design typically costs $3,000–$15,000\nfor a small business website in Austin, TX, depending\non scope, number of pages, and custom functionality.</p>\n<h3>Full Cost Breakdown by Project Type</h3><!-- expand below -->'},
+  {sev:'warning',icon:'📍',title:'Local Pack Not Triggered for Location Queries',brief:'Missing from "web design Austin TX" 3-pack',desc:'Location-specific searches trigger a Google Business 3-pack above all organic results. You\'re not appearing in this box, likely due to incomplete Google Business Profile.',impact:76,fix:'Fully optimize Google Business Profile: add all service categories, upload 20+ photos, respond to all reviews, add FAQ posts weekly. Collect reviews aggressively — you need 30+.'},
+];
+
+const EEAT_DATA = [
+  {letter:'E',word:'Experience',score:45,color:'var(--amber)',tip:'No author bios, no case studies, no "we worked on X" proof. Google wants first-hand experience signals.'},
+  {letter:'E',word:'Expertise',score:62,color:'var(--accent)',tip:'Some topical depth but no credentials, certifications, or expert-authored content visible to crawlers.'},
+  {letter:'A',word:'Authoritativeness',score:34,color:'var(--red)',tip:'DA 34 is below industry average. Limited external citations, press mentions, or backlinks from authoritative sources.'},
+  {letter:'T',word:'Trustworthiness',score:78,color:'var(--green)',tip:'HTTPS, clear privacy policy, contact info visible. Add physical address and phone number for further trust signals.'},
+];
+
+const EEAT_ISSUES = [
+  {sev:'critical',icon:'👤',title:'No Author Bios or Credentials on Blog Posts',brief:'Google can\'t verify expertise — "who wrote this?"',desc:'Google\'s Quality Rater Guidelines specifically look for author expertise signals. Blog posts with no author attribution, credentials, or bio get lower quality scores, especially in YMYL-adjacent topics like business services.',impact:82,fix:'Add structured author bios to all blog posts: name, credentials/title, LinkedIn link, photo. Add author schema markup.',code:'{"@type":"Person","name":"Jane Smith","jobTitle":"Senior UX Designer",\n"sameAs":"https://linkedin.com/in/janesmith",\n"knowsAbout":["Web Design","UX","Conversion Optimization"]}'},
+  {sev:'critical',icon:'📰',title:'No Press Mentions or External Citations',brief:'Authoritativeness score critically low at 34/100',desc:'Domain Authority of 34 vs industry average of 51 means Google sees you as less authoritative than competitors. Building topical authority requires coverage in industry publications and citations from other experts.',impact:88,fix:'Execute a digital PR strategy: contribute expert quotes to industry blogs, write guest posts for design publications, list in reputable directories. Target 15–20 quality backlinks per month.'},
+  {sev:'warning',icon:'🏆',title:'No Case Studies or Proof of Experience',brief:'First-hand experience signals (new E in E-E-A-T) are absent',desc:'Google added "Experience" to E-A-T in 2022. This means first-hand experience content (case studies, behind-the-scenes, real client results) now directly boosts quality scores.',impact:70,fix:'Add 3–5 detailed case studies with real metrics. Include "before/after" data, timeline, and client testimonials with attribution. Add client logos section.'},
+];
+
+const ENTITY_DATA = [
+  {name:'Web Design Agency',type:'Organization',strength:72,color:'var(--accent)',signal:'Strong'},
+  {name:'Austin, Texas',type:'Place',strength:45,color:'var(--amber)',signal:'Weak'},
+  {name:'UI/UX Design',type:'Concept',strength:61,color:'var(--accent)',signal:'Moderate'},
+  {name:'Responsive Design',type:'Concept',strength:55,color:'var(--amber)',signal:'Moderate'},
+  {name:'E-Commerce Websites',type:'Service',strength:28,color:'var(--red)',signal:'Missing'},
+  {name:'WordPress Development',type:'Service',strength:32,color:'var(--red)',signal:'Missing'},
+  {name:'Conversion Optimization',type:'Concept',strength:19,color:'var(--red)',signal:'Missing'},
+];
+
+const ENTITY_ISSUES = [
+  {sev:'critical',icon:'🕸',title:'Location Entity Association Too Weak',brief:'Google doesn\'t strongly associate you with "Austin" — losing local searches',desc:'Your site\'s association with the Austin, TX entity scores only 45/100. Competitors who appear more "local" to Google capture significantly more location-based queries.',impact:75,fix:'Add structured location markup. Mention "Austin, TX" naturally in H1, meta description, and body copy on every page. Embed Google Maps. Add LocalBusiness schema.',code:'{"@type":"LocalBusiness","name":"YourCompany",\n"address":{"@type":"PostalAddress","addressLocality":"Austin",\n"addressRegion":"TX","addressCountry":"US"},\n"geo":{"@type":"GeoCoordinates","latitude":30.2672,"longitude":-97.7431}}'},
+  {sev:'warning',icon:'💡',title:'Missing Entity Coverage: E-Commerce & WordPress',brief:'Competitors appear for these service queries — you don\'t',desc:'Google\'s entity graph doesn\'t strongly connect your site to "WordPress Development" or "E-Commerce Websites" — two high-volume service categories in your industry.',impact:65,fix:'Create dedicated service pages for each missing entity. Use the entity name naturally in H1, body, and schema. Link to these from your homepage and navigation.'},
+];
+
+const ALGO_DATA = [
+  {date:'Mar 2024',name:'Core Update + Spam Policies',impact:'neutral',delta:'+1',color:'var(--green)',desc:'No significant ranking changes detected. Your spam score is low. Core update largely benefited E-E-A-T strong sites.'},
+  {date:'Nov 2023',name:'Core Update (Helpful Content)',impact:'negative',delta:'-8',color:'var(--red)',desc:'Estimated 8-point traffic drop. Thin category pages likely triggered Helpful Content system. 8 pages under 150 words appear to be the cause.'},
+  {date:'Sep 2023',name:'Helpful Content Update',impact:'negative',delta:'-4',color:'var(--red)',desc:'Additional drop. Content quality issues on category pages continue to weigh on domain-wide quality score.'},
+  {date:'Apr 2023',name:'Reviews Update',impact:'neutral',delta:'0',color:'var(--text3)',desc:'No reviews content on your site, so this update had no measurable impact.'},
+  {date:'Feb 2023',name:'Product Reviews Update',impact:'positive',delta:'+3',color:'var(--green)',desc:'Small positive impact. Service pages with testimonial content benefited from this update.'},
+];
+
+const ALGO_ISSUES = [
+  {sev:'critical',icon:'📉',title:'Helpful Content Updates Penalizing 8 Category Pages',brief:'Nov 2023 update caused -8 point traffic drop traced to thin pages',desc:'The November 2023 Helpful Content Update appears to have triggered a site-wide quality downgrade due to thin category pages. Google evaluates content quality at domain level — a few bad pages hurt all your pages.',impact:90,fix:'Priority 1: Expand the 8 thin category pages to 400+ words of genuinely helpful content. Until these are fixed, your entire domain is likely subject to the quality signal discount.'},
+];
+
+const CANN_DATA = [
+  {kw:'"web design Austin"',pages:[
+    {url:'/services/web-design/',pos:7,traffic:'~320/mo',winner:true},
+    {url:'/blog/web-design-austin-guide/',pos:14,traffic:'~90/mo',winner:false},
+    {url:'/about/',pos:22,traffic:'~30/mo',winner:false},
+  ]},
+  {kw:'"responsive website design"',pages:[
+    {url:'/services/responsive/',pos:11,traffic:'~140/mo',winner:true},
+    {url:'/blog/responsive-design-tips/',pos:18,traffic:'~60/mo',winner:false},
+  ]},
+  {kw:'"UI UX design agency Austin"',pages:[
+    {url:'/services/ui-ux/',pos:9,traffic:'~80/mo',winner:true},
+    {url:'/portfolio/',pos:16,traffic:'~35/mo',winner:false},
+  ]},
+];
+
+const CANN_ISSUES = [
+  {sev:'critical',icon:'🔁',title:'3 Keyword Cannibalization Groups Found',brief:'You\'re stealing clicks from yourself on 3 important queries',desc:'When multiple pages target the same keyword, Google ranks whichever it deems most relevant — not necessarily the one you want. This results in suppressed rankings for all competing pages.',impact:75,fix:'For each group: Keep the stronger page, 301 redirect weaker pages to it, and add canonical tags. Alternatively, rewrite each page to target a clearly distinct search intent.'},
+];
+
+const LINK_EQUITY = [
+  {page:'/services/web-design/',score:92,color:'var(--green)',status:'Well linked',statusC:'green'},
+  {page:'/',score:88,color:'var(--green)',status:'Well linked',statusC:'green'},
+  {page:'/about/',score:71,color:'var(--accent)',status:'Good',statusC:'blue'},
+  {page:'/blog/',score:65,color:'var(--accent)',status:'Good',statusC:'blue'},
+  {page:'/services/ui-ux/',score:38,color:'var(--amber)',status:'Starved',statusC:'amber'},
+  {page:'/services/ecommerce/',score:22,color:'var(--red)',status:'Critically starved',statusC:'red'},
+  {page:'/contact/',score:18,color:'var(--red)',status:'Critically starved',statusC:'red'},
+  {page:'/blog/category/tips/',score:11,color:'var(--red)',status:'Orphaned',statusC:'red'},
+];
+
+const LINK_ISSUES = [
+  {sev:'critical',icon:'🗺',title:'/services/ecommerce/ Getting Almost Zero Internal Links',brief:'Score 22/100 — page starved of authority despite ranking potential',desc:'Your e-commerce services page has strong commercial intent but receives almost no internal link equity. Pages without internal links are crawled less frequently and receive less PageRank from your domain.',impact:72,fix:'Add 3–5 internal links to /services/ecommerce/ from your homepage, relevant blog posts, and /services/ hub page. Use descriptive anchor text like "e-commerce website design" not "click here".'},
+  {sev:'warning',icon:'🔗',title:'/contact/ Has 8x Less Authority Than Homepage',brief:'Low internal links means Google deprioritizes its crawl',desc:'Contact pages with strong signals (reviews, trust badges) can influence conversion-related ranking signals. Yours is almost an orphan page with 3x less authority than it should have.',impact:45,fix:'Link to /contact/ from your hero section and footer navigation with exact anchor text. Consider adding a sticky "Get a Quote" CTA on service pages.'},
+];
+
+const KW_DATA = [
+  {kw:'web design services',freq:23,density:2.1,score:85,opp:'Strong',oc:'green'},
+  {kw:'UI/UX design agency',freq:11,density:1.0,score:62,opp:'Improve H1',oc:'amber'},
+  {kw:'responsive website',freq:8,density:0.7,score:45,opp:'Thin content',oc:'red'},
+  {kw:'Austin web developer',freq:6,density:0.5,score:40,opp:'Missing meta',oc:'red'},
+  {kw:'mobile-first design',freq:5,density:0.4,score:30,opp:'No schema',oc:'red'},
+];
+
+const BRIEF_KWS = [
+  {kw:'web design services Austin',vol:'1,200/mo',type:'Primary'},
+  {kw:'Austin web design company',vol:'880/mo',type:'Primary'},
+  {kw:'professional website design TX',vol:'320/mo',type:'Secondary'},
+  {kw:'custom web design small business',vol:'590/mo',type:'Secondary'},
+  {kw:'how much web design cost Austin',vol:'260/mo',type:'Featured Snippet'},
+  {kw:'best web designers Austin TX',vol:'210/mo',type:'Long-tail'},
+];
+
+const BRIEF_OUTLINE = [
+  {h:'H1',text:'Professional Web Design Services in Austin, TX'},
+  {h:'H2',text:'Why Austin Businesses Choose Us'},
+  {h:'H2',text:'Our Web Design Services'},
+  {h:'H3',text:'Custom Business Websites'},
+  {h:'H3',text:'E-Commerce Design & Development'},
+  {h:'H3',text:'UI/UX Design & Prototyping'},
+  {h:'H2',text:'How Much Does Web Design Cost in Austin?'},
+  {h:'H2',text:'Our Design Process (5 Steps)'},
+  {h:'H2',text:'Client Results & Case Studies'},
+  {h:'H2',text:'Frequently Asked Questions'},
+];
+
+const WF_DATA = [
+  {label:'DNS Lookup',val:'12ms',pct:3,color:'#059669'},
+  {label:'TCP Connect',val:'45ms',pct:8,color:'#2563eb'},
+  {label:'SSL Handshake',val:'89ms',pct:14,color:'#7c3aed'},
+  {label:'TTFB',val:'310ms',pct:24,color:'#d97706'},
+  {label:'DOM Parse',val:'420ms',pct:34,color:'#d97706'},
+  {label:'JS Execute',val:'850ms',pct:58,color:'#dc2626'},
+  {label:'LCP (Hero)',val:'3800ms',pct:100,color:'#dc2626'},
+];
+
+const SCAN_STEPS = [
+  'Fetching robots.txt and sitemap.xml…',
+  'Crawling site structure and internal links…',
+  'Parsing meta tags, titles, canonicals…',
+  'Extracting Core Web Vitals signals…',
+  'Running NLP keyword + entity analysis…',
+  'Checking structured data and schema.org…',
+  'Scanning E-E-A-T quality signals…',
+  'Detecting keyword cannibalization…',
+  'Mapping internal link equity flow…',
+  'Correlating with algorithm update timeline…',
+  'Analyzing SERP feature opportunities…',
+  'Running 43 technical SEO checks…',
+  'AI calculating revenue impact per issue…',
+];
+
+// ─── SEV HELPERS ───
+function sevC(sev){
+  return {
+    critical:{bar:'#dc2626',bg:'var(--red-l)',c:'var(--red)',pill:'#fecaca'},
+    warning:{bar:'#d97706',bg:'var(--amber-l)',c:'var(--amber)',pill:'#fde68a'},
+    good:{bar:'#059669',bg:'var(--green-l)',c:'var(--green)',pill:'#a7f3d0'},
+    info:{bar:'#2563eb',bg:'var(--accent-light)',c:'var(--accent)',pill:'#bfdbfe'},
+  }[sev]||{bar:'#6b7280',bg:'#f3f4f6',c:'#374151',pill:'#e5e7eb'};
+}
+
+function renderIssues(data, id){
+  const el = document.getElementById(id);
+  if(!el)return;
+  el.innerHTML = data.map((d,i)=>{
+    const col = sevC(d.sev);
+    const lbl = {critical:'Critical',warning:'Warning',good:'Passed',info:'Info'}[d.sev];
+    return `<div class="ii" id="ii-${id}-${i}">
+      <div class="ii-head" onclick="tog('${id}',${i})">
+        <div class="ii-bar" style="background:${col.bar}"></div>
+        <div class="ii-ico" style="background:${col.bg};color:${col.c}">${d.icon}</div>
+        <div class="ii-main">
+          <div class="ii-name">${d.title}</div>
+          <div class="ii-brief">${d.brief}</div>
+        </div>
+        <div class="ii-right">
+          <div class="ii-pill" style="background:${col.pill};color:${col.c}">${lbl}</div>
+          <div class="ii-impact"><div class="ii-impact-n" style="color:${col.c}">${d.impact}%</div><div class="ii-impact-l">Impact</div></div>
+          ${d.fix?'<div class="ii-chev">▼</div>':''}
+        </div>
+      </div>
+      <div class="ii-body">
+        <div class="ii-desc">${d.desc}</div>
+        ${d.fix?`<div class="fix-box"><div class="fb-title">✅ How to Fix This</div><div class="fb-text">${d.fix}</div></div>`:''}
+        ${d.code?`<div class="code-b">${d.code}</div>`:''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function tog(id,i){document.getElementById(`ii-${id}-${i}`).classList.toggle('open')}
+
+function sw(name,btn){
+  document.querySelectorAll('.tab-b').forEach(b=>b.classList.remove('a'));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('a'));
+  btn.classList.add('a');
+  document.getElementById('p-'+name).classList.add('a');
+}
+
+// ─── RENDER FUNCTIONS ───
+function renderROI(){
+  document.getElementById('roiBody').innerHTML = ROI_DATA.map(r=>{
+    const effortColor = {green:'var(--green)',amber:'var(--amber)',red:'var(--red)'}[r.effortColor];
+    const effortBg = {green:'var(--green-l)',amber:'var(--amber-l)',red:'var(--red-l)'}[r.effortColor];
+    const effortLabel = {green:'Low',amber:'Medium',red:'High'}[r.effortColor];
+    return `<tr>
+      <td><div class="roi-rank">${r.rank}</div></td>
+      <td><div class="roi-fix">${r.title}</div><div class="roi-fix-sub">${r.sub}</div></td>
+      <td><span class="effort-dot" style="color:${effortColor}">
+        <span style="width:8px;height:8px;border-radius:50%;background:${effortColor};display:inline-block"></span>
+        ${effortLabel}
+      </span></td>
+      <td><div class="impact-bar-w"><div class="impact-bar-f" style="width:${r.impact}%;background:${r.impact>80?'var(--green)':r.impact>60?'var(--accent)':'var(--amber)'}"></div></div><span style="font-size:12px;font-weight:600">${r.impact}%</span></td>
+      <td><div class="roi-val" style="color:var(--green)">${r.monthly}/mo</div></td>
+      <td style="color:var(--text3);font-size:12.5px">${r.payback}</td>
+    </tr>`;
+  }).join('');
+}
+
+function renderSERP(){
+  document.getElementById('serpGrid').innerHTML = SERP_FEATURES.map(f=>{
+    const cls = f.status==='owned'?'owned':f.status==='competitor'?'competitor':'opportunity';
+    const sc = {owned:{bg:'var(--green-l)',c:'var(--green)',label:'✓ You own this'},competitor:{bg:'var(--red-l)',c:'var(--red)',label:'✗ Competitor'},opportunity:{bg:'var(--amber-l)',c:'var(--amber)',label:'◉ Opportunity'}}[f.status];
+    return `<div class="serp-card ${cls}">
+      <div class="sc-type">${f.type}</div>
+      <div class="sc-name">${f.name}</div>
+      <div class="sc-kw">${f.kw}</div>
+      <div class="sc-status" style="background:${sc.bg};color:${sc.c}">${sc.label}</div>
+      ${f.who!=='Not claimed'?`<div style="font-size:11px;color:var(--text3);margin-top:6px">Owner: ${f.who}</div>`:''}
+      <div style="font-size:11.5px;color:var(--text2);margin-top:8px;line-height:1.5">${f.action}</div>
+    </div>`;
+  }).join('');
+  renderIssues(SERP_ISSUES,'l-serp');
+}
+
+function renderEEAT(){
+  document.getElementById('eeatGrid').innerHTML = EEAT_DATA.map(e=>`
+    <div class="eeat-card">
+      <div class="eeat-letter" style="color:${e.color}">${e.letter}</div>
+      <div class="eeat-word">${e.word}</div>
+      <div class="eeat-score" style="color:${e.color}">${e.score}</div>
+      <div class="eeat-bar-w"><div class="eeat-bar-f" style="width:${e.score}%;background:${e.color}"></div></div>
+      <div class="eeat-tip">${e.tip}</div>
+    </div>`).join('');
+  renderIssues(EEAT_ISSUES,'l-eeat');
+}
+
+function renderEntities(){
+  document.getElementById('entityWrap').innerHTML =
+    `<div style="font-size:14px;font-weight:700;margin-bottom:14px">Entity Association Strength</div>` +
+    ENTITY_DATA.map(e=>{
+      const sbg = e.strength>60?'var(--green-l)':e.strength>40?'var(--amber-l)':'var(--red-l)';
+      const sc = e.strength>60?'var(--green)':e.strength>40?'var(--amber)':'var(--red)';
+      return `<div class="entity-row">
+        <div class="entity-name">${e.name}</div>
+        <div class="entity-type">${e.type}</div>
+        <div class="entity-strength">
+          <div class="es-bar"><div class="es-fill" style="width:${e.strength}%;background:${e.color}"></div></div>
+          <span style="font-family:var(--mono);font-size:11.5px;font-weight:600;color:${e.color}">${e.strength}</span>
+        </div>
+        <div class="entity-signal" style="background:${sbg};color:${sc}">${e.signal}</div>
+      </div>`;
+    }).join('');
+  renderIssues(ENTITY_ISSUES,'l-entities');
+}
+
+function renderAlgo(){
+  document.getElementById('algoTimeline').innerHTML = ALGO_DATA.map(a=>{
+    const neg = a.delta.startsWith('-');
+    const pos = a.delta.startsWith('+');
+    const dc = pos?'var(--green)':neg?'var(--red)':'var(--text3)';
+    const dbg = pos?'var(--green-l)':neg?'var(--red-l)':'var(--surface3)';
+    return `<div class="algo-item">
+      <div class="algo-dot" style="background:${dc};border-color:var(--surface)"></div>
+      <div class="algo-meta">${a.date}</div>
+      <div class="algo-name">${a.name}</div>
+      <div class="algo-impact">${a.desc}</div>
+      <div class="algo-delta" style="background:${dbg};color:${dc}">${neg?'▼':pos?'▲':'◆'} ${a.delta} pts estimated traffic</div>
+    </div>`;
+  }).join('');
+  renderIssues(ALGO_ISSUES,'l-algo');
+}
+
+function renderCann(){
+  document.getElementById('cannCards').innerHTML = CANN_DATA.map(c=>`
+    <div class="cann-card">
+      <div class="cann-head">
+        <div class="cann-kw">Keyword: ${c.kw}</div>
+        <div style="font-size:12px;color:var(--rose);font-weight:600">${c.pages.length} pages competing</div>
+      </div>
+      <div class="cann-pages">
+        ${c.pages.map(p=>`<div class="cp-row">
+          <div class="cp-url">${p.url}</div>
+          <div class="cp-pos" style="color:${p.winner?'var(--accent)':'var(--text3)'}">${p.winner?'👑':''} #${p.pos}</div>
+          <div class="cp-traffic" style="color:var(--text3)">${p.traffic}</div>
+          <button class="cp-action" style="background:${p.winner?'var(--green-l)':'var(--red-l)'};color:${p.winner?'var(--green)':'var(--red)'}">${p.winner?'Keep':'Redirect/Merge'}</button>
+        </div>`).join('')}
+      </div>
+    </div>`).join('');
+  renderIssues(CANN_ISSUES,'l-cann');
+}
+
+function renderLinkEquity(){
+  document.getElementById('linkEquity').innerHTML = LINK_EQUITY.map(l=>{
+    const sc = {green:'var(--green)',blue:'var(--accent)',amber:'var(--amber)',red:'var(--red)'}[l.statusC];
+    const sbg = {green:'var(--green-l)',blue:'var(--accent-light)',amber:'var(--amber-l)',red:'var(--red-l)'}[l.statusC];
+    return `<div class="le-row">
+      <div class="le-page">${l.page}</div>
+      <div class="le-bar-w"><div class="le-bar-f" style="width:${l.score}%;background:${l.color}"></div></div>
+      <div class="le-score" style="color:${l.color}">${l.score}</div>
+      <div class="le-status" style="background:${sbg};color:${sc}">${l.status}</div>
+    </div>`;
+  }).join('');
+  renderIssues(LINK_ISSUES,'l-links');
+}
+
+function renderKW(){
+  document.getElementById('kwTable').innerHTML = KW_DATA.map(r=>{
+    const c = {green:'var(--green)',amber:'var(--amber)',red:'var(--red)'}[r.oc];
+    const bg = {green:'var(--green-l)',amber:'var(--amber-l)',red:'var(--red-l)'}[r.oc];
+    return `<tr>
+      <td>${r.kw}</td>
+      <td style="font-family:var(--mono)">${r.freq}×</td>
+      <td><div class="den-wrap"><div class="den-b"><div class="den-f" style="width:${Math.min(r.density/3*100,100)}%"></div></div>${r.density}%</div></td>
+      <td><span class="pill" style="background:${bg};color:${c}">${r.score}/100</span></td>
+      <td style="color:${c};font-weight:600">${r.opp}</td>
+    </tr>`;
+  }).join('');
+}
+
+function renderBrief(){
+  document.getElementById('briefKws').innerHTML = BRIEF_KWS.map(k=>{
+    const tc = {Primary:'var(--accent)',Secondary:'var(--purple)','Featured Snippet':'var(--amber)','Long-tail':'var(--green)'}[k.type]||'var(--text3)';
+    const tbg = {Primary:'var(--accent-light)',Secondary:'var(--purple-l)','Featured Snippet':'var(--amber-l)','Long-tail':'var(--green-l)'}[k.type]||'var(--surface3)';
+    return `<div class="bkw">
+      <span style="font-size:13px;font-weight:500">${k.kw}</span>
+      <div style="display:flex;align-items:center;gap:8px">
+        <span style="font-size:11.5px;color:var(--text3)">${k.vol}</span>
+        <span class="bkw-tag" style="background:${tbg};color:${tc}">${k.type}</span>
+      </div>
+    </div>`;
+  }).join('');
+  document.getElementById('briefOutline').innerHTML = BRIEF_OUTLINE.map(o=>`
+    <div class="bo-item"><span class="bo-h">${o.h}</span><span>${o.text}</span></div>`).join('');
+}
+
+function renderWF(){
+  document.getElementById('wfRows').innerHTML = WF_DATA.map(w=>`
+    <div class="wf-row">
+      <div class="wf-lbl">${w.label}</div>
+      <div class="wf-track"><div class="wf-bar" style="width:${w.pct}%;background:${w.color}">${w.pct>18?w.label:''}</div></div>
+      <div class="wf-val">${w.val}</div>
+    </div>`).join('');
+}
+
+function renderSchema(){
+  document.getElementById('schemaGrid').innerHTML = SCHEMA_DATA.map(s=>{
+    const ok=s.ok,part=s.status==='partial';
+    const c=ok?'var(--green)':part?'var(--amber)':'var(--red)';
+    const bg=ok?'var(--green-l)':part?'var(--amber-l)':'var(--red-l)';
+    const lbl=ok?'✓ Valid':part?'⚠ Incomplete':'✗ Missing';
+    return `<div class="sc-card">
+      <div class="sc-type-l">${s.type}</div>
+      <div class="sc-name-l">${s.name}</div>
+      <div class="sc-badge" style="background:${bg};color:${c}">${lbl}</div>
+      <div class="sc-note">${s.note}</div>
+    </div>`;
+  }).join('');
+  renderIssues(SCHEMA_ISSUES,'l-schema');
+}
+
+function renderComp(){
+  document.getElementById('compList').innerHTML = COMPETITORS.map(c=>{
+    const you=c.domain.includes('yoursite');
+    const col=c.score>80?'var(--green)':c.score>65?'var(--amber)':'var(--red)';
+    return `<div class="comp-c${you?' you':''}">
+      <div class="comp-rank">#${c.rank}</div>
+      <div class="comp-info">
+        <div class="comp-domain">${c.domain}${you?' <span style="color:var(--accent);font-size:12px;font-weight:600">← You</span>':''}</div>
+        <div class="comp-note">${c.note}</div>
+        <div class="comp-badges">
+          <div class="cb">DA ${c.da}</div>
+          <div class="cb">Speed ${c.speed}</div>
+          <div class="cb" style="${c.schema?'background:var(--green-l);color:var(--green);border-color:#a7f3d0':'background:var(--red-l);color:var(--red);border-color:#fecaca'}">Schema ${c.schema?'✓':'✗'}</div>
+        </div>
+      </div>
+      <div class="comp-score-b">
+        <div class="comp-score-v" style="color:${col}">${c.score}</div>
+        <div class="comp-score-l">SEO Score</div>
+      </div>
+    </div>`;
+  }).join('');
+  renderIssues(COMP_ISSUES,'l-comp');
+}
+
+// ─── SCAN FLOW ───
+function startScan(){
+  const url = document.getElementById('urlInput').value||'https://example.com';
+  document.getElementById('scanBtn').disabled=true;
+  document.getElementById('scanBtn').innerHTML='<span class="spinner"></span>Scanning…';
+  document.getElementById('progUrl').textContent=url;
+  document.getElementById('progWrap').classList.add('show');
+  document.getElementById('main').classList.remove('show');
+
+  const stepsEl = document.getElementById('progSteps');
+  stepsEl.innerHTML = SCAN_STEPS.map((s,i)=>
+    `<div class="ps" id="ps-${i}"><div class="ps-dot"></div>${s}</div>`).join('');
+
+  let step=0;
+  const fill=document.getElementById('progFill');
+  const pct=document.getElementById('progPct');
+  const stepEl=document.getElementById('progStep');
+
+  const iv = setInterval(()=>{
+    if(step>0) document.getElementById(`ps-${step-1}`)?.classList.replace('act','done');
+    const el=document.getElementById(`ps-${step}`);
+    if(el){el.classList.add('act');}
+    const p=Math.round((step+1)/SCAN_STEPS.length*100);
+    fill.style.width=p+'%';
+    pct.textContent=p+'%';
+    stepEl.textContent=SCAN_STEPS[step]||'Done';
+    step++;
+    if(step>=SCAN_STEPS.length){
+      clearInterval(iv);
+      document.getElementById(`ps-${step-1}`)?.classList.replace('act','done');
+      setTimeout(showResults,500);
+    }
+  },380);
+}
+
+function showResults(){
+  document.getElementById('progWrap').classList.remove('show');
+  document.getElementById('scanBtn').disabled=false;
+  document.getElementById('scanBtn').textContent='Re-Analyze →';
+  document.getElementById('main').classList.add('show');
+
+  renderIssues(TECHNICAL,'l-technical');
+  renderIssues(ONPAGE,'l-onpage');
+  renderIssues(CONTENT,'l-content');
+  renderIssues(PERF,'l-perf');
+  renderROI();
+  renderSERP();
+  renderEEAT();
+  renderEntities();
+  renderAlgo();
+  renderCann();
+  renderLinkEquity();
+  renderKW();
+  renderBrief();
+  renderWF();
+  renderSchema();
+  renderComp();
+
+  document.getElementById('main').scrollIntoView({behavior:'smooth',block:'start'});
+}
+</script>
+</body>
+</html>
