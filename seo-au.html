@@ -1,0 +1,1571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SEO Auditor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0b0c0f;
+  --surface:#111318;
+  --surface2:#181a20;
+  --surface3:#1e2028;
+  --border:#2a2d38;
+  --border2:#22252f;
+  --text:#e8eaf0;
+  --text2:#9499a8;
+  --text3:#5a5f70;
+  --blue:#3b82f6;
+  --blue-d:#1d4ed8;
+  --blue-glow:rgba(59,130,246,.15);
+  --green:#22c55e;
+  --green-d:#16a34a;
+  --red:#f87171;
+  --red-d:#ef4444;
+  --amber:#fbbf24;
+  --amber-d:#d97706;
+  --purple:#a78bfa;
+  --teal:#2dd4bf;
+  --font:'Syne',sans-serif;
+  --mono:'Geist Mono',monospace;
+  --r:10px;
+  --sh:0 1px 3px rgba(0,0,0,.4);
+  --sh2:0 4px 20px rgba(0,0,0,.5);
+  --sh3:0 20px 60px rgba(0,0,0,.7);
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;min-height:100vh;line-height:1.5}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+
+/* ── MODAL ── */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(8px);z-index:500;display:flex;align-items:center;justify-content:center;padding:20px}
+.overlay.hidden{display:none}
+.modal{background:var(--surface2);border:1px solid var(--border);border-radius:16px;padding:32px;max-width:460px;width:100%;box-shadow:var(--sh3)}
+.modal-ico{width:40px;height:40px;background:rgba(59,130,246,.15);border:1px solid rgba(59,130,246,.3);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:18px}
+.modal h2{font-size:18px;font-weight:700;margin-bottom:6px}
+.modal-sub{font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:20px}
+.field label{display:block;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--text3);margin-bottom:7px}
+.field input{width:100%;background:var(--surface3);border:1.5px solid var(--border);border-radius:8px;padding:11px 14px;font:500 13px var(--mono);color:var(--text);outline:none;transition:.2s}
+.field input:focus{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-glow)}
+.field input::placeholder{color:var(--text3)}
+.field-hint{font-size:12px;color:var(--text3);margin-top:6px;line-height:1.5}
+.field-hint a{color:var(--blue);text-decoration:none}
+.modal-err{font-size:12px;color:var(--red);margin-top:6px;display:none}
+.modal-acts{display:flex;gap:10px;margin-top:20px}
+.btn{padding:10px 20px;border-radius:8px;font:600 13px var(--font);cursor:pointer;border:none;transition:.15s;letter-spacing:.2px}
+.btn-primary{background:var(--blue);color:white;flex:1}
+.btn-primary:hover{background:var(--blue-d)}
+.btn-primary:disabled{opacity:.4;cursor:not-allowed}
+.btn-ghost{background:var(--surface3);color:var(--text2);border:1px solid var(--border)}
+.btn-ghost:hover{border-color:var(--text3);color:var(--text)}
+
+/* ── NAV ── */
+nav{background:rgba(11,12,15,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--border2);position:sticky;top:0;z-index:100}
+.nav-i{max-width:1140px;margin:0 auto;padding:0 24px;height:52px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-size:15px;font-weight:800;letter-spacing:-.3px;display:flex;align-items:center;gap:8px}
+.logo-sq{width:24px;height:24px;background:var(--blue);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:white}
+.nav-r{display:flex;align-items:center;gap:8px}
+.key-chip{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:500;color:var(--text3);background:var(--surface2);border:1px solid var(--border);border-radius:20px;padding:5px 12px;cursor:pointer;transition:.15s}
+.key-chip:hover{border-color:var(--blue);color:var(--blue)}
+.key-dot{width:6px;height:6px;border-radius:50%;background:var(--text3);transition:.3s}
+.key-dot.on{background:var(--green)}
+.re-btn{display:none;background:var(--surface2);border:1px solid var(--border);color:var(--text2);padding:5px 14px;border-radius:20px;font:500 12px var(--font);cursor:pointer;transition:.15s}
+.re-btn:hover{border-color:var(--blue);color:var(--blue)}
+.re-btn.show{display:block}
+
+/* ── HERO ── */
+.hero{padding:72px 24px 60px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:600px;height:400px;background:radial-gradient(ellipse,rgba(59,130,246,.12) 0%,transparent 70%);pointer-events:none}
+.hero-tag{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--blue);background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.2);padding:4px 12px;border-radius:20px;margin-bottom:20px}
+.hero h1{font-size:clamp(32px,6vw,58px);font-weight:800;letter-spacing:-.5px;line-height:1.05;margin-bottom:14px}
+.hero h1 .hl{color:var(--blue)}
+.hero-sub{font-size:15px;color:var(--text2);max-width:480px;margin:0 auto 36px;line-height:1.7;font-weight:400}
+
+/* SEARCH */
+.search-wrap{max-width:640px;margin:0 auto}
+.search-box{display:flex;background:var(--surface2);border:1.5px solid var(--border);border-radius:var(--r);overflow:hidden;transition:.2s;box-shadow:var(--sh2)}
+.search-box:focus-within{border-color:var(--blue);box-shadow:0 0 0 4px var(--blue-glow),var(--sh2)}
+.s-icon{padding:0 14px;color:var(--text3);display:flex;align-items:center;font-size:16px}
+.s-input{flex:1;background:none;border:none;outline:none;font:500 15px var(--font);color:var(--text);padding:15px 0}
+.s-input::placeholder{color:var(--text3);font-weight:400}
+.s-btn{background:var(--blue);color:white;border:none;padding:11px 22px;font:700 13px var(--font);cursor:pointer;margin:4px;border-radius:7px;transition:.15s;letter-spacing:.3px;white-space:nowrap}
+.s-btn:hover{background:var(--blue-d)}
+.s-btn:disabled{opacity:.45;cursor:not-allowed}
+.warn-bar{display:none;align-items:center;gap:8px;font-size:12.5px;color:var(--amber);background:rgba(251,191,36,.07);border:1px solid rgba(251,191,36,.2);border-radius:8px;padding:9px 14px;margin-top:10px}
+.warn-bar.show{display:flex}
+.warn-bar button{background:none;border:none;color:var(--amber);font:600 12.5px var(--font);cursor:pointer;text-decoration:underline;padding:0 3px}
+.hero-caps{display:flex;align-items:center;justify-content:center;gap:20px;margin-top:18px;flex-wrap:wrap}
+.hc{font-size:11.5px;color:var(--text3);display:flex;align-items:center;gap:5px}
+.hc-dot{width:5px;height:5px;border-radius:50%;background:var(--green)}
+
+/* ── PROGRESS ── */
+.prog-wrap{display:none;max-width:560px;margin:32px auto;padding:0 24px}
+.prog-wrap.show{display:block}
+.prog-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:26px;box-shadow:var(--sh2)}
+.prog-url{font:500 12px var(--mono);color:var(--blue);margin-bottom:16px;word-break:break-all}
+.prog-track{height:3px;background:var(--border);border-radius:99px;overflow:hidden;margin-bottom:20px}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--teal));border-radius:99px;width:0%;transition:width .5s cubic-bezier(.4,0,.2,1)}
+.prog-steps{display:flex;flex-direction:column;gap:8px}
+.pstep{display:flex;align-items:center;gap:10px;font-size:12.5px;color:var(--text3);transition:color .2s}
+.pstep.act{color:var(--text);font-weight:600}
+.pstep.done{color:var(--green)}
+.pstep.err{color:var(--red)}
+.pstep-ico{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:9px;flex-shrink:0;transition:all .2s}
+.pstep.done .pstep-ico{background:var(--green);border-color:var(--green);color:var(--bg);font-size:10px}
+.pstep.act .pstep-ico{border-color:var(--blue)}
+.pstep.act .pstep-ico::after{content:'';width:6px;height:6px;background:var(--blue);border-radius:50%;display:block;animation:pulse 1s infinite}
+.pstep.err .pstep-ico{background:var(--red-d);border-color:var(--red);color:white;font-size:10px}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+.prog-note{font-size:12px;color:var(--text3);margin-top:14px;padding:10px 12px;background:var(--surface3);border-radius:7px;line-height:1.6;display:none}
+.prog-note.show{display:block}
+
+/* ── RESULTS ── */
+.results{display:none;max-width:1140px;margin:0 auto;padding:24px 24px 80px}
+.results.show{display:block;animation:rise .4s ease}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+/* SITE INFO BAR */
+.site-bar{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:14px 20px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.site-url{font:500 13px var(--mono);color:var(--blue)}
+.site-meta{display:flex;align-items:center;gap:14px}
+.site-badge{font-size:11.5px;font-weight:600;padding:3px 10px;border-radius:20px}
+.export-btn{background:var(--surface3);border:1px solid var(--border);color:var(--text2);padding:5px 14px;border-radius:7px;font:600 12px var(--font);cursor:pointer;transition:.15s;display:flex;align-items:center;gap:6px}
+.export-btn:hover{border-color:var(--blue);color:var(--blue)}
+
+/* SCORE GRID */
+.score-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}
+.score-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:18px;box-shadow:var(--sh);transition:.2s;position:relative;overflow:hidden}
+.score-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.score-card:hover{box-shadow:var(--sh2)}
+.sc-label{font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:var(--text3);margin-bottom:8px;display:flex;align-items:center;gap:5px}
+.sc-device{font-size:9px;font-weight:600;padding:1px 5px;border-radius:3px;background:var(--surface3);color:var(--text3)}
+.sc-num{font-size:36px;font-weight:800;letter-spacing:-1.5px;line-height:1;margin-bottom:3px}
+.sc-verdict{font-size:11px;font-weight:600;color:var(--text3)}
+.sc-bar{height:3px;background:var(--border);border-radius:99px;overflow:hidden;margin-top:10px}
+.sc-bar-f{height:100%;border-radius:99px;transition:width 1.2s cubic-bezier(.4,0,.2,1)}
+
+/* CWV ROW */
+.cwv-row{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:20px}
+.cwv-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;transition:.2s}
+.cwv-card:hover{box-shadow:var(--sh2)}
+.cwv-name{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--text3);margin-bottom:5px}
+.cwv-val{font-size:20px;font-weight:700;letter-spacing:-.5px;line-height:1;margin-bottom:3px}
+.cwv-desc{font-size:10.5px;color:var(--text3);line-height:1.3}
+.cwv-pill{display:inline-flex;align-items:center;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;margin-top:6px}
+
+/* TABS */
+.tabs{display:flex;gap:3px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:4px;margin-bottom:20px;overflow-x:auto}
+.tab{padding:7px 14px;font:600 12px var(--font);color:var(--text3);background:none;border:none;border-radius:7px;cursor:pointer;white-space:nowrap;transition:.15s;letter-spacing:.2px;display:flex;align-items:center;gap:5px}
+.tab:hover{background:var(--surface3);color:var(--text)}
+.tab.on{background:var(--blue);color:white;box-shadow:0 2px 8px rgba(59,130,246,.3)}
+.tab-ct{font-size:10px;font-weight:700;padding:1px 5px;border-radius:3px;background:rgba(0,0,0,.2)}
+
+/* PANELS */
+.panel{display:none}.panel.on{display:block;animation:fadeIn .2s ease}
+.ph{margin-bottom:16px}
+.ph h3{font-size:14px;font-weight:700;margin-bottom:2px}
+.ph p{font-size:12px;color:var(--text3)}
+
+/* ── AI PANEL ── */
+.ai-box{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh2)}
+.ai-header{background:linear-gradient(135deg,#0f1117 0%,#12141c 100%);padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.ai-hd-left{display:flex;align-items:center;gap:10px}
+.ai-hd-icon{width:30px;height:30px;background:rgba(167,139,250,.15);border:1px solid rgba(167,139,250,.2);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px}
+.ai-hd-title{font-size:13px;font-weight:700;margin-bottom:1px}
+.ai-hd-sub{font-size:11px;color:var(--text3)}
+.ai-status{font-size:11px;font-weight:600;padding:3px 10px;border-radius:4px;background:rgba(255,255,255,.06);color:var(--text3)}
+.ai-body{padding:24px;min-height:80px}
+.ai-loader{display:flex;align-items:center;gap:10px;color:var(--text2);font-size:13px}
+.spinner{width:16px;height:16px;border:2px solid var(--border);border-top-color:var(--blue);border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ai-out{font-size:13.5px;color:var(--text2);line-height:1.8}
+.ai-out h3{font-size:14px;font-weight:700;color:var(--text);margin:22px 0 8px;padding-left:0;display:flex;align-items:center;gap:7px}
+.ai-out h3:first-child{margin-top:0}
+.ai-out ul{padding-left:0;margin:8px 0;list-style:none;display:flex;flex-direction:column;gap:5px}
+.ai-out li{padding-left:14px;position:relative;line-height:1.65}
+.ai-out li::before{content:'→';position:absolute;left:0;color:var(--blue);font-size:11px;top:3px}
+.ai-out p{margin-bottom:10px;line-height:1.75}
+.ai-out strong{color:var(--text);font-weight:700}
+.ai-out code{font:500 12px var(--mono);background:var(--surface3);border:1px solid var(--border);padding:1px 6px;border-radius:4px;color:var(--teal)}
+.ai-cursor{display:inline-block;width:2px;height:14px;background:var(--blue);margin-left:2px;vertical-align:middle;animation:blink .8s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.ai-err{color:var(--red);font-size:13px;line-height:1.7}
+.ai-err button{background:none;border:none;color:var(--blue);font:600 13px var(--font);cursor:pointer;text-decoration:underline}
+
+/* ── ISSUE CARDS ── */
+.issue-list{display:flex;flex-direction:column;gap:9px}
+.issue{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;transition:.15s}
+.issue:hover{border-color:var(--border2);box-shadow:var(--sh)}
+.issue-hd{display:flex;align-items:center;gap:10px;padding:13px 16px;cursor:pointer;user-select:none}
+.issue-stripe{width:3px;border-radius:2px;align-self:stretch;flex-shrink:0;min-height:18px}
+.issue-ico{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+.issue-main{flex:1;min-width:0}
+.issue-title{font-size:13px;font-weight:700;margin-bottom:1px}
+.issue-brief{font-size:11.5px;color:var(--text3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.issue-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.sev-tag{font-size:10px;font-weight:700;letter-spacing:.3px;padding:2px 8px;border-radius:4px;text-transform:uppercase}
+.chev{color:var(--text3);font-size:10px;transition:transform .2s;flex-shrink:0}
+.issue.open .chev{transform:rotate(180deg)}
+.issue-body{display:none;padding:0 16px 16px 57px;border-top:1px solid var(--border2)}
+.issue.open .issue-body{display:block;animation:fadeIn .2s ease}
+.issue-desc{font-size:13px;color:var(--text2);line-height:1.7;margin:12px 0}
+.fix-box{background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.15);border-radius:8px;padding:12px 14px;margin-bottom:10px}
+.fix-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--green);margin-bottom:5px}
+.fix-text{font-size:12.5px;color:#86efac;line-height:1.65}
+.code-blk{background:#0d0e14;border:1px solid var(--border);border-radius:7px;padding:12px 14px;font:400 11.5px/1.7 var(--mono);color:#7ee8a2;overflow-x:auto;white-space:pre;margin-top:8px}
+/* Detail items from PSI */
+.detail-list{display:flex;flex-direction:column;gap:4px;margin-top:10px}
+.detail-item{display:flex;align-items:center;justify-content:space-between;font-size:11.5px;padding:6px 10px;background:var(--surface3);border-radius:6px}
+.detail-url{font-family:var(--mono);color:var(--text2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:70%;font-size:11px}
+.detail-val{font-weight:700;font-family:var(--mono);color:var(--amber);flex-shrink:0;margin-left:8px}
+
+/* ── ON-PAGE GRID ── */
+.opg{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:16px}
+.op-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:16px 18px}
+.op-lbl{font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--text3);margin-bottom:7px}
+.op-val{font-size:14px;font-weight:600;word-break:break-word;line-height:1.4}
+.op-meta{font-size:11.5px;color:var(--text3);margin-top:4px}
+.op-badge{display:inline-flex;align-items:center;gap:3px;font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:4px;margin-top:6px}
+.op-miss{color:var(--red);font-style:italic;font-weight:400}
+
+/* HEADING TREE */
+.htree{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;margin-bottom:14px;display:flex;flex-direction:column;gap:5px}
+.ht-row{display:flex;align-items:flex-start;gap:8px;font-size:12.5px;color:var(--text2);line-height:1.5}
+.ht-tag{font:500 9.5px var(--mono);padding:1px 5px;border-radius:3px;flex-shrink:0;margin-top:2px}
+
+/* ── KEYWORD TABLE ── */
+.kw-wrap{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:16px}
+.kw-head{padding:13px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.kw-title{font-size:13px;font-weight:700}
+table.kwt{width:100%;border-collapse:collapse}
+table.kwt th{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.4px;color:var(--text3);padding:9px 18px;text-align:left;background:var(--surface3);border-bottom:1px solid var(--border)}
+table.kwt td{padding:10px 18px;font-size:12.5px;border-bottom:1px solid var(--border2);color:var(--text2)}
+table.kwt tr:last-child td{border-bottom:none}
+table.kwt td:first-child{font-weight:600;color:var(--text)}
+table.kwt tr:hover td{background:var(--surface3)}
+.den-wrap{display:flex;align-items:center;gap:7px}
+.den-track{width:60px;height:4px;background:var(--border);border-radius:99px;overflow:hidden}
+.den-fill{height:100%;background:var(--purple);border-radius:99px}
+.kw-badge{font-size:10px;font-weight:700;padding:2px 7px;border-radius:3px}
+
+/* ── IMAGES TABLE ── */
+.img-wrap{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:14px}
+table.imt{width:100%;border-collapse:collapse}
+table.imt th{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.4px;color:var(--text3);padding:9px 16px;text-align:left;background:var(--surface3);border-bottom:1px solid var(--border)}
+table.imt td{padding:9px 16px;font-size:12px;border-bottom:1px solid var(--border2);color:var(--text2)}
+table.imt tr:last-child td{border-bottom:none}
+table.imt td:first-child{font:400 11px var(--mono);color:var(--blue);max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* ── SCHEMA ── */
+.schema-list{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);margin-bottom:14px;overflow:hidden}
+.schema-row{display:flex;align-items:center;gap:10px;padding:11px 18px;border-bottom:1px solid var(--border2);font-size:12.5px}
+.schema-row:last-child{border-bottom:none}
+.schema-type{font:500 12px var(--mono);flex:1;color:var(--text)}
+.schema-badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px}
+
+/* ── LINKS STATS ── */
+.link-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px}
+.ls-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:16px;text-align:center}
+.ls-val{font-size:28px;font-weight:800;letter-spacing:-1px;line-height:1;margin-bottom:4px}
+.ls-lbl{font-size:11px;color:var(--text3);font-weight:500}
+
+/* ── EXPORT MODAL ── */
+.export-area{background:var(--surface3);border:1px solid var(--border);border-radius:8px;padding:14px;font:400 12px/1.7 var(--mono);color:var(--text2);max-height:300px;overflow-y:auto;white-space:pre-wrap;word-break:break-word;margin:16px 0}
+
+/* ── EMPTY ── */
+.empty{text-align:center;padding:40px 24px;color:var(--text3)}
+.empty-ico{font-size:28px;margin-bottom:10px}
+.empty p{font-size:13px;line-height:1.6}
+
+/* ── FOOTER ── */
+.footer{text-align:center;font-size:11.5px;color:var(--text3);margin-top:48px;padding:0 24px;line-height:1.8}
+.footer a{color:var(--text3);text-decoration:none;transition:.15s}
+.footer a:hover{color:var(--blue)}
+
+/* ── UTIL ── */
+.green{color:var(--green)}.red{color:var(--red)}.amber{color:var(--amber)}.blue{color:var(--blue)}.purple{color:var(--purple)}
+.skeleton{background:linear-gradient(90deg,var(--surface3) 25%,var(--border) 50%,var(--surface3) 75%);background-size:200% 100%;animation:sk 1.4s infinite;border-radius:4px;display:inline-block}
+@keyframes sk{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+@media(max-width:900px){
+  .score-grid{grid-template-columns:repeat(2,1fr)}
+  .cwv-row{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:640px){
+  .cwv-row{grid-template-columns:repeat(2,1fr)}
+  .opg{grid-template-columns:1fr}
+  .link-stats{grid-template-columns:repeat(2,1fr)}
+  .score-grid{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+
+<!-- MODAL -->
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <div class="modal-ico">🔑</div>
+    <h2>Add your Anthropic API key</h2>
+    <p class="modal-sub">Used for the AI audit. Saved in your browser only — never sent to any server. Each audit costs ~$0.01.</p>
+    <div class="field">
+      <label>API Key</label>
+      <input type="password" id="keyInput" placeholder="sk-ant-api03-…" autocomplete="off" onkeydown="if(event.key==='Enter')saveKey()">
+      <div class="field-hint">Get a free key at <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a></div>
+      <div class="modal-err" id="keyErr">Must start with sk-ant-…</div>
+    </div>
+    <div class="modal-acts">
+      <button class="btn btn-ghost" onclick="skipKey()">Skip (no AI)</button>
+      <button class="btn btn-primary" onclick="saveKey()">Save key</button>
+    </div>
+  </div>
+</div>
+
+<!-- EXPORT MODAL -->
+<div class="overlay hidden" id="exportOverlay">
+  <div class="modal" style="max-width:560px">
+    <div class="modal-ico">📋</div>
+    <h2>Export Report</h2>
+    <p class="modal-sub">Copy the plain-text report below, or use your browser's Print to save as PDF.</p>
+    <div class="export-area" id="exportText"></div>
+    <div class="modal-acts">
+      <button class="btn btn-ghost" onclick="document.getElementById('exportOverlay').classList.add('hidden')">Close</button>
+      <button class="btn btn-primary" onclick="copyExport()">Copy to clipboard</button>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-i">
+    <div class="logo"><div class="logo-sq">S</div>SEO Auditor</div>
+    <div class="nav-r">
+      <button class="re-btn" id="reBtn" onclick="scrollTop()">↑ New audit</button>
+      <div class="key-chip" onclick="showModal()">
+        <div class="key-dot" id="keyDot"></div>
+        <span id="keyTxt">Add API key</span>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="heroSection">
+  <div class="hero-tag">⚡ Real data, zero faking</div>
+  <h1>The SEO audit that<br>actually <span class="hl">reads your site</span></h1>
+  <p class="hero-sub">Live Google PageSpeed data · HTML parsing · Keyword analysis · Claude AI that reads your real content</p>
+  <div class="search-wrap">
+    <div class="search-box">
+      <div class="s-icon">🌐</div>
+      <input class="s-input" id="urlInput" type="text" placeholder="https://yoursite.com" autocomplete="off">
+      <button class="s-btn" id="auditBtn" onclick="runAudit()">Audit →</button>
+    </div>
+    <div class="warn-bar" id="warnBar">
+      ⚠ No API key — AI audit skipped.
+      <button onclick="showModal()">Add key →</button>
+    </div>
+  </div>
+  <div class="hero-caps">
+    <div class="hc"><div class="hc-dot"></div>Google PageSpeed API</div>
+    <div class="hc"><div class="hc-dot"></div>50+ PSI audit checks</div>
+    <div class="hc"><div class="hc-dot"></div>Keyword analysis</div>
+    <div class="hc"><div class="hc-dot"></div>Claude AI audit</div>
+    <div class="hc"><div class="hc-dot"></div>Export report</div>
+  </div>
+</section>
+
+<!-- PROGRESS -->
+<div class="prog-wrap" id="progWrap">
+  <div class="prog-card">
+    <div class="prog-url" id="progUrl"></div>
+    <div class="prog-track"><div class="prog-fill" id="progFill"></div></div>
+    <div class="prog-steps" id="progSteps"></div>
+    <div class="prog-note" id="progNote"></div>
+  </div>
+</div>
+
+<!-- RESULTS -->
+<div class="results" id="results">
+  <div class="site-bar">
+    <div>
+      <div class="site-url" id="siteUrl"></div>
+      <div style="font-size:11px;color:var(--text3);margin-top:2px" id="auditTime"></div>
+    </div>
+    <div class="site-meta">
+      <div class="site-badge" id="dataBadge"></div>
+      <button class="export-btn" onclick="openExport()">📋 Export report</button>
+    </div>
+  </div>
+
+  <!-- SCORE CARDS -->
+  <div class="score-grid" id="scoreGrid"></div>
+
+  <!-- CWV ROW -->
+  <div class="cwv-row" id="cwvRow"></div>
+
+  <!-- TABS -->
+  <div class="tabs" id="tabRow">
+    <button class="tab on" onclick="showTab('ai',this)">🤖 AI Audit</button>
+    <button class="tab" onclick="showTab('onpage',this)">📄 On-Page</button>
+    <button class="tab" onclick="showTab('keywords',this)">🔑 Keywords</button>
+    <button class="tab" onclick="showTab('technical',this)">🔧 Technical</button>
+    <button class="tab" onclick="showTab('images',this)">🖼 Images</button>
+    <button class="tab" onclick="showTab('links',this)">🔗 Links</button>
+    <button class="tab" onclick="showTab('schema',this)">🏷 Schema</button>
+  </div>
+
+  <!-- AI TAB -->
+  <div class="panel on" id="tab-ai">
+    <div class="ai-box">
+      <div class="ai-header">
+        <div class="ai-hd-left">
+          <div class="ai-hd-icon">🤖</div>
+          <div>
+            <div class="ai-hd-title">Claude AI Audit</div>
+            <div class="ai-hd-sub">Analyzing your actual page content</div>
+          </div>
+        </div>
+        <div class="ai-status" id="aiStatus">Waiting…</div>
+      </div>
+      <div class="ai-body" id="aiBody">
+        <div class="ai-loader"><div class="spinner"></div>Preparing analysis…</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ON-PAGE TAB -->
+  <div class="panel" id="tab-onpage">
+    <div class="ph"><h3>On-Page SEO</h3><p>Extracted from your live HTML</p></div>
+    <div class="opg" id="opGrid"></div>
+    <div id="htreeWrap"></div>
+    <div class="issue-list" id="opIssues"></div>
+  </div>
+
+  <!-- KEYWORDS TAB -->
+  <div class="panel" id="tab-keywords">
+    <div class="ph"><h3>Keyword Analysis</h3><p>Frequency and density from your page content</p></div>
+    <div class="kw-wrap">
+      <div class="kw-head">
+        <div class="kw-title">Top Keywords Found on Page</div>
+        <div style="font-size:11px;color:var(--text3)">Stopwords removed</div>
+      </div>
+      <table class="kwt"><thead><tr><th>Keyword</th><th>Count</th><th>Density</th><th>In Title</th><th>In H1</th><th>In Meta Desc</th></tr></thead>
+      <tbody id="kwBody"></tbody></table>
+    </div>
+    <div class="issue-list" id="kwIssues"></div>
+  </div>
+
+  <!-- TECHNICAL TAB -->
+  <div class="panel" id="tab-technical">
+    <div class="ph"><h3>Technical SEO</h3><p>From Google PageSpeed Insights + HTML analysis</p></div>
+    <div class="issue-list" id="techIssues"></div>
+  </div>
+
+  <!-- IMAGES TAB -->
+  <div class="panel" id="tab-images">
+    <div class="ph"><h3>Images</h3><p>Alt text, format, and loading attributes</p></div>
+    <div id="imgContent"></div>
+  </div>
+
+  <!-- LINKS TAB -->
+  <div class="panel" id="tab-links">
+    <div class="ph"><h3>Links</h3><p>Internal and external links found on page</p></div>
+    <div class="link-stats" id="linkStats"></div>
+    <div class="issue-list" id="linkIssues"></div>
+    <div id="extLinksWrap"></div>
+  </div>
+
+  <!-- SCHEMA TAB -->
+  <div class="panel" id="tab-schema">
+    <div class="ph"><h3>Structured Data</h3><p>JSON-LD and schema.org markup</p></div>
+    <div id="schemaContent"></div>
+    <div class="issue-list" id="schemaIssues"></div>
+  </div>
+
+  <div class="footer">
+    Data: <a href="https://developers.google.com/speed/docs/insights/v5/about" target="_blank">Google PageSpeed Insights API</a> · <a href="https://allorigins.win" target="_blank">allorigins.win</a> CORS proxy · <a href="https://anthropic.com" target="_blank">Anthropic Claude API</a><br>
+    Runs entirely in your browser · No data stored anywhere · Free to self-host
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════
+// STATE
+// ═══════════════════════════════
+let AKEY = localStorage.getItem('seo_akey') || '';
+let auditStore = {}; // holds all audit data for export
+
+// ═══════════════════════════════
+// KEY MODAL
+// ═══════════════════════════════
+function showModal() {
+  document.getElementById('keyInput').value = AKEY;
+  document.getElementById('keyErr').style.display = 'none';
+  document.getElementById('overlay').classList.remove('hidden');
+}
+function saveKey() {
+  const v = document.getElementById('keyInput').value.trim();
+  if (!v || !v.startsWith('sk-ant')) {
+    document.getElementById('keyErr').style.display = 'block';
+    return;
+  }
+  AKEY = v;
+  localStorage.setItem('seo_akey', v);
+  document.getElementById('overlay').classList.add('hidden');
+  updateKeyUI();
+}
+function skipKey() {
+  document.getElementById('overlay').classList.add('hidden');
+  updateKeyUI();
+}
+function updateKeyUI() {
+  const dot = document.getElementById('keyDot');
+  const txt = document.getElementById('keyTxt');
+  const warn = document.getElementById('warnBar');
+  if (AKEY) {
+    dot.className = 'key-dot on';
+    txt.textContent = 'API key ✓';
+    warn.classList.remove('show');
+  } else {
+    dot.className = 'key-dot';
+    txt.textContent = 'Add API key';
+    warn.classList.add('show');
+  }
+}
+window.addEventListener('load', () => {
+  if (!AKEY) document.getElementById('overlay').classList.remove('hidden');
+  else { document.getElementById('overlay').classList.add('hidden'); updateKeyUI(); }
+  document.getElementById('urlInput').addEventListener('keydown', e => { if (e.key === 'Enter') runAudit(); });
+});
+
+// ═══════════════════════════════
+// TABS
+// ═══════════════════════════════
+function showTab(name, btn) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('on'));
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('on'));
+  btn.classList.add('on');
+  document.getElementById('tab-' + name).classList.add('on');
+}
+
+// ═══════════════════════════════
+// PROGRESS
+// ═══════════════════════════════
+const STEPS = [
+  { id:'psi-m', label:'Fetching mobile PageSpeed data…' },
+  { id:'psi-d', label:'Fetching desktop PageSpeed data…' },
+  { id:'html',  label:'Fetching page HTML…' },
+  { id:'parse', label:'Parsing on-page signals…' },
+  { id:'kw',    label:'Analysing keywords…' },
+  { id:'ai',    label:'Running Claude AI audit…' },
+];
+function initProg(url) {
+  document.getElementById('progUrl').textContent = url;
+  document.getElementById('progFill').style.width = '0%';
+  document.getElementById('progNote').classList.remove('show');
+  document.getElementById('progWrap').classList.add('show');
+  document.getElementById('results').classList.remove('show');
+  document.getElementById('progSteps').innerHTML = STEPS.map(s =>
+    `<div class="pstep" id="ps-${s.id}"><div class="pstep-ico"></div>${s.label}</div>`).join('');
+}
+const STEP_PCT = { 'psi-m':15, 'psi-d':30, html:50, parse:65, kw:78, ai:92 };
+function step(id, status, note) {
+  const el = document.getElementById('ps-' + id);
+  if (el) { el.className = 'pstep ' + status; if (status === 'done') el.querySelector('.pstep-ico').textContent = '✓'; if (status === 'err') el.querySelector('.pstep-ico').textContent = '✕'; }
+  document.getElementById('progFill').style.width = (STEP_PCT[id] || 0) + '%';
+  if (note) { const n = document.getElementById('progNote'); n.textContent = note; n.classList.add('show'); }
+}
+
+// ═══════════════════════════════
+// SEV STYLE HELPER
+// ═══════════════════════════════
+function ss(sev) {
+  return {
+    critical:{ bar:'#f87171', bg:'rgba(248,113,113,.08)', c:'var(--red)',   tag:'rgba(248,113,113,.15)', tc:'var(--red)' },
+    warning: { bar:'#fbbf24', bg:'rgba(251,191,36,.08)',  c:'var(--amber)', tag:'rgba(251,191,36,.15)',  tc:'var(--amber)' },
+    good:    { bar:'#22c55e', bg:'rgba(34,197,94,.08)',   c:'var(--green)', tag:'rgba(34,197,94,.15)',   tc:'var(--green)' },
+    info:    { bar:'#3b82f6', bg:'rgba(59,130,246,.08)',  c:'var(--blue)',  tag:'rgba(59,130,246,.15)',  tc:'var(--blue)' },
+  }[sev] || { bar:'#6b7280', bg:'rgba(107,114,128,.08)', c:'var(--text3)', tag:'rgba(107,114,128,.15)', tc:'var(--text3)' };
+}
+function issueCard(d, id) {
+  const s = ss(d.sev);
+  const lbl = { critical:'Critical', warning:'Warning', good:'Passed', info:'Info' }[d.sev] || 'Info';
+  const details = d.items && d.items.length ? `<div class="detail-list">${d.items.slice(0,8).map(it =>
+    `<div class="detail-item"><div class="detail-url">${it.url||it.label||it}</div>${it.value ? `<div class="detail-val">${it.value}</div>` : ''}</div>`).join('')}</div>` : '';
+  return `<div class="issue" id="${id}">
+    <div class="issue-hd" onclick="this.closest('.issue').classList.toggle('open')">
+      <div class="issue-stripe" style="background:${s.bar}"></div>
+      <div class="issue-ico" style="background:${s.bg};color:${s.c}">${d.icon||'🔍'}</div>
+      <div class="issue-main">
+        <div class="issue-title">${d.title}</div>
+        <div class="issue-brief">${d.brief||''}</div>
+      </div>
+      <div class="issue-right">
+        <div class="sev-tag" style="background:${s.tag};color:${s.tc}">${lbl}</div>
+        ${d.fix ? '<div class="chev">▼</div>' : ''}
+      </div>
+    </div>
+    <div class="issue-body">
+      <div class="issue-desc">${d.desc}</div>
+      ${d.fix ? `<div class="fix-box"><div class="fix-title">✅ How to fix</div><div class="fix-text">${d.fix}</div></div>` : ''}
+      ${d.code ? `<div class="code-blk">${d.code}</div>` : ''}
+      ${details}
+    </div>
+  </div>`;
+}
+
+// ═══════════════════════════════
+// PAGESPEED API
+// ═══════════════════════════════
+async function psi(url, strategy) {
+  const cats = 'performance&category=accessibility&category=seo&category=best-practices';
+  const ep = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(url)}&strategy=${strategy}&category=${cats}`;
+  const r = await fetch(ep);
+  if (!r.ok) throw new Error('PSI ' + strategy + ' returned ' + r.status);
+  return r.json();
+}
+
+// ═══════════════════════════════
+// FETCH HTML
+// ═══════════════════════════════
+async function fetchHTML(url) {
+  const proxies = [
+    `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`,
+    `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`,
+  ];
+  for (const proxy of proxies) {
+    try {
+      const r = await fetch(proxy, { signal: AbortSignal.timeout(14000) });
+      if (!r.ok) continue;
+      const data = await r.json().catch(() => null) || await r.text().catch(() => null);
+      const html = typeof data === 'object' ? data.contents : data;
+      if (html && html.length > 200) return html;
+    } catch(e) { continue; }
+  }
+  // direct fetch last resort (usually fails due to CORS but worth trying)
+  try {
+    const r = await fetch(url, { signal: AbortSignal.timeout(8000), mode: 'no-cors' });
+    return null; // no-cors gives opaque response
+  } catch(e) {}
+  throw new Error('All HTML fetch methods failed');
+}
+
+// ═══════════════════════════════
+// PARSE HTML
+// ═══════════════════════════════
+function parseHTML(html, url) {
+  const p = new DOMParser();
+  const doc = p.parseFromString(html, 'text/html');
+  const qs = s => doc.querySelector(s);
+  const qsa = s => [...doc.querySelectorAll(s)];
+  const mc = s => qs(s)?.getAttribute('content') || '';
+
+  const title = doc.title || '';
+  const metaDesc = mc('meta[name="description"]') || mc('meta[property="og:description"]');
+  const canonical = qs('link[rel="canonical"]')?.href || '';
+  const robotsMeta = mc('meta[name="robots"]');
+  const viewport = mc('meta[name="viewport"]');
+  const lang = doc.documentElement?.getAttribute('lang') || '';
+  const charset = qs('meta[charset]')?.getAttribute('charset') || mc('meta[http-equiv="Content-Type"]');
+  const ogTitle = mc('meta[property="og:title"]');
+  const ogImage = mc('meta[property="og:image"]');
+  const ogDesc = mc('meta[property="og:description"]');
+  const twitterCard = mc('meta[name="twitter:card"]');
+
+  // Headings
+  const headings = qsa('h1,h2,h3,h4,h5,h6').map(h => ({ level: h.tagName, text: h.textContent.trim().replace(/\s+/g,' ').substring(0,120) }));
+
+  // Images
+  const images = qsa('img').map(img => ({
+    src: img.getAttribute('src') || '',
+    alt: img.getAttribute('alt'),
+    hasAlt: img.hasAttribute('alt'),
+    emptyAlt: img.hasAttribute('alt') && img.getAttribute('alt') === '',
+    loading: img.getAttribute('loading') || '',
+    width: img.getAttribute('width') || '',
+    height: img.getAttribute('height') || '',
+    decoding: img.getAttribute('decoding') || '',
+  }));
+
+  // Links
+  let baseHost = '';
+  try { baseHost = new URL(url).hostname; } catch(e) {}
+  const intLinks = [], extLinks = [];
+  qsa('a[href]').forEach(a => {
+    const href = a.href;
+    if (!href || /^(mailto:|tel:|javascript:|#)/.test(href)) return;
+    const text = a.textContent.trim().replace(/\s+/g,' ').substring(0,80);
+    try {
+      const h = new URL(href);
+      if (h.hostname === baseHost) intLinks.push({ href, text });
+      else extLinks.push({ href, text, host: h.hostname });
+    } catch(e) { intLinks.push({ href, text }); }
+  });
+
+  // Schema
+  const schemas = [];
+  qsa('script[type="application/ld+json"]').forEach(s => {
+    try {
+      const obj = JSON.parse(s.textContent);
+      const arr = Array.isArray(obj) ? obj : [obj];
+      arr.forEach(o => { if (o['@type']) [].concat(o['@type']).forEach(t => schemas.push(t)); });
+    } catch(e) {}
+  });
+
+  // Body text for keyword analysis
+  const bodyEl = doc.body;
+  // Remove nav, footer, script, style from text
+  qsa('nav,footer,script,style,noscript').forEach(el => el.remove && el.remove());
+  const bodyText = (doc.body?.textContent || '').replace(/\s+/g,' ').trim();
+  const wordCount = bodyText.split(/\s+/).filter(w => w.length > 1).length;
+
+  return { title, metaDesc, canonical, robotsMeta, viewport, lang, charset, ogTitle, ogImage, ogDesc, twitterCard, headings, images, intLinks, extLinks, schemas, bodyText: bodyText.substring(0,12000), wordCount };
+}
+
+// ═══════════════════════════════
+// KEYWORD ANALYSIS
+// ═══════════════════════════════
+const STOPWORDS = new Set(['the','and','for','are','but','not','you','all','any','can','had','her','was','one','our','out','day','get','has','him','his','how','its','who','did','yes','two','way','she','use','may','that','this','with','they','will','from','than','then','them','been','have','more','also','into','just','like','over','such','what','when','your','some','into','their','there','would','about','which','these','those','only','very','even','most','each','much','been','make','take','come','know','good','many','here','want','well','also','back','give','most','same','tell','very','little','after','before','other','first','where','while','since','could','still','under','never','think','right','being','between','without','however','another','because','through','during','should','should','around','different','might','people','place','place','really','something','usually','always','often','every','within','across','whether','though','anything','everything','nothing','both','either','neither','whether','against','along','among','toward','towards','until','upon','within','without','despite','unless','beside','besides','between','beyond','during','except','inside','outside','above','below','before','behind','below','beside','between','near','next','past','under']);
+
+function analyseKeywords(parsed) {
+  const { title, metaDesc, headings, bodyText } = parsed;
+  const h1Text = headings.filter(h=>h.level==='H1').map(h=>h.text.toLowerCase()).join(' ');
+  const titleL = title.toLowerCase();
+  const descL = (metaDesc||'').toLowerCase();
+
+  // Extract 1-grams and 2-grams
+  const words = bodyText.toLowerCase().replace(/[^a-z0-9\s'-]/g,' ').split(/\s+/).filter(w => w.length > 2 && !STOPWORDS.has(w));
+  const freq = {};
+  words.forEach(w => { freq[w] = (freq[w]||0) + 1; });
+
+  // 2-grams
+  for (let i = 0; i < words.length - 1; i++) {
+    const bg = words[i] + ' ' + words[i+1];
+    if (!STOPWORDS.has(words[i]) && !STOPWORDS.has(words[i+1]) && words[i].length>2 && words[i+1].length>2) {
+      freq[bg] = (freq[bg]||0) + 1;
+    }
+  }
+
+  const total = words.length || 1;
+  const sorted = Object.entries(freq)
+    .filter(([w,c]) => c >= 2)
+    .sort((a,b) => b[1]-a[1])
+    .slice(0,25)
+    .map(([kw,count]) => ({
+      kw,
+      count,
+      density: ((count/total)*100).toFixed(1),
+      inTitle: titleL.includes(kw),
+      inH1: h1Text.includes(kw),
+      inDesc: descL.includes(kw),
+    }));
+
+  return sorted;
+}
+
+// ═══════════════════════════════
+// RENDER SCORES
+// ═══════════════════════════════
+function scoreColor(n) { return n>=90?'var(--green)':n>=50?'var(--amber)':'var(--red)'; }
+function scoreLabel(n) { return n>=90?'Good':n>=50?'Needs Work':'Poor'; }
+
+function renderScores(mob, desk) {
+  const cats = ['performance','seo','accessibility','best-practices'];
+  const catLabel = { performance:'Performance', seo:'SEO', accessibility:'Accessibility', 'best-practices':'Best Practices' };
+  const catIcon = { performance:'⚡', seo:'🔍', accessibility:'♿', 'best-practices':'✅' };
+  let html = '';
+  cats.forEach(c => {
+    const ms = Math.round((mob?.categories?.[c]?.score||0)*100);
+    const ds = Math.round((desk?.categories?.[c]?.score||0)*100);
+    const avgS = desk ? Math.round((ms+ds)/2) : ms;
+    const col = scoreColor(avgS);
+    html += `<div class="score-card" style="--tc:${col}">
+      <div class="sc-bar" style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--border)"><div class="sc-bar-f" style="width:${avgS}%;background:${col}"></div></div>
+      <div class="sc-label">${catIcon[c]} ${catLabel[c]}</div>
+      <div class="sc-num" style="color:${col}">${avgS}</div>
+      <div class="sc-verdict" style="color:${col}">${scoreLabel(avgS)}</div>
+      ${desk ? `<div style="display:flex;gap:10px;margin-top:8px">
+        <div style="font-size:11px;color:var(--text3)">📱 <span style="color:${scoreColor(ms)};font-weight:700">${ms}</span></div>
+        <div style="font-size:11px;color:var(--text3)">🖥 <span style="color:${scoreColor(ds)};font-weight:700">${ds}</span></div>
+      </div>` : ''}
+    </div>`;
+  });
+  document.getElementById('scoreGrid').innerHTML = html;
+}
+
+// ═══════════════════════════════
+// RENDER CWV
+// ═══════════════════════════════
+function renderCWV(mob) {
+  const a = mob?.lighthouseResult?.audits || {};
+  function cwvCard(key, name, target, unit) {
+    const aud = a[key];
+    if (!aud) return `<div class="cwv-card"><div class="cwv-name">${name}</div><div class="cwv-val" style="color:var(--text3)">—</div><div class="cwv-desc">No data</div></div>`;
+    const v = aud.displayValue || '—';
+    const sc = aud.score;
+    const c = sc>=.9?'var(--green)':sc>=.5?'var(--amber)':'var(--red)';
+    const lbl = sc>=.9?'Good':sc>=.5?'Needs Work':'Poor';
+    const lbg = sc>=.9?'rgba(34,197,94,.1)':sc>=.5?'rgba(251,191,36,.1)':'rgba(248,113,113,.1)';
+    return `<div class="cwv-card">
+      <div class="cwv-name">${name}</div>
+      <div class="cwv-val" style="color:${c}">${v}</div>
+      <div class="cwv-desc">Target: ${target}</div>
+      <div class="cwv-pill" style="background:${lbg};color:${c}">${lbl}</div>
+    </div>`;
+  }
+  document.getElementById('cwvRow').innerHTML = [
+    cwvCard('largest-contentful-paint','LCP','< 2.5s'),
+    cwvCard('cumulative-layout-shift','CLS','< 0.1'),
+    cwvCard('total-blocking-time','TBT','< 200ms'),
+    cwvCard('first-contentful-paint','FCP','< 1.8s'),
+    cwvCard('speed-index','Speed Index','< 3.4s'),
+    cwvCard('interactive','TTI','< 3.8s'),
+  ].join('');
+}
+
+// ═══════════════════════════════
+// RENDER TECHNICAL (full PSI audits)
+// ═══════════════════════════════
+function renderTechnical(mob, desk, parsed) {
+  const a = mob?.lighthouseResult?.audits || {};
+  const issues = [];
+
+  function psiIssue(key, title, icon, fix, code) {
+    const aud = a[key];
+    if (!aud || aud.score === null) return;
+    const sc = aud.score;
+    const sev = sc >= .9 ? 'good' : sc >= .5 ? 'warning' : 'critical';
+    const brief = aud.displayValue || (sev==='good'?'Passed':'Needs attention');
+    const items = aud.details?.items?.slice(0,8).map(it => ({
+      url: it.url || it.label || (it.node?.snippet?.substring(0,60)) || it.source || '',
+      value: it.wastedBytes ? Math.round(it.wastedBytes/1024)+'KB saved' : it.duration ? it.duration+'ms' : it.wastedMs ? it.wastedMs+'ms' : ''
+    })).filter(it => it.url) || [];
+    issues.push({ sev, icon, title, brief, desc: aud.description || '', fix: sev !== 'good' ? fix : null, code: sev !== 'good' ? code : null, items });
+  }
+
+  // Core performance
+  psiIssue('render-blocking-resources','Render-Blocking Resources','⛔',
+    'Add defer or async to non-critical scripts. Inline critical CSS in <head>. Use font-display:swap.',
+    '<!-- Defer non-critical JS -->\n<script src="app.js" defer><\/script>\n<script src="analytics.js" async><\/script>');
+  psiIssue('unused-javascript','Unused JavaScript','📦',
+    'Use code splitting and lazy loading. Remove dead code. Check Chrome DevTools Coverage tab.');
+  psiIssue('unused-css-rules','Unused CSS','🎨',
+    'Use PurgeCSS or built-in tree shaking. Only import CSS components you use. Consider critical CSS inlining.');
+  psiIssue('uses-text-compression','Text Compression (GZIP/Brotli)','📡',
+    'Enable Brotli or GZIP on your server. Nginx: gzip on; Apache: AddOutputFilterByType DEFLATE. Most CDNs enable this automatically.');
+  psiIssue('uses-webp-images','Modern Image Formats (WebP/AVIF)','🔄',
+    'Convert images to WebP using Squoosh.app (free). Use <picture> element with <source type="image/webp"> and JPEG fallback.',
+    '<picture>\n  <source srcset="img.webp" type="image/webp">\n  <img src="img.jpg" alt="…">\n</picture>');
+  psiIssue('uses-responsive-images','Responsive Images (srcset)','📐',
+    'Use srcset and sizes to serve appropriately sized images per screen. Avoid serving 2000px images displayed at 400px.');
+  psiIssue('efficient-animated-content','Animated Content (use video instead)','🎞',
+    'Replace animated GIFs with HTML5 video elements. Videos are 80-90% smaller.');
+  psiIssue('offscreen-images','Lazy Load Offscreen Images','🖼',
+    'Add loading="lazy" to images below the fold. This defers their loading until the user scrolls near them.',
+    '<img src="photo.jpg" loading="lazy" alt="…">');
+  psiIssue('uses-optimized-images','Image Optimization','🗜',
+    'Compress images without visible quality loss using Squoosh, TinyPNG, or ImageOptim before uploading.');
+  psiIssue('uses-long-cache-ttl','Cache Policy','⏱',
+    'Set long cache-control headers for static assets. Aim for 1 year for versioned files.');
+  psiIssue('total-byte-weight','Total Page Weight','⚖',
+    'Reduce overall page size. Aim for under 1MB. Compress images, minify JS/CSS, remove unused resources.');
+  psiIssue('dom-size','DOM Size','🌳',
+    'Reduce DOM size to under 1,500 elements. Large DOMs slow layout, style recalculations, and memory use.');
+  psiIssue('mainthread-work-breakdown','Main Thread Work','⚙',
+    'Reduce JavaScript execution time. Use web workers for heavy computation. Defer non-critical scripts.');
+  psiIssue('bootup-time','JavaScript Execution Time','⚡',
+    'Minify and compress JavaScript. Defer or remove unused scripts. Use code splitting.');
+  psiIssue('server-response-time','Server Response Time (TTFB)','🌐',
+    'Improve TTFB with server caching, a CDN, or faster hosting. Target under 600ms. Check Time to First Byte in DevTools.');
+  psiIssue('redirects','Avoid Excessive Redirects','↪',
+    'Minimize redirect chains. Update internal links to point directly to final URLs. Each redirect adds ~100-300ms.');
+  psiIssue('uses-rel-preconnect','Preconnect to Origins','🔌',
+    'Add <link rel="preconnect"> for critical third-party origins (fonts, analytics, CDNs) to save DNS/TCP time.',
+    '<link rel="preconnect" href="https://fonts.googleapis.com">\n<link rel="preconnect" href="https://cdn.yoursite.com" crossorigin>');
+  psiIssue('third-party-summary','Third-Party Scripts','🔌',
+    'Audit third-party scripts. Each adds network latency and main thread work. Remove analytics/chat widgets you don\'t need.');
+  psiIssue('is-on-https','HTTPS','🔒',
+    'Install an SSL certificate (free via Let\'s Encrypt). Redirect all HTTP traffic to HTTPS.');
+  psiIssue('font-display','Font Loading (font-display)','🔤',
+    'Add font-display:swap or optional to your @font-face rules to prevent invisible text during font load.',
+    '@font-face {\n  font-family: "MyFont";\n  src: url("font.woff2");\n  font-display: swap;\n}');
+  psiIssue('uses-passive-event-listeners','Passive Event Listeners','👂',
+    'Add {passive:true} to scroll and touch event listeners to improve scroll performance.');
+  psiIssue('no-document-write','document.write()','⛔',
+    'Remove all document.write() calls. They block HTML parsing and are disallowed in strict Content Security Policies.');
+  psiIssue('link-text','Descriptive Link Text','🔗',
+    'Replace generic link text ("click here","read more") with descriptive text that explains the destination.');
+  psiIssue('image-alt','Image Alt Text (PSI check)','🖼',
+    'Add descriptive alt text to every meaningful image for accessibility and Google Image Search indexing.');
+  psiIssue('meta-description','Meta Description (PSI check)','📝',
+    'Add a unique 150-160 character meta description with your primary keyword and a clear call to action.',
+    '<meta name="description" content="Your compelling 150-160 char description here.">');
+  psiIssue('document-title','Page Title (PSI check)','📋',
+    'Add a unique, descriptive title tag of 50-60 characters with your primary keyword near the start.',
+    '<title>Primary Keyword – Brand Name</title>');
+  psiIssue('hreflang','hreflang','🌍',
+    'Add hreflang tags if you serve content in multiple languages or for different regions.');
+  psiIssue('canonical','Canonical URLs (PSI check)','🔀',
+    'Add a self-referencing canonical tag to every page to prevent duplicate content issues.',
+    '<link rel="canonical" href="https://yoursite.com/page/">');
+
+  // HTML-based checks (only if parsed available)
+  if (parsed) {
+    if (parsed.robotsMeta && parsed.robotsMeta.includes('noindex')) {
+      issues.push({ sev:'critical', icon:'🤖', title:'Page Blocked from Google Index', brief:`robots meta: "${parsed.robotsMeta}"`, desc:`Your page has a <meta name="robots" content="${parsed.robotsMeta}"> tag telling Google NOT to index this page. Unless intentional, this is a critical SEO error.`, fix:'Remove the noindex directive or change it to "index,follow" to allow indexing.' });
+    }
+    if (!parsed.canonical) {
+      issues.push({ sev:'warning', icon:'🔀', title:'Missing Canonical Tag', brief:'No <link rel="canonical"> found', desc:'Without a canonical tag, Google may index multiple URL variations of this page separately, splitting your link equity across http/https, www/non-www, and query string variants.', fix:'Add a self-referencing canonical tag in your <head> section.',
+        code:'<link rel="canonical" href="https://yoursite.com/this-exact-url/">' });
+    } else {
+      issues.push({ sev:'good', icon:'🔀', title:'Canonical Tag Found', brief:parsed.canonical.substring(0,80), desc:'Canonical tag is present and pointing to: ' + parsed.canonical });
+    }
+    if (!parsed.lang) {
+      issues.push({ sev:'warning', icon:'🌍', title:'Missing HTML lang Attribute', brief:'<html> has no lang attribute', desc:'The lang attribute helps Google serve your page to the right audiences and is essential for screen readers. Simple one-line fix.', fix:'Add lang="en" (or your language code) to your opening <html> tag.',
+        code:'<html lang="en">' });
+    }
+    if (!parsed.viewport) {
+      issues.push({ sev:'critical', icon:'📱', title:'Missing Viewport Meta Tag', brief:'Mobile rendering will be broken', desc:'Without the viewport meta tag, mobile browsers will render your page at desktop width and scale it down, breaking the user experience and mobile-first indexing.', fix:'Add the viewport meta tag to your <head>.',
+        code:'<meta name="viewport" content="width=device-width, initial-scale=1">' });
+    }
+    if (!parsed.charset) {
+      issues.push({ sev:'warning', icon:'🔤', title:'No Character Encoding Declared', brief:'Missing charset meta tag', desc:'Without a declared charset, browsers may mis-render special characters. This can also cause issues with SEO and internationalization.', fix:'Add charset meta tag as the first element in <head>.',
+        code:'<meta charset="UTF-8">' });
+    }
+  }
+
+  if (issues.length === 0) {
+    issues.push({ sev:'good', icon:'✅', title:'No Major Technical Issues', brief:'All checked audits passed', desc:'No significant technical SEO issues detected from Google PageSpeed Insights.' });
+  }
+
+  document.getElementById('techIssues').innerHTML = issues.map((d,i) => issueCard(d,'tech-'+i)).join('');
+}
+
+// ═══════════════════════════════
+// RENDER ON-PAGE
+// ═══════════════════════════════
+function renderOnPage(parsed) {
+  if (!parsed) {
+    document.getElementById('opGrid').innerHTML = '<p style="color:var(--text3);font-size:13px;grid-column:1/-1">HTML unavailable — site blocked the CORS fetch.</p>';
+    return;
+  }
+
+  const { title, metaDesc, headings, wordCount, viewport, ogTitle, ogImage, ogDesc, twitterCard, canonical, lang } = parsed;
+  const h1s = headings.filter(h => h.level === 'H1');
+  const tlen = title.length;
+  const dlen = (metaDesc||'').length;
+
+  function badge(ok, okLabel, badLabel, badColor) {
+    const c = ok ? 'rgba(34,197,94,.15)' : (badColor||'rgba(248,113,113,.15)');
+    const tc = ok ? 'var(--green)' : (badColor ? (badColor.includes('251')?'var(--amber)':'var(--red)') : 'var(--red)');
+    return `<div class="op-badge" style="background:${c};color:${tc}">${ok?okLabel:badLabel}</div>`;
+  }
+
+  const cards = [
+    { label:'Page Title', val: title||'Missing', miss:!title,
+      meta: title ? `${tlen} chars — ${tlen<50?'⚠ short (aim 50-60)':tlen>60?'⚠ long (>60 truncated)':'✓ good length'}` : '',
+      badge: !title ? badge(false,'','✗ Missing') : tlen>=50&&tlen<=60 ? badge(true,'✓ Good','') : badge(false,'','⚠ Length issue','rgba(251,191,36,.15)') },
+    { label:'Meta Description', val: metaDesc||'Missing', miss:!metaDesc,
+      meta: metaDesc ? `${dlen} chars — ${dlen<100?'⚠ short (aim 150-160)':dlen>160?'⚠ too long':' ✓ good length'}` : '',
+      badge: !metaDesc ? badge(false,'','✗ Missing') : dlen>=100&&dlen<=160 ? badge(true,'✓ Good','') : badge(false,'','⚠ Length issue','rgba(251,191,36,.15)') },
+    { label:'H1 Tag', val: h1s.length ? h1s[0].text : 'Missing', miss:!h1s.length,
+      meta: h1s.length > 1 ? `⚠ ${h1s.length} H1 tags found (should be 1)` : h1s.length===1 ? '✓ Exactly one H1' : '',
+      badge: h1s.length===1 ? badge(true,'✓ One H1','') : badge(false,'','✗ '+(h1s.length===0?'Missing':h1s.length+' H1s')) },
+    { label:'Word Count', val: wordCount + ' words',
+      meta: wordCount < 300 ? '⚠ Thin — aim for 300+ words' : wordCount > 1000 ? '✓ Excellent depth' : '✓ Good depth',
+      badge: wordCount >= 300 ? badge(true,'✓ Good','') : badge(false,'','⚠ Thin','rgba(251,191,36,.15)') },
+    { label:'OG Title', val: ogTitle||'Missing', miss:!ogTitle,
+      meta:'Social media headline', badge: badge(!!ogTitle,'✓ Set','✗ Missing') },
+    { label:'OG Image', val: ogImage ? '✓ Set' : 'Missing', miss:!ogImage,
+      meta: ogImage ? ogImage.split('/').pop()?.substring(0,50) : 'No social sharing image',
+      badge: badge(!!ogImage,'✓ Set','✗ Missing') },
+    { label:'Twitter Card', val: twitterCard||'Missing', miss:!twitterCard,
+      meta:'For Twitter/X sharing preview', badge: badge(!!twitterCard,'✓ Set','✗ Missing') },
+    { label:'Lang Attribute', val: lang||'Missing', miss:!lang,
+      meta:'Helps Google serve right audience', badge: badge(!!lang,'✓ Set','✗ Missing') },
+  ];
+
+  document.getElementById('opGrid').innerHTML = cards.map(c => `<div class="op-card">
+    <div class="op-lbl">${c.label}</div>
+    <div class="op-val${c.miss?' op-miss':''}">${c.val}</div>
+    ${c.meta ? `<div class="op-meta">${c.meta}</div>` : ''}
+    ${c.badge}
+  </div>`).join('');
+
+  // Heading tree
+  if (headings.length) {
+    document.getElementById('htreeWrap').innerHTML = `<div style="font-size:12px;font-weight:600;color:var(--text2);margin-bottom:8px">Heading Structure</div>
+    <div class="htree">${headings.slice(0,20).map(h => {
+      const indent = {'H1':0,'H2':16,'H3':32,'H4':48,'H5':64,'H6':80}[h.level]||0;
+      const colors = {'H1':'rgba(59,130,246,.2)','H2':'rgba(167,139,250,.2)','H3':'rgba(45,212,191,.2)','H4':'rgba(251,191,36,.2)'}[h.level]||'rgba(107,114,128,.2)';
+      const tc = {'H1':'var(--blue)','H2':'var(--purple)','H3':'var(--teal)','H4':'var(--amber)'}[h.level]||'var(--text3)';
+      return `<div class="ht-row" style="padding-left:${indent}px"><span class="ht-tag" style="background:${colors};color:${tc}">${h.level}</span><span>${h.text||'(empty)'}</span></div>`;
+    }).join('')}${headings.length>20?`<div style="font-size:11px;color:var(--text3);padding:4px 0">…+${headings.length-20} more</div>`:''}</div>`;
+  }
+
+  // On-page issues
+  const issues = [];
+  if (!title) issues.push({ sev:'critical',icon:'📋',title:'Missing Page Title',brief:'No <title> tag found',desc:'Your page has no title tag — one of the single most important on-page SEO elements. Google uses it as the primary text in search results.',fix:'Add a unique <title> tag with your primary keyword in 50-60 characters.',code:'<title>Primary Keyword – Your Brand Name</title>' });
+  else if (tlen > 60) issues.push({ sev:'warning',icon:'📋',title:'Title Too Long',brief:`${tlen} chars — truncated in SERPs`,desc:`Your title is ${tlen} characters. Google truncates titles over ~60 characters. The end of your title — potentially your brand name or CTA — gets cut off.`,fix:`Shorten to 50-60 characters: "${title.substring(0,57)}…"` });
+  else if (tlen < 30) issues.push({ sev:'warning',icon:'📋',title:'Title Too Short',brief:`Only ${tlen} chars — missing keyword opportunity`,desc:'A very short title misses opportunities to include your primary keyword, location, and brand name. Aim for 50-60 characters.',fix:'Expand your title to 50-60 characters including your primary keyword, value prop, and brand.' });
+  else issues.push({ sev:'good',icon:'📋',title:'Page Title Looks Good',brief:`"${title.substring(0,60)}" — ${tlen} chars`,desc:'Your title tag is within the optimal length range.' });
+
+  if (!metaDesc) issues.push({ sev:'critical',icon:'📝',title:'Missing Meta Description',brief:'Google will generate its own — often poorly',desc:'No meta description found. Google auto-generates snippets from random page content. Custom descriptions improve CTR by 5-15% — that\'s free traffic.',fix:'Add a unique 150-160 char meta description with your primary keyword and a clear call to action.',code:'<meta name="description" content="Your compelling 150-160 char description with keyword and CTA.">' });
+  else if (dlen > 160) issues.push({ sev:'warning',icon:'📝',title:'Meta Description Too Long',brief:`${dlen} chars — will be truncated`,desc:`Your meta description is ${dlen} characters. Google truncates at ~160 characters, cutting off your call to action.`,fix:'Shorten to 150-160 chars. Lead with the most important information.' });
+
+  if (h1s.length === 0) issues.push({ sev:'critical',icon:'H1',title:'Missing H1 Tag',brief:'No H1 — primary topical signal absent',desc:'Your page has no H1 heading. The H1 is the strongest topical signal on a page, telling Google exactly what topic this page covers.',fix:'Add one H1 tag at the top of your content, containing your primary keyword naturally.',code:'<h1>Your Primary Keyword Here</h1>' });
+  else if (h1s.length > 1) issues.push({ sev:'warning',icon:'H1',title:`Multiple H1 Tags (${h1s.length})`,brief:'Use only one H1 per page',desc:`Your page has ${h1s.length} H1 tags: "${h1s.map(h=>h.text).join('", "')}". Multiple H1s dilute the topical signal.`,fix:'Keep the most important one as H1, convert the others to H2.' });
+
+  if (wordCount < 300) issues.push({ sev:'warning',icon:'📄',title:'Thin Content',brief:`~${wordCount} words — potential quality signal issue`,desc:`Your page has approximately ${wordCount} words. Google's Helpful Content system can classify thin pages as low quality, dragging down your whole domain.`,fix:'Add genuinely helpful content. For competitive keywords, aim for 800+ words of high-quality, unique content.' });
+
+  document.getElementById('opIssues').innerHTML = issues.map((d,i)=>issueCard(d,'op-'+i)).join('');
+}
+
+// ═══════════════════════════════
+// RENDER KEYWORDS
+// ═══════════════════════════════
+function renderKeywords(kws, parsed) {
+  if (!kws || kws.length === 0) {
+    document.getElementById('kwBody').innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--text3);padding:20px">No keyword data available</td></tr>';
+    return;
+  }
+  document.getElementById('kwBody').innerHTML = kws.map(k => {
+    const den = parseFloat(k.density);
+    const denC = den > 3 ? 'var(--red)' : den > 2 ? 'var(--amber)' : den > 0.5 ? 'var(--green)' : 'var(--text3)';
+    const denNote = den > 3 ? '⚠ High' : den > 2 ? 'OK' : den > 0.5 ? 'Good' : 'Low';
+    function ynBadge(yes) {
+      return yes
+        ? `<span style="color:var(--green);font-weight:700;font-size:11px">✓</span>`
+        : `<span style="color:var(--text3);font-size:11px">—</span>`;
+    }
+    return `<tr>
+      <td>${k.kw}</td>
+      <td style="font-family:var(--mono)">${k.count}×</td>
+      <td><div class="den-wrap"><div class="den-track"><div class="den-fill" style="width:${Math.min(den/4*100,100)}%;background:${denC}"></div></div><span style="color:${denC};font-weight:600;font-size:11.5px">${k.density}%</span></div></td>
+      <td style="text-align:center">${ynBadge(k.inTitle)}</td>
+      <td style="text-align:center">${ynBadge(k.inH1)}</td>
+      <td style="text-align:center">${ynBadge(k.inDesc)}</td>
+    </tr>`;
+  }).join('');
+
+  // Keyword issues
+  const topKws = kws.slice(0,5);
+  const inTitle = topKws.filter(k => k.inTitle).length;
+  const inDesc = topKws.filter(k => k.inDesc).length;
+  const issues = [];
+  if (inTitle === 0 && topKws.length > 0) {
+    issues.push({ sev:'warning', icon:'🔑', title:'Top Keywords Not in Title Tag', brief:`"${topKws[0]?.kw}" appears ${topKws[0]?.count}× on page but not in title`, desc:`Your most frequently used keyword "${topKws[0]?.kw}" doesn't appear in your title tag. Title tags are the highest-weight on-page signal — this is a missed opportunity.`, fix:`Include "${topKws[0]?.kw}" naturally near the start of your title tag.` });
+  }
+  if (inDesc === 0 && topKws.length > 0) {
+    issues.push({ sev:'info', icon:'🔑', title:'Top Keywords Missing from Meta Description', brief:'Include keywords in description for SERP relevance', desc:`None of your top 5 keywords appear in your meta description. While not a direct ranking factor, matching keywords appear bolded in search results, improving visibility and CTR.`, fix:'Work your primary keyword naturally into your meta description.' });
+  }
+  const highDensity = kws.filter(k => parseFloat(k.density) > 3.5);
+  if (highDensity.length > 0) {
+    issues.push({ sev:'warning', icon:'⚠', title:'Keyword Density Too High', brief:`"${highDensity[0].kw}" at ${highDensity[0].density}% density — potential stuffing signal`, desc:`"${highDensity[0].kw}" appears at ${highDensity[0].density}% density. Keyword densities above 3-4% can trigger spam filters. Write for humans first.`, fix:'Reduce frequency of this term. Use synonyms and related terms instead for natural language.' });
+  }
+  document.getElementById('kwIssues').innerHTML = issues.map((d,i)=>issueCard(d,'kw-'+i)).join('');
+}
+
+// ═══════════════════════════════
+// RENDER IMAGES
+// ═══════════════════════════════
+function renderImages(parsed) {
+  if (!parsed) { document.getElementById('imgContent').innerHTML = '<div class="empty"><div class="empty-ico">🖼</div><p>Image data unavailable.</p></div>'; return; }
+  const imgs = parsed.images;
+  const noAlt = imgs.filter(i => !i.hasAlt);
+  const emptyAlt = imgs.filter(i => i.hasAlt && i.emptyAlt);
+  const noLazy = imgs.filter(i => !i.loading);
+  const noSize = imgs.filter(i => !i.width || !i.height);
+
+  let html = `<div class="link-stats" style="margin-bottom:14px">
+    <div class="ls-card"><div class="ls-val">${imgs.length}</div><div class="ls-lbl">Total Images</div></div>
+    <div class="ls-card"><div class="ls-val" style="color:${noAlt.length?'var(--red)':'var(--green)'}">${noAlt.length}</div><div class="ls-lbl">Missing Alt Text</div></div>
+    <div class="ls-card"><div class="ls-val" style="color:${noSize.length?'var(--amber)':'var(--green)'}">${noSize.length}</div><div class="ls-lbl">No Width/Height</div></div>
+  </div>`;
+
+  if (imgs.length > 0) {
+    html += `<div class="img-wrap"><table class="imt"><thead><tr><th>Image</th><th>Alt Text</th><th>Loading</th><th>Dimensions</th><th>Decoding</th></tr></thead><tbody>`;
+    html += imgs.slice(0,25).map(img => {
+      const altCell = !img.hasAlt ? `<span style="color:var(--red);font-weight:700">✗ Missing</span>` : img.emptyAlt ? `<span style="color:var(--amber);font-weight:700">⚠ Empty</span>` : `<span style="color:var(--green)">${img.alt.substring(0,35)}${img.alt.length>35?'…':''}</span>`;
+      const loadCell = img.loading === 'lazy' ? `<span style="color:var(--green)">lazy ✓</span>` : img.loading ? `<span style="color:var(--amber)">${img.loading}</span>` : `<span style="color:var(--text3)">—</span>`;
+      const dimCell = (img.width && img.height) ? `<span style="color:var(--green)">${img.width}×${img.height}</span>` : `<span style="color:var(--amber)">—</span>`;
+      const decCell = img.decoding === 'async' ? `<span style="color:var(--green)">async ✓</span>` : `<span style="color:var(--text3)">${img.decoding||'—'}</span>`;
+      const name = img.src.split('/').pop()?.substring(0,30) || img.src.substring(0,30);
+      return `<tr><td title="${img.src}">${name}</td><td>${altCell}</td><td>${loadCell}</td><td>${dimCell}</td><td>${decCell}</td></tr>`;
+    }).join('');
+    if (imgs.length > 25) html += `<tr><td colspan="5" style="text-align:center;color:var(--text3);font-style:italic;padding:10px">…and ${imgs.length-25} more images</td></tr>`;
+    html += '</tbody></table></div>';
+  }
+
+  // Issues
+  const issues = [];
+  if (noAlt.length > 0) issues.push({ sev:'critical',icon:'🖼',title:`${noAlt.length} Images Missing Alt Text`,brief:'Invisible to Google Image Search + accessibility violation',desc:`${noAlt.length} image(s) have no alt attribute. Google cannot understand what these images show. They won't appear in Google Image Search and screen readers can't describe them.`,fix:'Add descriptive alt text to all meaningful images. Use alt="" for purely decorative images.',code:'<img src="team.jpg" alt="Your team description here">' });
+  if (noLazy.length > 5) issues.push({ sev:'warning',icon:'⚡',title:`${noLazy.length} Images Without Lazy Loading`,brief:'Add loading="lazy" to below-fold images',desc:`${noLazy.length} images don't use lazy loading. Images below the fold should load only when the user scrolls near them, reducing initial page load time.`,fix:'Add loading="lazy" to images below the fold. Your LCP/hero image should use loading="eager".',code:'<img src="photo.jpg" loading="lazy" alt="…">' });
+  if (noSize.length > 0) issues.push({ sev:'warning',icon:'📐',title:`${noSize.length} Images Without Width/Height`,brief:'Causes layout shift (hurts CLS score)',desc:`${noSize.length} images have no explicit width and height attributes. Without these, the browser doesn't reserve space for the image, causing layout shift (CLS) as the image loads.`,fix:'Add explicit width and height attributes matching the image\'s intrinsic size.',code:'<img src="photo.jpg" width="800" height="600" alt="…">' });
+  if (issues.length > 0) html += `<div style="margin-top:14px"><div class="issue-list">${issues.map((d,i)=>issueCard(d,'img-'+i)).join('')}</div></div>`;
+
+  document.getElementById('imgContent').innerHTML = html;
+}
+
+// ═══════════════════════════════
+// RENDER LINKS
+// ═══════════════════════════════
+function renderLinks(parsed) {
+  if (!parsed) { document.getElementById('linkStats').innerHTML = ''; document.getElementById('extLinksWrap').innerHTML = '<div class="empty"><p>Link data unavailable.</p></div>'; return; }
+  const { intLinks, extLinks } = parsed;
+  const genericAnchors = [...intLinks,...extLinks].filter(l => /^(click here|read more|learn more|here|more|this|link|page)$/i.test(l.text.trim()));
+
+  document.getElementById('linkStats').innerHTML = [
+    { val:intLinks.length, label:'Internal Links', c:'var(--blue)' },
+    { val:extLinks.length, label:'External Links', c:'var(--purple)' },
+    { val:genericAnchors.length, label:'Generic Anchors', c:genericAnchors.length?'var(--red)':'var(--green)' },
+  ].map(s=>`<div class="ls-card"><div class="ls-val" style="color:${s.c}">${s.val}</div><div class="ls-lbl">${s.label}</div></div>`).join('');
+
+  const issues = [];
+  if (genericAnchors.length > 0) {
+    issues.push({ sev:'warning',icon:'🔗',title:genericAnchors.length + ' Generic Anchor Texts',brief:'"click here", "read more", "learn more" — zero SEO value',desc:'Links with generic anchor text pass no topical relevance signal to the destination page. Each is a missed keyword opportunity.',fix:'Replace generic anchors with descriptive text that explains the destination. E.g., "web design pricing" instead of "click here".' });
+  }
+  if (intLinks.length < 3) {
+    issues.push({ sev:'warning',icon:'🗺',title:'Very Few Internal Links',brief:`Only ${intLinks.length} internal link(s) found on this page`,desc:'Internal links help distribute PageRank through your site and guide Google\'s crawlers to important pages. A page with very few internal links is a dead end for both users and crawlers.',fix:'Add 3-5 relevant internal links to other important pages on your site using descriptive anchor text.' });
+  }
+  document.getElementById('linkIssues').innerHTML = issues.map((d,i)=>issueCard(d,'lk-'+i)).join('');
+
+  if (extLinks.length > 0) {
+    let html = `<div style="margin-top:14px;font-size:12px;font-weight:600;color:var(--text2);margin-bottom:8px">External Links (${Math.min(extLinks.length,12)} shown)</div>`;
+    html += `<div style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);overflow:hidden">`;
+    extLinks.slice(0,12).forEach((l,i) => {
+      html += `<div style="padding:9px 16px;border-bottom:${i<11?'1px solid var(--border2)':'none'};display:flex;gap:10px;align-items:center;font-size:12px">`;
+      html += `<a href="${l.href}" target="_blank" rel="noopener" style="color:var(--blue);font-family:var(--mono);font-size:11px;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${l.host||l.href.substring(0,50)}</a>`;
+      html += `<span style="color:var(--text3);flex-shrink:0">${l.text||'(no text)'}</span></div>`;
+    });
+    html += '</div>';
+    document.getElementById('extLinksWrap').innerHTML = html;
+  }
+}
+
+// ═══════════════════════════════
+// RENDER SCHEMA
+// ═══════════════════════════════
+function renderSchema(parsed) {
+  if (!parsed) { document.getElementById('schemaContent').innerHTML = '<div class="empty"><p>Schema data unavailable.</p></div>'; return; }
+  const found = new Set(parsed.schemas);
+
+  if (found.size === 0) {
+    document.getElementById('schemaContent').innerHTML = `<div class="schema-list"><div class="schema-row" style="color:var(--text3)">No structured data found on this page.</div></div>`;
+  } else {
+    document.getElementById('schemaContent').innerHTML = `<div class="schema-list">${
+      [...found].map(t => `<div class="schema-row">
+        <div class="schema-type">schema.org/${t}</div>
+        <div class="schema-badge" style="background:rgba(34,197,94,.1);color:var(--green)">✓ Found</div>
+      </div>`).join('')
+    }</div>`;
+  }
+
+  const issues = [];
+  if (found.size === 0) {
+    issues.push({ sev:'critical',icon:'🏷',title:'No Structured Data Found',brief:'Not eligible for any rich results',desc:'This page has no JSON-LD structured data. Structured data makes you eligible for rich results (star ratings, FAQ expansions, breadcrumbs) which increase SERP click-through rates by 20-30%.',fix:'Add Organization schema to homepage. Add Article/BlogPosting to blog posts. Add Product schema to product pages.',
+      code:'<script type="application/ld+json">\n{"@context":"https://schema.org","@type":"Organization",\n"name":"Your Company","url":"https://yoursite.com",\n"logo":"https://yoursite.com/logo.png"}\n<\/script>' });
+  } else {
+    const wantTypes = ['Organization','WebSite','FAQPage','BreadcrumbList'];
+    const missingTypes = wantTypes.filter(t => !found.has(t));
+    if (missingTypes.length > 0) {
+      issues.push({ sev:'info',icon:'💡',title:`Missing Schema Types: ${missingTypes.join(', ')}`,brief:'Additional schema could unlock more rich results',desc:`You have some schema, but these common high-value types are missing: ${missingTypes.join(', ')}. Each unlocks different rich result opportunities in Google.`,fix:'Add the missing schema types relevant to your pages.' });
+    }
+    if (!found.has('FAQPage') && parsed.headings.some(h => /\?$/.test(h.text))) {
+      issues.push({ sev:'info',icon:'❓',title:'FAQ Content Detected — No FAQPage Schema',brief:'Add schema to expand your SERP listing',desc:'Your page has headings that look like questions (ending in "?") but no FAQPage schema. This schema can expand your search result to show Q&A pairs, doubling your SERP footprint.',fix:'Wrap your FAQ content in FAQPage schema.',
+        code:'<script type="application/ld+json">\n{"@context":"https://schema.org","@type":"FAQPage",\n"mainEntity":[{"@type":"Question","name":"Your question?",\n"acceptedAnswer":{"@type":"Answer","text":"Your answer."}}]}\n<\/script>' });
+    }
+  }
+  document.getElementById('schemaIssues').innerHTML = issues.map((d,i)=>issueCard(d,'sc-'+i)).join('');
+}
+
+// ═══════════════════════════════
+// CLAUDE AI AUDIT (STREAMING)
+// ═══════════════════════════════
+async function runAI(url, parsed, mob, desk, kws) {
+  const aiBody = document.getElementById('aiBody');
+  const aiStatus = document.getElementById('aiStatus');
+
+  if (!AKEY) {
+    aiStatus.style.background = 'rgba(251,191,36,.1)';
+    aiStatus.style.color = 'var(--amber)';
+    aiStatus.textContent = 'No key';
+    aiBody.innerHTML = `<div style="color:var(--text2);font-size:13px;line-height:1.7">
+      <p>No Anthropic API key set. <button onclick="showModal()" style="background:none;border:none;color:var(--blue);font-weight:600;cursor:pointer;text-decoration:underline;font-size:13px">Add your key</button> to get an AI audit that reads your actual page content and gives specific recommendations.</p>
+    </div>`;
+    return;
+  }
+
+  aiStatus.textContent = 'Analyzing…';
+  aiStatus.style.background = 'rgba(59,130,246,.15)';
+  aiStatus.style.color = 'var(--blue)';
+  aiBody.innerHTML = '<div class="ai-loader"><div class="spinner"></div>Claude is reading your page…</div>';
+
+  const ma = mob?.lighthouseResult?.audits || {};
+  const mp = mob?.categories || {};
+  const dp = desk?.categories || {};
+
+  // Build failed audits list with details
+  const failed = Object.entries(ma)
+    .filter(([k,v]) => v.score !== null && v.score < 0.9 && v.title)
+    .sort((a,b) => a[1].score - b[1].score)
+    .slice(0,12)
+    .map(([k,v]) => `- ${v.title}: ${v.displayValue||'needs attention'}`)
+    .join('\n');
+
+  const topKwList = kws ? kws.slice(0,10).map(k => `${k.kw} (${k.count}×, ${k.density}% density, in title:${k.inTitle?'yes':'no'}, in H1:${k.inH1?'yes':'no'})`).join('\n') : 'not available';
+
+  const pageCtx = parsed ? `
+LIVE PAGE DATA (fetched from real HTML):
+URL: ${url}
+Title: ${parsed.title || 'MISSING'}
+Title length: ${parsed.title?.length || 0} chars
+Meta description: ${parsed.metaDesc || 'MISSING'} (${parsed.metaDesc?.length||0} chars)
+H1: ${parsed.headings.filter(h=>h.level==='H1').map(h=>h.text).join(' | ') || 'MISSING'}
+H2s: ${parsed.headings.filter(h=>h.level==='H2').map(h=>h.text).slice(0,6).join(' | ') || 'none'}
+H3s: ${parsed.headings.filter(h=>h.level==='H3').map(h=>h.text).slice(0,4).join(' | ') || 'none'}
+Word count: ~${parsed.wordCount}
+Images: ${parsed.images.length} total, ${parsed.images.filter(i=>!i.hasAlt).length} missing alt text, ${parsed.images.filter(i=>!i.loading).length} without lazy loading
+Internal links: ${parsed.intLinks.length}
+External links: ${parsed.extLinks.length}
+Schema types: ${parsed.schemas.join(', ') || 'NONE'}
+Canonical: ${parsed.canonical || 'MISSING'}
+Lang attribute: ${parsed.lang || 'MISSING'}
+Viewport: ${parsed.viewport || 'MISSING'}
+OG image: ${parsed.ogImage ? 'set' : 'MISSING'}
+Twitter card: ${parsed.twitterCard ? parsed.twitterCard : 'MISSING'}
+
+TOP KEYWORDS ON PAGE:
+${topKwList}
+
+PAGE CONTENT SAMPLE (first 4000 chars):
+${parsed.bodyText.substring(0,4000)}
+` : `URL: ${url}\n(HTML fetch was blocked by the site — analysis based on PageSpeed data only)`;
+
+  const prompt = `You are a senior SEO consultant doing a paid audit. Analyze this website using real data I've collected.
+
+GOOGLE PAGESPEED INSIGHTS (REAL DATA):
+Mobile scores: Performance ${Math.round((mp.performance?.score||0)*100)}, SEO ${Math.round((mp.seo?.score||0)*100)}, Accessibility ${Math.round((mp.accessibility?.score||0)*100)}, Best Practices ${Math.round((mp['best-practices']?.score||0)*100)}
+${desk ? `Desktop scores: Performance ${Math.round((dp.performance?.score||0)*100)}, SEO ${Math.round((dp.seo?.score||0)*100)}` : ''}
+LCP: ${ma['largest-contentful-paint']?.displayValue||'unknown'}
+CLS: ${ma['cumulative-layout-shift']?.displayValue||'unknown'}
+TBT: ${ma['total-blocking-time']?.displayValue||'unknown'}
+FCP: ${ma['first-contentful-paint']?.displayValue||'unknown'}
+
+FAILED AUDITS:
+${failed || 'None detected'}
+
+${pageCtx}
+
+Write a specific, expert SEO audit. CRITICAL RULES:
+1. Reference actual data — use the real title, real H1, real keyword names, real scores
+2. Do NOT give generic advice — every point must be specific to THIS site
+3. Prioritize by impact — biggest revenue/traffic gains first
+4. Be direct and actionable — tell them exactly what to change
+
+Format your response with these exact sections:
+
+### 🎯 Bottom Line
+2-3 sentences. What's the overall SEO health and single most important thing to do?
+
+### 🚨 Fix These First (Critical Issues)
+3-5 critical issues. For each: what it is, why it specifically hurts THIS site, and the exact fix.
+
+### ⚡ Quick Wins
+3-4 high-impact, low-effort changes they can make in the next hour.
+
+### 📈 Strategic Opportunities
+2-3 longer-term SEO opportunities specific to this site's content and industry.
+
+### 💡 One Thing Most Tools Miss
+One non-obvious, specific insight about this site's SEO situation.
+
+Be concise, direct, expert. Reference real page elements throughout.`;
+
+  try {
+    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': AKEY,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1800,
+        stream: true,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+
+    if (!resp.ok) {
+      const err = await resp.json().catch(() => ({}));
+      throw new Error(err.error?.message || 'API error ' + resp.status);
+    }
+
+    // Streaming
+    aiBody.innerHTML = '<div class="ai-out" id="aiOut"></div>';
+    const out = document.getElementById('aiOut');
+    const reader = resp.body.getReader();
+    const decoder = new TextDecoder();
+    let raw = '';
+    let fullText = '';
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      raw += decoder.decode(value, { stream: true });
+      const lines = raw.split('\n');
+      raw = lines.pop();
+      for (const line of lines) {
+        if (!line.startsWith('data: ')) continue;
+        const data = line.slice(6).trim();
+        if (data === '[DONE]') continue;
+        try {
+          const j = JSON.parse(data);
+          if (j.type === 'content_block_delta' && j.delta?.text) {
+            fullText += j.delta.text;
+            out.innerHTML = mdToHtml(fullText) + '<span class="ai-cursor"></span>';
+            // auto-scroll if near bottom
+            const r = document.getElementById('results');
+            if (r.scrollTop + r.clientHeight > r.scrollHeight - 200) r.scrollTop = r.scrollHeight;
+          }
+        } catch(e) {}
+      }
+    }
+    out.innerHTML = mdToHtml(fullText);
+    aiStatus.textContent = '✓ Done';
+    aiStatus.style.background = 'rgba(34,197,94,.1)';
+    aiStatus.style.color = 'var(--green)';
+    auditStore.aiText = fullText;
+
+  } catch(e) {
+    aiBody.innerHTML = `<div class="ai-err"><strong>Error:</strong> ${e.message}<br><br><button onclick="showModal()">Check API key →</button></div>`;
+    aiStatus.textContent = 'Error';
+    aiStatus.style.background = 'rgba(248,113,113,.1)';
+    aiStatus.style.color = 'var(--red)';
+  }
+}
+
+// Simple markdown → HTML
+function mdToHtml(md) {
+  return md
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/### (.*)/g,'<h3>$1</h3>')
+    .replace(/## (.*)/g,'<h3>$1</h3>')
+    .replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')
+    .replace(/`([^`]+)`/g,'<code>$1</code>')
+    .replace(/^[-•] (.+)/gm,'<li>$1</li>')
+    .replace(/^\d+\. (.+)/gm,'<li>$1</li>')
+    .replace(/(<li>[\s\S]*?<\/li>)\n(?!<li>)/g,'$1')
+    .replace(/(<li>.*?<\/li>\n?)+/g,m=>`<ul>${m}</ul>`)
+    .replace(/\n\n(?!<[hul])/g,'</p><p>')
+    .replace(/^(?!<[hup\/])/gm, s => s ? s : '')
+    .trim();
+}
+
+// ═══════════════════════════════
+// EXPORT
+// ═══════════════════════════════
+function openExport() {
+  const d = auditStore;
+  const HR = '\u2500'.repeat(52);
+  const pad = (s,n) => String(s != null ? s : '\u2014').padStart(n);
+  const lines = [
+    'SEO AUDIT REPORT',
+    HR,
+    `URL:            ${d.url||'\u2014'}`,
+    `Date:           ${new Date().toLocaleString()}`,
+    '',
+    `SCORES                   Mobile  Desktop`,
+    `Performance:               ${pad(d.mobPerf,3)}      ${pad(d.deskPerf,3)}`,
+    `SEO:                       ${pad(d.mobSeo,3)}      ${pad(d.deskSeo,3)}`,
+    `Accessibility:             ${pad(d.mobA11y,3)}      ${pad(d.deskA11y,3)}`,
+    `Best Practices:            ${pad(d.mobBP,3)}      ${pad(d.deskBP,3)}`,
+    '',
+    'CORE WEB VITALS (Mobile)',
+    `LCP:            ${d.lcp||'\u2014'}`,
+    `CLS:            ${d.cls||'\u2014'}`,
+    `TBT:            ${d.tbt||'\u2014'}`,
+    `FCP:            ${d.fcp||'\u2014'}`,
+    '',
+    'ON-PAGE',
+    `Title:          ${d.title||'\u2014'} (${(d.title||'').length} chars)`,
+    `Meta Desc:      ${d.metaDesc||'\u2014'} (${(d.metaDesc||'').length} chars)`,
+    `H1:             ${d.h1||'\u2014'}`,
+    `Word Count:     ${d.wordCount||'\u2014'}`,
+    `Canonical:      ${d.canonical||'\u2014'}`,
+    `Schema:         ${d.schemas||'none found'}`,
+    `Lang:           ${d.lang||'\u2014'}`,
+    `OG Image:       ${d.ogImage ? 'Set' : 'Missing'}`,
+    '',
+  ];
+  if (d.keywords && d.keywords.length) {
+    lines.push('TOP KEYWORDS');
+    lines.push(('Keyword'.padEnd(28) + 'Count  Density  Title  H1     Desc'));
+    lines.push('\u2500'.repeat(60));
+    d.keywords.slice(0,15).forEach(k => {
+      lines.push(
+        k.kw.substring(0,27).padEnd(28) +
+        (k.count + '\u00d7').padStart(5) + '  ' +
+        (k.density + '%').padStart(6) + '   ' +
+        (k.inTitle ? 'yes' : 'no ').padEnd(7) +
+        (k.inH1   ? 'yes' : 'no ').padEnd(7) +
+        (k.inDesc  ? 'yes' : 'no')
+      );
+    });
+    lines.push('');
+  }
+  if (d.aiText) {
+    lines.push(HR);
+    lines.push('AI AUDIT');
+    lines.push(HR);
+    lines.push(d.aiText.replace(/#{1,3} /g,'').replace(/\*\*/g,'').replace(/`/g,'').replace(/\n{3,}/g,'\n\n').trim());
+  }
+  document.getElementById('exportText').textContent = lines.join('\n');
+  document.getElementById('exportOverlay').classList.remove('hidden');
+}
+function copyExport() {
+  const text = document.getElementById('exportText').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.querySelector('#exportOverlay .btn-primary');
+    btn.textContent = '✓ Copied!';
+    setTimeout(() => btn.textContent = 'Copy to clipboard', 2000);
+  });
+}
+function scrollTop() {
+  document.getElementById('heroSection').scrollIntoView({ behavior:'smooth' });
+}
+
+// ═══════════════════════════════
+// MAIN
+// ═══════════════════════════════
+async function runAudit() {
+  let url = document.getElementById('urlInput').value.trim();
+  if (!url) return;
+  if (!/^https?:\/\//i.test(url)) url = 'https://' + url;
+  try { new URL(url); } catch(e) { alert('Please enter a valid URL'); return; }
+
+  document.getElementById('urlInput').value = url;
+  document.getElementById('auditBtn').disabled = true;
+  document.getElementById('auditBtn').textContent = 'Auditing…';
+  document.getElementById('results').classList.remove('show');
+  initProg(url);
+
+  let mob = null, desk = null, parsed = null, kws = null;
+  let htmlFailed = false;
+
+  // Run mobile + desktop PSI in parallel
+  step('psi-m', 'act');
+  step('psi-d', 'act');
+  const [mobRes, deskRes] = await Promise.allSettled([psi(url,'mobile'), psi(url,'desktop')]);
+  if (mobRes.status === 'fulfilled') { mob = mobRes.value; step('psi-m','done'); }
+  else { step('psi-m','err', 'Mobile PageSpeed failed: ' + mobRes.reason?.message); }
+  if (deskRes.status === 'fulfilled') { desk = deskRes.value; step('psi-d','done'); }
+  else { step('psi-d','err'); }
+
+  if (!mob && !desk) {
+    document.getElementById('progNote').textContent = '⚠ PageSpeed API failed. Check the URL is publicly accessible.';
+    document.getElementById('progNote').classList.add('show');
+    document.getElementById('auditBtn').disabled = false;
+    document.getElementById('auditBtn').textContent = 'Audit →';
+    return;
+  }
+
+  // Fetch HTML
+  step('html', 'act');
+  try {
+    const html = await fetchHTML(url);
+    step('html', 'done');
+
+    // Parse
+    step('parse', 'act');
+    parsed = parseHTML(html, url);
+    step('parse', 'done');
+
+    // Keywords
+    step('kw', 'act');
+    kws = analyseKeywords(parsed);
+    step('kw', 'done');
+  } catch(e) {
+    step('html', 'err');
+    step('parse', 'done');
+    step('kw', 'done');
+    htmlFailed = true;
+  }
+
+  // Store for export
+  const ma = mob?.lighthouseResult?.audits || {};
+  auditStore = {
+    url,
+    mobPerf:  Math.round((mob?.categories?.performance?.score||0)*100),
+    deskPerf: Math.round((desk?.categories?.performance?.score||0)*100),
+    mobSeo:   Math.round((mob?.categories?.seo?.score||0)*100),
+    deskSeo:  Math.round((desk?.categories?.seo?.score||0)*100),
+    mobA11y:  Math.round((mob?.categories?.accessibility?.score||0)*100),
+    deskA11y: Math.round((desk?.categories?.accessibility?.score||0)*100),
+    mobBP:    Math.round((mob?.categories?.['best-practices']?.score||0)*100),
+    deskBP:   Math.round((desk?.categories?.['best-practices']?.score||0)*100),
+    lcp: ma['largest-contentful-paint']?.displayValue,
+    cls: ma['cumulative-layout-shift']?.displayValue,
+    tbt: ma['total-blocking-time']?.displayValue,
+    fcp: ma['first-contentful-paint']?.displayValue,
+    title:    parsed?.title,
+    metaDesc: parsed?.metaDesc,
+    h1:       parsed?.headings?.filter(h=>h.level==='H1')[0]?.text,
+    wordCount: parsed?.wordCount,
+    canonical: parsed?.canonical,
+    schemas:  parsed?.schemas?.join(', '),
+    lang:     parsed?.lang,
+    ogImage:  parsed?.ogImage,
+    keywords: kws,
+  };
+
+  // Render UI
+  renderScores(mob, desk);
+  renderCWV(mob || desk);
+  renderOnPage(parsed);
+  renderKeywords(kws, parsed);
+  renderTechnical(mob || { lighthouseResult:{audits:{}} }, desk, parsed);
+  renderImages(parsed);
+  renderLinks(parsed);
+  renderSchema(parsed);
+
+  // Site bar
+  document.getElementById('siteUrl').textContent = url;
+  document.getElementById('auditTime').textContent = 'Audited ' + new Date().toLocaleTimeString();
+  const badgeEl = document.getElementById('dataBadge');
+  if (!htmlFailed) {
+    badgeEl.textContent = '✅ Full data — PSI + HTML';
+    badgeEl.style.background = 'rgba(34,197,94,.1)';
+    badgeEl.style.color = 'var(--green)';
+  } else {
+    badgeEl.textContent = '⚠ PSI only — HTML blocked';
+    badgeEl.style.background = 'rgba(251,191,36,.1)';
+    badgeEl.style.color = 'var(--amber)';
+  }
+
+  // Show results
+  document.getElementById('progWrap').classList.remove('show');
+  document.getElementById('results').classList.add('show');
+  document.getElementById('reBtn').classList.add('show');
+  document.getElementById('results').scrollIntoView({ behavior:'smooth', block:'start' });
+  document.getElementById('auditBtn').disabled = false;
+  document.getElementById('auditBtn').textContent = 'Audit →';
+
+  // AI runs after results visible
+  step('ai', 'act');
+  await runAI(url, parsed, mob, desk, kws);
+  step('ai', 'done');
+}
+</script>
+</body>
+</html>
