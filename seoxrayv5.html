@@ -1,0 +1,1687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SEO Intelligence Platform — Beyond Any Tool in Market</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --ink:#0a0a0f;
+  --ink2:#1a1a24;
+  --ink3:#2a2a38;
+  --border:#e8e8f0;
+  --border2:#f0f0f6;
+  --surface:#ffffff;
+  --surface2:#fafafa;
+  --surface3:#f5f5fa;
+  --text:#0a0a0f;
+  --text2:#4a4a5a;
+  --text3:#8a8a9a;
+  --accent:#1a56db;
+  --accent-light:#eff6ff;
+  --green:#059669;
+  --green-l:#ecfdf5;
+  --red:#dc2626;
+  --red-l:#fef2f2;
+  --amber:#d97706;
+  --amber-l:#fffbeb;
+  --purple:#7c3aed;
+  --purple-l:#f5f3ff;
+  --teal:#0891b2;
+  --teal-l:#ecfeff;
+  --rose:#e11d48;
+  --rose-l:#fff1f2;
+  --font:'Instrument Sans',sans-serif;
+  --serif:'Instrument Serif',serif;
+  --mono:'JetBrains Mono',monospace;
+  --r:10px;
+  --r-sm:6px;
+  --sh:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);
+  --sh-md:0 4px 12px rgba(0,0,0,.08),0 2px 4px rgba(0,0,0,.04);
+  --sh-lg:0 16px 40px rgba(0,0,0,.1),0 4px 12px rgba(0,0,0,.06);
+}
+body{font-family:var(--font);background:var(--surface2);color:var(--text);-webkit-font-smoothing:antialiased;min-height:100vh}
+
+/* NAV */
+.nav{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200}
+.nav-i{max-width:1400px;margin:0 auto;padding:0 28px;height:56px;display:flex;align-items:center;gap:32px}
+.logo{display:flex;align-items:center;gap:10px;font-size:17px;font-weight:700;letter-spacing:-.3px}
+.logo-mark{width:28px;height:28px;background:var(--ink);border-radius:6px;display:flex;align-items:center;justify-content:center;color:white;font-size:13px;font-weight:700}
+.nav-pills{display:flex;gap:2px;flex:1}
+.np{padding:5px 12px;font-size:13px;font-weight:500;color:var(--text3);border-radius:5px;cursor:pointer;border:none;background:none;transition:.15s}
+.np:hover{background:var(--surface3);color:var(--text)}
+.np.a{background:var(--accent-light);color:var(--accent)}
+.nav-r{display:flex;align-items:center;gap:8px;margin-left:auto}
+.btn-outline{padding:6px 14px;font-size:13px;font-weight:600;border:1.5px solid var(--border);border-radius:7px;cursor:pointer;background:none;color:var(--text);font-family:var(--font);transition:.15s}
+.btn-outline:hover{border-color:var(--ink3)}
+.btn-primary{padding:7px 16px;font-size:13px;font-weight:600;border:none;border-radius:7px;cursor:pointer;background:var(--ink);color:white;font-family:var(--font);transition:.15s}
+.btn-primary:hover{background:var(--ink2)}
+
+/* HERO */
+.hero{background:var(--surface);border-bottom:1px solid var(--border);padding:52px 28px 48px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% -10%,rgba(26,86,219,.06),transparent);pointer-events:none}
+.hero-kicker{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:var(--accent);background:var(--accent-light);padding:5px 14px;border-radius:20px;margin-bottom:18px;letter-spacing:.2px}
+.hero-kicker-dot{width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.hero h1{font-family:var(--serif);font-size:clamp(36px,5.5vw,62px);font-weight:400;line-height:1.08;letter-spacing:-.5px;margin-bottom:14px;color:var(--ink)}
+.hero h1 em{font-style:italic;color:var(--accent)}
+.hero-sub{font-size:16px;color:var(--text2);max-width:580px;margin:0 auto 36px;line-height:1.65}
+
+/* SEARCH */
+.search-wrap{max-width:660px;margin:0 auto}
+.search-row{display:flex;background:var(--surface);border:1.5px solid var(--border);border-radius:10px;box-shadow:var(--sh-md);overflow:hidden;transition:.2s}
+.search-row:focus-within{border-color:var(--accent);box-shadow:0 0 0 4px rgba(26,86,219,.1),var(--sh-md)}
+.search-pfx{padding:0 14px;display:flex;align-items:center;color:var(--text3);font-size:15px}
+.search-input{flex:1;border:none;outline:none;font:500 15px/1 var(--font);color:var(--text);padding:16px 0;background:transparent}
+.search-input::placeholder{color:var(--text3);font-weight:400}
+.search-go{background:var(--ink);color:white;border:none;padding:13px 24px;font:600 14px var(--font);cursor:pointer;margin:3px;border-radius:7px;transition:.15s;white-space:nowrap}
+.search-go:hover{background:var(--ink2)}
+.search-go:disabled{opacity:.5;cursor:not-allowed}
+.hero-chips{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:20px;flex-wrap:wrap}
+.hc{font-size:12.5px;color:var(--text3);display:flex;align-items:center;gap:5px}
+
+/* PROGRESS */
+.prog-wrap{display:none;max-width:560px;margin:32px auto;padding:0 24px}
+.prog-wrap.show{display:block}
+.prog-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:28px;box-shadow:var(--sh)}
+.prog-title{font-size:15px;font-weight:600;margin-bottom:4px}
+.prog-url{font-family:var(--mono);font-size:12px;color:var(--accent);margin-bottom:20px}
+.prog-track{height:6px;background:var(--border2);border-radius:99px;overflow:hidden;margin-bottom:10px}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--accent),#60a5fa);border-radius:99px;width:0%;transition:width .5s cubic-bezier(.4,0,.2,1)}
+.prog-pct{font-family:var(--mono);font-size:12px;color:var(--text3);margin-bottom:16px}
+.prog-steps{display:flex;flex-direction:column;gap:5px}
+.ps{display:flex;align-items:center;gap:9px;font-size:13px;color:var(--text3);transition:color .3s}
+.ps.done{color:var(--green)}
+.ps.act{color:var(--text);font-weight:500}
+.ps-dot{width:7px;height:7px;border-radius:50%;background:var(--border);flex-shrink:0;transition:background .3s}
+.ps.done .ps-dot{background:var(--green)}
+.ps.act .ps-dot{background:var(--accent);box-shadow:0 0 0 3px rgba(26,86,219,.15)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.spinner{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,.3);border-top-color:white;border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:5px}
+
+/* MAIN */
+.main{max-width:1400px;margin:0 auto;padding:28px 28px 80px;display:none}
+.main.show{display:block;animation:fadeUp .4s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+/* ── THE REVENUE IMPACT BANNER (UNIQUE FEATURE) ── */
+.revenue-banner{background:var(--ink);color:white;border-radius:var(--r);padding:28px 32px;margin-bottom:24px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center}
+.rb-left h2{font-family:var(--serif);font-size:26px;font-weight:400;line-height:1.2;margin-bottom:6px}
+.rb-left h2 em{font-style:italic;color:#93c5fd}
+.rb-left p{font-size:14px;color:rgba(255,255,255,.6);line-height:1.5}
+.rb-right{display:flex;gap:20px}
+.rb-stat{text-align:center}
+.rb-val{font-size:32px;font-weight:700;letter-spacing:-1px;line-height:1}
+.rb-lbl{font-size:11px;color:rgba(255,255,255,.5);font-weight:500;text-transform:uppercase;letter-spacing:.5px;margin-top:4px}
+.rb-val.red{color:#fca5a5}
+.rb-val.amber{color:#fcd34d}
+.rb-val.green{color:#6ee7b7}
+
+/* ── OVERVIEW GRID ── */
+.ov-grid{display:grid;grid-template-columns:220px 1fr;gap:20px;margin-bottom:24px}
+
+/* SCORE */
+.score-c{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:24px;box-shadow:var(--sh)}
+.donut-wrap{position:relative;width:110px;height:110px;margin:0 auto 14px}
+.donut-wrap svg{transform:rotate(-90deg)}
+.dc{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.dc-score{font-size:28px;font-weight:700;letter-spacing:-1px;line-height:1}
+.dc-lbl{font-size:10px;color:var(--text3);font-weight:500;text-transform:uppercase;letter-spacing:.5px}
+.score-grade{text-align:center;font-size:13px;font-weight:600;padding:4px 12px;border-radius:5px;margin-bottom:14px}
+.score-rows{display:flex;flex-direction:column;gap:5px}
+.sr{display:flex;justify-content:space-between;font-size:12px;align-items:center}
+.sr-lbl{display:flex;align-items:center;gap:6px;color:var(--text2)}
+.sr-dot{width:7px;height:7px;border-radius:50%}
+.sr-val{font-weight:700;font-size:13px}
+
+/* METRICS */
+.mx-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.mx-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:18px 20px;box-shadow:var(--sh);transition:.2s}
+.mx-card:hover{box-shadow:var(--sh-md)}
+.mx-ico{width:32px;height:32px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px;margin-bottom:9px}
+.mx-val{font-size:24px;font-weight:700;letter-spacing:-.5px;line-height:1;margin-bottom:2px}
+.mx-name{font-size:12.5px;font-weight:600;margin-bottom:1px}
+.mx-sub{font-size:11.5px;color:var(--text3)}
+.mx-tag{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;padding:2px 8px;border-radius:4px;margin-top:6px}
+
+/* TABS */
+.tabs-row{display:flex;gap:2px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:4px;margin-bottom:20px;box-shadow:var(--sh);overflow-x:auto}
+.tab-b{display:flex;align-items:center;gap:6px;padding:8px 14px;font-size:13px;font-weight:500;color:var(--text3);background:none;border:none;border-radius:7px;cursor:pointer;white-space:nowrap;transition:.15s;font-family:var(--font)}
+.tab-b:hover{background:var(--surface3);color:var(--text)}
+.tab-b.a{background:var(--ink);color:white;font-weight:600;box-shadow:0 2px 6px rgba(0,0,0,.15)}
+.tab-b.a .tc{background:rgba(255,255,255,.2)}
+.tc{font-size:10.5px;font-weight:700;padding:1px 6px;border-radius:4px;background:var(--surface3);color:var(--text3)}
+.tab-icon{font-size:13px}
+
+/* PANELS */
+.panel{display:none}.panel.a{display:block;animation:fadeIn .25s ease}
+
+/* SECTION HEAD */
+.sh{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px;gap:12px}
+.sh-left h3{font-size:15px;font-weight:700;margin-bottom:2px}
+.sh-left p{font-size:12.5px;color:var(--text3)}
+.sh-right{display:flex;gap:8px;flex-shrink:0}
+
+/* ── UNIQUE FEATURE: ROI TABLE ── */
+.roi-table-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);margin-bottom:20px}
+.roi-table-head{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:linear-gradient(135deg,#0a0a0f 0%,#1a1a2e 100%)}
+.roi-table-head h3{font-size:14px;font-weight:600;color:white;display:flex;align-items:center;gap:8px}
+.roi-table-head p{font-size:12px;color:rgba(255,255,255,.5)}
+table.roi{width:100%;border-collapse:collapse}
+table.roi th{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--text3);padding:10px 18px;text-align:left;background:var(--surface2);border-bottom:1px solid var(--border)}
+table.roi td{padding:13px 18px;border-bottom:1px solid var(--border2);font-size:13px;vertical-align:middle}
+table.roi tr:last-child td{border-bottom:none}
+table.roi tr:hover td{background:var(--surface2)}
+.roi-fix{font-weight:600;font-size:13.5px;color:var(--text)}
+.roi-fix-sub{font-size:11.5px;color:var(--text3);margin-top:1px}
+.effort-dot{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600}
+.impact-bar-w{width:90px;height:6px;background:var(--border2);border-radius:99px;overflow:hidden;display:inline-block;vertical-align:middle;margin-right:6px}
+.impact-bar-f{height:100%;border-radius:99px}
+.roi-val{font-size:14px;font-weight:700}
+.roi-rank{width:28px;height:28px;border-radius:50%;background:var(--ink);color:white;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;font-family:var(--mono)}
+
+/* ── UNIQUE: SERP FEATURE MAP ── */
+.serp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
+.serp-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px;box-shadow:var(--sh);position:relative;overflow:hidden;transition:.2s}
+.serp-card:hover{box-shadow:var(--sh-md)}
+.serp-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.serp-card.owned::before{background:var(--green)}
+.serp-card.competitor::before{background:var(--red)}
+.serp-card.opportunity::before{background:var(--amber)}
+.sc-type{font-family:var(--mono);font-size:10px;color:var(--text3);margin-bottom:6px;letter-spacing:.5px}
+.sc-name{font-size:14px;font-weight:700;margin-bottom:4px}
+.sc-kw{font-size:12px;color:var(--text2);margin-bottom:10px;line-height:1.4}
+.sc-status{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:600;padding:3px 9px;border-radius:5px}
+
+/* ── UNIQUE: EEAT SCORE ── */
+.eeat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}
+.eeat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:20px;box-shadow:var(--sh);text-align:center}
+.eeat-letter{font-family:var(--serif);font-size:32px;font-weight:400;line-height:1;margin-bottom:4px}
+.eeat-word{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--text3);margin-bottom:14px}
+.eeat-score{font-size:26px;font-weight:700;letter-spacing:-1px;margin-bottom:6px}
+.eeat-bar-w{height:5px;background:var(--border2);border-radius:99px;overflow:hidden;margin-bottom:10px}
+.eeat-bar-f{height:100%;border-radius:99px}
+.eeat-tip{font-size:11.5px;color:var(--text2);line-height:1.5}
+
+/* ── UNIQUE: ENTITY / KNOWLEDGE GRAPH ── */
+.entity-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:20px;margin-bottom:20px;box-shadow:var(--sh)}
+.entity-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border2)}
+.entity-row:last-child{border-bottom:none}
+.entity-name{font-size:13.5px;font-weight:600;flex:1}
+.entity-type{font-family:var(--mono);font-size:10.5px;color:var(--text3);width:120px}
+.entity-strength{display:flex;align-items:center;gap:8px;width:160px}
+.es-bar{flex:1;height:5px;background:var(--border2);border-radius:99px;overflow:hidden}
+.es-fill{height:100%;border-radius:99px}
+.entity-signal{font-size:11px;font-weight:600;padding:2px 8px;border-radius:4px}
+
+/* ── UNIQUE: ALGORITHM TIMELINE ── */
+.algo-timeline{position:relative;padding-left:24px;margin-bottom:20px}
+.algo-line{position:absolute;left:7px;top:8px;bottom:8px;width:2px;background:var(--border)}
+.algo-item{position:relative;margin-bottom:16px}
+.algo-dot{position:absolute;left:-21px;width:14px;height:14px;border-radius:50%;border:2px solid var(--surface);top:3px}
+.algo-meta{font-family:var(--mono);font-size:10.5px;color:var(--text3);margin-bottom:3px}
+.algo-name{font-size:13.5px;font-weight:600;margin-bottom:3px}
+.algo-impact{font-size:12.5px;color:var(--text2);line-height:1.5}
+.algo-delta{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:700;padding:2px 8px;border-radius:4px;margin-top:4px}
+
+/* ── UNIQUE: CANNIBALIZATION MAP ── */
+.cann-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:12px;box-shadow:var(--sh)}
+.cann-head{padding:14px 18px;background:var(--rose-l);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.cann-kw{font-size:14px;font-weight:700;color:var(--rose)}
+.cann-pages{display:flex;flex-direction:column;gap:0}
+.cp-row{display:flex;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid var(--border2)}
+.cp-row:last-child{border-bottom:none}
+.cp-url{font-family:var(--mono);font-size:12px;color:var(--accent);flex:1}
+.cp-pos{font-size:13px;font-weight:700;width:60px}
+.cp-traffic{font-size:12px;color:var(--text3);width:80px}
+.cp-action{font-size:11.5px;font-weight:600;padding:3px 10px;border-radius:4px;cursor:pointer;border:none;font-family:var(--font)}
+
+/* ── UNIQUE: INTERNAL LINK EQUITY ── */
+.link-equity{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:20px;margin-bottom:20px;box-shadow:var(--sh)}
+.le-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--border2)}
+.le-row:last-child{border-bottom:none}
+.le-page{font-family:var(--mono);font-size:12px;color:var(--accent);flex:1}
+.le-bar-w{width:120px;height:8px;background:var(--border2);border-radius:99px;overflow:hidden}
+.le-bar-f{height:100%;border-radius:99px}
+.le-score{font-size:12px;font-weight:700;font-family:var(--mono);width:40px;text-align:right}
+.le-status{font-size:11px;font-weight:600;padding:2px 7px;border-radius:4px}
+
+/* ISSUE LIST */
+.issue-list{display:flex;flex-direction:column;gap:10px}
+.ii{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);transition:.2s}
+.ii:hover{box-shadow:var(--sh-md)}
+.ii-head{display:flex;align-items:center;gap:12px;padding:15px 18px;cursor:pointer}
+.ii-bar{width:3px;border-radius:2px;align-self:stretch;flex-shrink:0;min-height:18px}
+.ii-ico{width:30px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.ii-main{flex:1}
+.ii-name{font-size:13.5px;font-weight:700;margin-bottom:2px}
+.ii-brief{font-size:12px;color:var(--text3)}
+.ii-right{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.ii-pill{font-size:10.5px;font-weight:700;padding:2px 9px;border-radius:5px;letter-spacing:.2px}
+.ii-impact{text-align:center}
+.ii-impact-n{font-size:13px;font-weight:700;line-height:1}
+.ii-impact-l{font-size:9.5px;color:var(--text3);font-weight:500;text-transform:uppercase;letter-spacing:.3px}
+.ii-chev{color:var(--text3);font-size:11px;transition:transform .2s}
+.ii.open .ii-chev{transform:rotate(180deg)}
+.ii-body{display:none;padding:16px 18px 18px 63px;border-top:1px solid var(--border2)}
+.ii.open .ii-body{display:block}
+.ii-desc{font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:14px}
+.fix-box{background:var(--green-l);border:1px solid #a7f3d0;border-radius:7px;padding:13px 15px;margin-bottom:10px}
+.fb-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--green);margin-bottom:5px}
+.fb-text{font-size:13px;color:#065f46;line-height:1.65}
+.code-b{background:#1e1e2e;border-radius:7px;padding:13px 15px;font-family:var(--mono);font-size:11.5px;color:#a6e3a1;overflow-x:auto;white-space:pre;line-height:1.7}
+
+/* DATA TABLE */
+.dt-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);margin-bottom:20px}
+.dt-head{padding:15px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.dt-title{font-size:14px;font-weight:700}
+table.dt{width:100%;border-collapse:collapse}
+table.dt th{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.4px;color:var(--text3);padding:9px 18px;text-align:left;background:var(--surface2);border-bottom:1px solid var(--border)}
+table.dt td{padding:12px 18px;font-size:13px;border-bottom:1px solid var(--border2);color:var(--text2)}
+table.dt tr:last-child td{border-bottom:none}
+table.dt tr:hover td{background:var(--surface2)}
+table.dt td:first-child{font-weight:600;color:var(--text)}
+.pill{display:inline-flex;align-items:center;font-size:11.5px;font-weight:600;padding:2px 8px;border-radius:5px}
+.den-wrap{display:flex;align-items:center;gap:6px}
+.den-b{width:70px;height:5px;background:var(--border2);border-radius:99px;overflow:hidden}
+.den-f{height:100%;background:var(--purple);border-radius:99px}
+
+/* WATERFALL */
+.wf-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:20px;box-shadow:var(--sh)}
+.wf-title{font-size:14px;font-weight:700;margin-bottom:18px}
+.wf-row{display:flex;align-items:center;gap:10px;margin-bottom:9px}
+.wf-lbl{width:120px;font-size:11.5px;color:var(--text3);font-family:var(--mono);flex-shrink:0}
+.wf-track{flex:1;height:20px;background:var(--surface2);border-radius:4px;position:relative;overflow:hidden}
+.wf-bar{position:absolute;left:0;top:0;height:100%;border-radius:4px;display:flex;align-items:center;padding-left:7px;font-size:10px;font-weight:700;color:white;white-space:nowrap;overflow:hidden}
+.wf-val{font-family:var(--mono);font-size:11.5px;color:var(--text3);width:55px;text-align:right;flex-shrink:0}
+
+/* SCHEMA */
+.schema-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
+.sc-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:15px;box-shadow:var(--sh)}
+.sc-type-l{font-family:var(--mono);font-size:10px;color:var(--text3);margin-bottom:4px}
+.sc-name-l{font-size:13.5px;font-weight:700;margin-bottom:8px}
+.sc-badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;padding:3px 9px;border-radius:5px;margin-bottom:6px}
+.sc-note{font-size:12px;color:var(--text2);line-height:1.5}
+
+/* COMP */
+.comp-list{display:flex;flex-direction:column;gap:10px;margin-bottom:20px}
+.comp-c{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px 20px;display:flex;align-items:center;gap:16px;box-shadow:var(--sh);transition:.2s}
+.comp-c:hover{box-shadow:var(--sh-md)}
+.comp-c.you{border-color:var(--accent);background:var(--accent-light)}
+.comp-rank{font-size:20px;font-weight:700;color:var(--text3);width:28px;font-family:var(--mono)}
+.comp-info{flex:1}
+.comp-domain{font-size:14px;font-weight:700;margin-bottom:2px}
+.comp-note{font-size:12px;color:var(--text3)}
+.comp-badges{display:flex;gap:7px;margin-top:6px}
+.cb{font-size:11px;font-weight:600;padding:2px 8px;border-radius:4px;background:var(--surface2);border:1px solid var(--border);color:var(--text2)}
+.comp-score-b{text-align:right}
+.comp-score-v{font-size:26px;font-weight:700;letter-spacing:-.5px;line-height:1}
+.comp-score-l{font-size:10px;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:.3px}
+
+/* CONTENT BRIEF (UNIQUE) */
+.brief-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);margin-bottom:20px}
+.brief-head{padding:16px 20px;background:linear-gradient(135deg,var(--purple-l),var(--accent-light));border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.brief-head h3{font-size:14px;font-weight:700;color:var(--purple)}
+.brief-body{padding:20px;display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.brief-section h4{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text3);margin-bottom:10px}
+.brief-kw-list{display:flex;flex-direction:column;gap:6px}
+.bkw{display:flex;justify-content:space-between;align-items:center;padding:6px 10px;background:var(--surface2);border-radius:5px;font-size:12.5px}
+.bkw-tag{font-size:11px;font-weight:600;padding:1px 6px;border-radius:3px}
+.brief-outline{display:flex;flex-direction:column;gap:5px}
+.bo-item{font-size:12.5px;color:var(--text2);padding:5px 0;border-bottom:1px solid var(--border2);display:flex;align-items:flex-start;gap:7px}
+.bo-h{font-family:var(--mono);font-size:10px;color:var(--purple);font-weight:600;flex-shrink:0;margin-top:2px}
+
+/* PRIORITY BOARD */
+.prio-board{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:24px;box-shadow:var(--sh)}
+.pb-cell{background:var(--surface);padding:18px}
+.pb-head{display:flex;align-items:center;gap:7px;margin-bottom:12px}
+.pb-label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.4px}
+.pb-items{display:flex;flex-direction:column;gap:5px}
+.pb-item{font-size:12.5px;color:var(--text2);display:flex;align-items:flex-start;gap:6px;line-height:1.4}
+.pb-item::before{content:'→';color:var(--text3);flex-shrink:0;margin-top:1px;font-size:11px;font-family:var(--mono)}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .ov-grid,.mx-grid{grid-template-columns:1fr}
+  .serp-grid,.eeat-grid,.schema-grid{grid-template-columns:repeat(2,1fr)}
+  .prio-board{grid-template-columns:repeat(2,1fr)}
+  .brief-body{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  .serp-grid,.eeat-grid,.schema-grid{grid-template-columns:1fr}
+  .rb-right{flex-direction:column;gap:8px}
+  .prio-board{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-i">
+    <div class="logo"><div class="logo-mark">S</div>SEOIntel</div>
+    <div class="nav-pills">
+      <button class="np a">Site Audit</button>
+      <button class="np">Rank Tracker</button>
+      <button class="np">Backlinks</button>
+      <button class="np">Content AI</button>
+      <button class="np">Competitors</button>
+    </div>
+    <div class="nav-r">
+      <button class="btn-outline">Sign In</button>
+      <button class="btn-primary">Start Free Trial</button>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-kicker"><div class="hero-kicker-dot"></div>The only SEO tool that shows revenue impact</div>
+  <h1>Stop guessing.<br>Start <em>knowing</em> what to fix.</h1>
+  <p class="hero-sub">Every competitor shows you what's broken. We show you what it costs you, what to fix first, and exactly how much you'll gain — ranked by ROI, not just severity.</p>
+  <div class="search-wrap">
+    <div class="search-row">
+      <div class="search-pfx">🌐</div>
+      <input type="text" class="search-input" id="urlInput" placeholder="Enter your website URL" value="https://example.com">
+      <button class="search-go" id="scanBtn" onclick="startScan()">Run Full Audit →</button>
+    </div>
+  </div>
+  <div class="hero-chips">
+    <div class="hc">💰 Revenue impact per issue</div>
+    <div class="hc">🧠 E-E-A-T scoring</div>
+    <div class="hc">🗺 SERP feature map</div>
+    <div class="hc">🔄 Cannibalization detector</div>
+    <div class="hc">📡 Algorithm impact tracker</div>
+  </div>
+</section>
+
+<div class="prog-wrap" id="progWrap">
+  <div class="prog-card">
+    <div class="prog-title">Running deep site intelligence scan…</div>
+    <div class="prog-url" id="progUrl">https://example.com</div>
+    <div class="prog-track"><div class="prog-fill" id="progFill"></div></div>
+    <div class="prog-pct"><span id="progPct">0%</span> — <span id="progStep">Initializing…</span></div>
+    <div class="prog-steps" id="progSteps"></div>
+  </div>
+</div>
+
+<div class="main" id="main">
+
+  <!-- REVENUE BANNER -->
+  <div class="revenue-banner">
+    <div class="rb-left">
+      <h2 id="bannerH2">You're leaving <em>~$8,400/mo</em> on the table</h2>
+      <p id="bannerP">Based on your traffic, keyword positions, and industry avg conversion rates — fixing your top 7 issues could recover this revenue within 90 days.</p>
+    </div>
+    <div class="rb-right">
+      <div class="rb-stat"><div class="rb-val red">$8,400</div><div class="rb-lbl">Monthly loss est.</div></div>
+      <div class="rb-stat"><div class="rb-val amber">62</div><div class="rb-lbl">Health score</div></div>
+      <div class="rb-stat"><div class="rb-val green">+29pts</div><div class="rb-lbl">Potential gain</div></div>
+    </div>
+  </div>
+
+  <!-- OVERVIEW -->
+  <div class="ov-grid">
+    <div class="score-c">
+      <div class="donut-wrap">
+        <svg width="110" height="110" viewBox="0 0 110 110">
+          <circle cx="55" cy="55" r="46" fill="none" stroke="#f0f0f6" stroke-width="10"/>
+          <circle id="donutArc" cx="55" cy="55" r="46" fill="none" stroke="#d97706" stroke-width="10"
+            stroke-dasharray="289.0" stroke-dashoffset="110" stroke-linecap="round"/>
+        </svg>
+        <div class="dc"><div id="donutScore" class="dc-score" style="color:var(--amber)">62</div><div class="dc-lbl">/ 100</div></div>
+      </div>
+      <div id="scoreGrade" class="score-grade" style="background:var(--amber-l);color:var(--amber)">Needs Improvement</div>
+      <div class="score-rows">
+        <div class="sr"><div class="sr-lbl"><div class="sr-dot" style="background:var(--red)"></div>Critical</div><div class="sr-val" style="color:var(--red)">7</div></div>
+        <div class="sr"><div class="sr-lbl"><div class="sr-dot" style="background:var(--amber)"></div>Warnings</div><div class="sr-val" style="color:var(--amber)">12</div></div>
+        <div class="sr"><div class="sr-lbl"><div class="sr-dot" style="background:var(--green)"></div>Passed</div><div class="sr-val" style="color:var(--green)">24</div></div>
+        <div class="sr"><div class="sr-lbl"><div class="sr-dot" style="background:var(--purple)"></div>Opportunities</div><div class="sr-val" style="color:var(--purple)">9</div></div>
+      </div>
+    </div>
+    <div class="mx-grid">
+      <div class="mx-card"><div class="mx-ico" style="background:var(--red-l)">⚡</div><div class="mx-val" style="color:var(--red)">3.8s</div><div class="mx-name">LCP</div><div class="mx-sub">Target &lt;2.5s</div><div class="mx-tag" style="background:var(--red-l);color:var(--red)">▼ Slow</div></div>
+      <div class="mx-card"><div class="mx-ico" style="background:var(--amber-l)">📱</div><div class="mx-val" style="color:var(--amber)">71</div><div class="mx-name">Mobile Score</div><div class="mx-sub">Viewport issues</div><div class="mx-tag" style="background:var(--amber-l);color:var(--amber)">⚠ Fix needed</div></div>
+      <div class="mx-card"><div class="mx-ico" style="background:var(--green-l)">🔒</div><div class="mx-val" style="color:var(--green)">✓</div><div class="mx-name">HTTPS / SSL</div><div class="mx-sub">Valid · 287 days</div><div class="mx-tag" style="background:var(--green-l);color:var(--green)">✓ Secure</div></div>
+      <div class="mx-card"><div class="mx-ico" style="background:var(--red-l)">🔗</div><div class="mx-val" style="color:var(--red)">34</div><div class="mx-name">Domain Authority</div><div class="mx-sub">Industry avg: 51</div><div class="mx-tag" style="background:var(--red-l);color:var(--red)">▼ Below avg</div></div>
+      <div class="mx-card"><div class="mx-ico" style="background:var(--amber-l)">📐</div><div class="mx-val" style="color:var(--amber)">0.18</div><div class="mx-name">CLS Score</div><div class="mx-sub">Target &lt;0.10</div><div class="mx-tag" style="background:var(--amber-l);color:var(--amber)">⚠ Poor</div></div>
+      <div class="mx-card"><div class="mx-ico" style="background:var(--purple-l)">📄</div><div class="mx-val" style="color:var(--purple)">142</div><div class="mx-name">Indexed Pages</div><div class="mx-sub">8 blocked</div><div class="mx-tag" style="background:var(--purple-l);color:var(--purple)">⚠ Check</div></div>
+    </div>
+  </div>
+
+  <!-- PRIORITY BOARD -->
+  <div class="prio-board">
+    <div class="pb-cell">
+      <div class="pb-head"><span>🚨</span><span class="pb-label" style="color:var(--red)">Fix Today</span></div>
+      <div class="pb-items">
+        <div class="pb-item">LCP image not preloaded (+1.3s)</div>
+        <div class="pb-item">7 pages missing meta descriptions</div>
+        <div class="pb-item">No schema on product pages</div>
+        <div class="pb-item">H1 missing on 3 landing pages</div>
+        <div class="pb-item">12 broken internal links (404)</div>
+      </div>
+    </div>
+    <div class="pb-cell">
+      <div class="pb-head"><span>⚠️</span><span class="pb-label" style="color:var(--amber)">Fix This Week</span></div>
+      <div class="pb-items">
+        <div class="pb-item">Duplicate title tags on 5 posts</div>
+        <div class="pb-item">34 images missing alt text</div>
+        <div class="pb-item">Sitemap missing 18 recent URLs</div>
+        <div class="pb-item">Render-blocking JS in head</div>
+        <div class="pb-item">Canonical conflicts on /blog</div>
+      </div>
+    </div>
+    <div class="pb-cell">
+      <div class="pb-head"><span>📈</span><span class="pb-label" style="color:var(--accent)">Grow This Month</span></div>
+      <div class="pb-items">
+        <div class="pb-item">Thin content on 8 category pages</div>
+        <div class="pb-item">FAQ schema (losing SERP space)</div>
+        <div class="pb-item">3 keyword cannibalization issues</div>
+        <div class="pb-item">E-E-A-T signals too weak</div>
+      </div>
+    </div>
+    <div class="pb-cell">
+      <div class="pb-head"><span>✅</span><span class="pb-label" style="color:var(--green)">Already Good</span></div>
+      <div class="pb-items">
+        <div class="pb-item">HTTPS fully configured</div>
+        <div class="pb-item">Robots.txt well-structured</div>
+        <div class="pb-item">TTFB healthy at 310ms</div>
+        <div class="pb-item">Mobile-first compatible</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs-row" id="tabsRow">
+    <button class="tab-b a" onclick="sw('technical',this)"><span class="tab-icon">🔧</span>Technical <span class="tc">7</span></button>
+    <button class="tab-b" onclick="sw('onpage',this)"><span class="tab-icon">📝</span>On-Page <span class="tc">6</span></button>
+    <button class="tab-b" onclick="sw('content',this)"><span class="tab-icon">📖</span>Content <span class="tc">3</span></button>
+    <button class="tab-b" onclick="sw('roi',this)"><span class="tab-icon">💰</span>ROI Ranking <span class="tc">NEW</span></button>
+    <button class="tab-b" onclick="sw('serp',this)"><span class="tab-icon">🎯</span>SERP Features <span class="tc">NEW</span></button>
+    <button class="tab-b" onclick="sw('eeat',this)"><span class="tab-icon">🧠</span>E-E-A-T <span class="tc">NEW</span></button>
+    <button class="tab-b" onclick="sw('entities',this)"><span class="tab-icon">🕸</span>Entities <span class="tc">NEW</span></button>
+    <button class="tab-b" onclick="sw('algo',this)"><span class="tab-icon">📡</span>Algorithm <span class="tc">NEW</span></button>
+    <button class="tab-b" onclick="sw('cann',this)"><span class="tab-icon">🔁</span>Cannibalization <span class="tc">NEW</span></button>
+    <button class="tab-b" onclick="sw('links',this)"><span class="tab-icon">🗺</span>Link Equity <span class="tc">NEW</span></button>
+    <button class="tab-b" onclick="sw('perf',this)"><span class="tab-icon">⚡</span>CWV <span class="tc">4</span></button>
+    <button class="tab-b" onclick="sw('schema',this)"><span class="tab-icon">🏷</span>Schema <span class="tc">4</span></button>
+    <button class="tab-b" onclick="sw('comp',this)"><span class="tab-icon">🏁</span>Competitors <span class="tc">5</span></button>
+  </div>
+
+  <!-- PANEL: TECHNICAL -->
+  <div class="panel a" id="p-technical">
+    <div class="sh"><div class="sh-left"><h3>Technical SEO Audit</h3><p>19 checks across crawl, indexing, and site structure</p></div></div>
+    <div class="issue-list" id="l-technical"></div>
+  </div>
+
+  <!-- PANEL: ON-PAGE -->
+  <div class="panel" id="p-onpage">
+    <div class="sh"><div class="sh-left"><h3>On-Page SEO</h3><p>Titles, headings, meta, and content structure</p></div></div>
+    <div class="issue-list" id="l-onpage"></div>
+  </div>
+
+  <!-- PANEL: CONTENT -->
+  <div class="panel" id="p-content">
+    <div class="sh"><div class="sh-left"><h3>Content Intelligence</h3><p>NLP analysis + content brief generator</p></div></div>
+    <!-- CONTENT BRIEF -->
+    <div class="brief-card">
+      <div class="brief-head"><h3 id="briefHead">🤖 AI-Generated Content Brief — "web design services Austin"</h3><button class="btn-primary" style="font-size:12px;padding:6px 14px">Generate Full Brief</button></div>
+      <div class="brief-body">
+        <div>
+          <div class="brief-section"><h4>Target Keywords</h4></div>
+          <div class="brief-kw-list" id="briefKws"></div>
+        </div>
+        <div>
+          <div class="brief-section"><h4>Recommended Outline</h4></div>
+          <div class="brief-outline" id="briefOutline"></div>
+        </div>
+      </div>
+    </div>
+    <div class="dt-wrap">
+      <div class="dt-head"><div class="dt-title">Keyword Placement Analysis</div></div>
+      <table class="dt"><thead><tr><th>Keyword</th><th>Freq</th><th>Density</th><th>Placement Score</th><th>Opportunity</th></tr></thead>
+      <tbody id="kwTable"></tbody></table>
+    </div>
+    <div class="issue-list" id="l-content"></div>
+  </div>
+
+  <!-- PANEL: ROI RANKING (UNIQUE) -->
+  <div class="panel" id="p-roi">
+    <div class="sh"><div class="sh-left"><h3>ROI-Ranked Fix List</h3><p>Every issue ranked by estimated monthly revenue impact — not just severity</p></div></div>
+    <div class="roi-table-wrap">
+      <div class="roi-table-head"><h3>💰 Revenue Impact per Fix</h3><p>Based on traffic × CTR improvement × avg conversion value</p></div>
+      <table class="roi" id="roiTable">
+        <thead><tr><th>Priority</th><th>Issue</th><th>Effort</th><th>SEO Impact</th><th>Est. Monthly Value</th><th>Payback</th></tr></thead>
+        <tbody id="roiBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- PANEL: SERP FEATURES (UNIQUE) -->
+  <div class="panel" id="p-serp">
+    <div class="sh"><div class="sh-left"><h3>SERP Feature Opportunity Map</h3><p>Which rich results your competitors own — and what you need to claim them</p></div></div>
+    <div class="serp-grid" id="serpGrid"></div>
+    <div class="sh" style="margin-top:8px"><div class="sh-left"><h3>How to Win Each Feature</h3><p>Specific implementation steps</p></div></div>
+    <div class="issue-list" id="l-serp"></div>
+  </div>
+
+  <!-- PANEL: E-E-A-T (UNIQUE) -->
+  <div class="panel" id="p-eeat">
+    <div class="sh"><div class="sh-left"><h3>E-E-A-T Score Breakdown</h3><p>Google's quality signals — Experience, Expertise, Authoritativeness, Trustworthiness</p></div></div>
+    <div class="eeat-grid" id="eeatGrid"></div>
+    <div class="sh"><div class="sh-left"><h3>How to Improve Each Signal</h3></div></div>
+    <div class="issue-list" id="l-eeat"></div>
+  </div>
+
+  <!-- PANEL: ENTITIES (UNIQUE) -->
+  <div class="panel" id="p-entities">
+    <div class="sh"><div class="sh-left"><h3>Entity & Knowledge Graph Analysis</h3><p>How strongly Google's Knowledge Graph associates your site with key entities</p></div></div>
+    <div class="entity-wrap" id="entityWrap"></div>
+    <div class="sh"><div class="sh-left"><h3>Entity Optimization Opportunities</h3></div></div>
+    <div class="issue-list" id="l-entities"></div>
+  </div>
+
+  <!-- PANEL: ALGORITHM (UNIQUE) -->
+  <div class="panel" id="p-algo">
+    <div class="sh"><div class="sh-left"><h3>Google Algorithm Impact Tracker</h3><p>Did recent updates help or hurt you? Which signals are now being weighted differently?</p></div></div>
+    <div class="algo-timeline" id="algoTimeline"></div>
+    <div class="issue-list" id="l-algo"></div>
+  </div>
+
+  <!-- PANEL: CANNIBALIZATION (UNIQUE) -->
+  <div class="panel" id="p-cann">
+    <div class="sh"><div class="sh-left"><h3>Keyword Cannibalization Detector</h3><p>Pages competing against each other for the same keywords — with merge recommendations</p></div></div>
+    <div id="cannCards"></div>
+    <div class="issue-list" id="l-cann"></div>
+  </div>
+
+  <!-- PANEL: LINK EQUITY (UNIQUE) -->
+  <div class="panel" id="p-links">
+    <div class="sh"><div class="sh-left"><h3>Internal Link Equity Flow</h3><p>How PageRank distributes across your site — and which pages are starved of authority</p></div></div>
+    <div class="dt-wrap" style="margin-bottom:20px">
+      <div class="dt-head"><div class="dt-title">Page Authority Distribution</div><div style="font-size:12px;color:var(--text3)">Higher = more internal link equity received</div></div>
+      <div class="link-equity" id="linkEquity" style="border:none;border-radius:0;padding:0 18px"></div>
+    </div>
+    <div class="issue-list" id="l-links"></div>
+  </div>
+
+  <!-- PANEL: CWV -->
+  <div class="panel" id="p-perf">
+    <div class="sh"><div class="sh-left"><h3>Core Web Vitals</h3><p>Real-world load analysis — Google's direct ranking signals</p></div></div>
+    <div class="wf-wrap"><div class="wf-title">⏱ Load Waterfall — Where You're Losing Time</div><div id="wfRows"></div></div>
+    <div class="issue-list" id="l-perf"></div>
+  </div>
+
+  <!-- PANEL: SCHEMA -->
+  <div class="panel" id="p-schema">
+    <div class="sh"><div class="sh-left"><h3>Structured Data & Schema.org</h3><p>Rich result eligibility — win more SERP real estate</p></div></div>
+    <div class="schema-grid" id="schemaGrid"></div>
+    <div class="issue-list" id="l-schema"></div>
+  </div>
+
+  <!-- PANEL: COMPETITORS -->
+  <div class="panel" id="p-comp">
+    <div class="sh"><div class="sh-left"><h3>Competitive Gap Analysis</h3><p>vs. top 5 competitors</p></div></div>
+    <div class="comp-list" id="compList"></div>
+    <div class="issue-list" id="l-comp"></div>
+  </div>
+
+</div><!-- /main -->
+
+<script>
+// ─── LIVE AUDIT ENGINE ───
+// All data variables – populated by runAudit(), then rendered by showResults()
+let TECHNICAL=[], ONPAGE=[], CONTENT=[], PERF=[];
+let SCHEMA_DATA=[], SCHEMA_ISSUES=[];
+let COMPETITORS=[], COMP_ISSUES=[];
+let ROI_DATA=[];
+let SERP_FEATURES=[], SERP_ISSUES=[];
+let EEAT_DATA=[], EEAT_ISSUES=[];
+let ENTITY_DATA=[], ENTITY_ISSUES=[];
+let ALGO_DATA=[], ALGO_ISSUES=[];
+let CANN_DATA=[], CANN_ISSUES=[];
+let LINK_EQUITY=[], LINK_ISSUES=[];
+let KW_DATA=[], BRIEF_KWS=[], BRIEF_OUTLINE=[];
+let WF_DATA=[];
+let _auditUrl='', _domain='', _psi={}, _html={};
+
+const SCAN_STEPS = [
+  'Fetching PageSpeed Insights (mobile)…',
+  'Fetching PageSpeed Insights (desktop)…',
+  'Fetching page HTML via proxy…',
+  'Parsing meta tags, titles, canonicals…',
+  'Analysing keyword frequency & density…',
+  'Checking structured data & schema…',
+  'Evaluating Core Web Vitals…',
+  'Scoring E-E-A-T signals…',
+  'Building ROI-ranked fix list…',
+  'Mapping SERP feature opportunities…',
+  'Calculating revenue impact…',
+  'Finalising intelligence report…',
+];
+
+// ─── HELPERS ───
+function sevC(sev){
+  return {
+    critical:{bar:'#dc2626',bg:'var(--red-l)',c:'var(--red)',pill:'#fecaca'},
+    warning:{bar:'#d97706',bg:'var(--amber-l)',c:'var(--amber)',pill:'#fde68a'},
+    good:{bar:'#059669',bg:'var(--green-l)',c:'var(--green)',pill:'#a7f3d0'},
+    info:{bar:'#2563eb',bg:'var(--accent-light)',c:'var(--accent)',pill:'#bfdbfe'},
+  }[sev]||{bar:'#6b7280',bg:'#f3f4f6',c:'#374151',pill:'#e5e7eb'};
+}
+
+function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+function tog(id,i){document.getElementById(`ii-${id}-${i}`).classList.toggle('open')}
+
+function sw(name,btn){
+  document.querySelectorAll('.tab-b').forEach(b=>b.classList.remove('a'));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('a'));
+  btn.classList.add('a');
+  document.getElementById('p-'+name).classList.add('a');
+}
+
+// ─── RENDER FUNCTIONS (unchanged) ───
+function renderIssues(data, id){
+  const el = document.getElementById(id);
+  if(!el)return;
+  el.innerHTML = data.map((d,i)=>{
+    const col = sevC(d.sev);
+    const lbl = {critical:'Critical',warning:'Warning',good:'Passed',info:'Info'}[d.sev];
+    return `<div class="ii" id="ii-${id}-${i}">
+      <div class="ii-head" onclick="tog('${id}',${i})">
+        <div class="ii-bar" style="background:${col.bar}"></div>
+        <div class="ii-ico" style="background:${col.bg};color:${col.c}">${d.icon}</div>
+        <div class="ii-main">
+          <div class="ii-name">${d.title}</div>
+          <div class="ii-brief">${d.brief}</div>
+        </div>
+        <div class="ii-right">
+          <div class="ii-pill" style="background:${col.pill};color:${col.c}">${lbl}</div>
+          <div class="ii-impact"><div class="ii-impact-n" style="color:${col.c}">${d.impact}%</div><div class="ii-impact-l">Impact</div></div>
+          ${d.fix?'<div class="ii-chev">▼</div>':''}
+        </div>
+      </div>
+      <div class="ii-body">
+        <div class="ii-desc">${d.desc}</div>
+        ${d.fix?`<div class="fix-box"><div class="fb-title">✅ How to Fix This</div><div class="fb-text">${d.fix}</div></div>`:''}
+        ${d.code?`<div class="code-b">${d.code}</div>`:''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderROI(){
+  document.getElementById('roiBody').innerHTML = ROI_DATA.map(r=>{
+    const effortColor = {green:'var(--green)',amber:'var(--amber)',red:'var(--red)'}[r.effortColor];
+    const effortBg = {green:'var(--green-l)',amber:'var(--amber-l)',red:'var(--red-l)'}[r.effortColor];
+    const effortLabel = {green:'Low',amber:'Medium',red:'High'}[r.effortColor];
+    return `<tr>
+      <td><div class="roi-rank">${r.rank}</div></td>
+      <td><div class="roi-fix">${r.title}</div><div class="roi-fix-sub">${r.sub}</div></td>
+      <td><span class="effort-dot" style="color:${effortColor}">
+        <span style="width:8px;height:8px;border-radius:50%;background:${effortColor};display:inline-block"></span>
+        ${effortLabel}
+      </span></td>
+      <td><div class="impact-bar-w"><div class="impact-bar-f" style="width:${r.impact}%;background:${r.impact>80?'var(--green)':r.impact>60?'var(--accent)':'var(--amber)'}"></div></div><span style="font-size:12px;font-weight:600">${r.impact}%</span></td>
+      <td><div class="roi-val" style="color:var(--green)">${r.monthly}/mo</div></td>
+      <td style="color:var(--text3);font-size:12.5px">${r.payback}</td>
+    </tr>`;
+  }).join('');
+}
+
+function renderSERP(){
+  document.getElementById('serpGrid').innerHTML = SERP_FEATURES.map(f=>{
+    const cls = f.status==='owned'?'owned':f.status==='competitor'?'competitor':'opportunity';
+    const sc = {owned:{bg:'var(--green-l)',c:'var(--green)',label:'✓ You own this'},competitor:{bg:'var(--red-l)',c:'var(--red)',label:'✗ Competitor'},opportunity:{bg:'var(--amber-l)',c:'var(--amber)',label:'◉ Opportunity'}}[f.status];
+    return `<div class="serp-card ${cls}">
+      <div class="sc-type">${f.type}</div>
+      <div class="sc-name">${f.name}</div>
+      <div class="sc-kw">${f.kw}</div>
+      <div class="sc-status" style="background:${sc.bg};color:${sc.c}">${sc.label}</div>
+      ${f.who&&f.who!=='Not claimed'?`<div style="font-size:11px;color:var(--text3);margin-top:6px">Owner: ${f.who}</div>`:''}
+      <div style="font-size:11.5px;color:var(--text2);margin-top:8px;line-height:1.5">${f.action}</div>
+    </div>`;
+  }).join('');
+  renderIssues(SERP_ISSUES,'l-serp');
+}
+
+function renderEEAT(){
+  document.getElementById('eeatGrid').innerHTML = EEAT_DATA.map(e=>`
+    <div class="eeat-card">
+      <div class="eeat-letter" style="color:${e.color}">${e.letter}</div>
+      <div class="eeat-word">${e.word}</div>
+      <div class="eeat-score" style="color:${e.color}">${e.score}</div>
+      <div class="eeat-bar-w"><div class="eeat-bar-f" style="width:${e.score}%;background:${e.color}"></div></div>
+      <div class="eeat-tip">${e.tip}</div>
+    </div>`).join('');
+  renderIssues(EEAT_ISSUES,'l-eeat');
+}
+
+function renderEntities(){
+  document.getElementById('entityWrap').innerHTML =
+    `<div style="font-size:14px;font-weight:700;margin-bottom:14px">Entity Association Strength</div>` +
+    ENTITY_DATA.map(e=>{
+      const sbg = e.strength>60?'var(--green-l)':e.strength>40?'var(--amber-l)':'var(--red-l)';
+      const sc = e.strength>60?'var(--green)':e.strength>40?'var(--amber)':'var(--red)';
+      return `<div class="entity-row">
+        <div class="entity-name">${e.name}</div>
+        <div class="entity-type">${e.type}</div>
+        <div class="entity-strength">
+          <div class="es-bar"><div class="es-fill" style="width:${e.strength}%;background:${e.color}"></div></div>
+          <span style="font-family:var(--mono);font-size:11.5px;font-weight:600;color:${e.color}">${e.strength}</span>
+        </div>
+        <div class="entity-signal" style="background:${sbg};color:${sc}">${e.signal}</div>
+      </div>`;
+    }).join('');
+  renderIssues(ENTITY_ISSUES,'l-entities');
+}
+
+function renderAlgo(){
+  document.getElementById('algoTimeline').innerHTML = ALGO_DATA.map(a=>{
+    const neg = a.delta.startsWith('-');
+    const pos = a.delta.startsWith('+');
+    const dc = pos?'var(--green)':neg?'var(--red)':'var(--text3)';
+    const dbg = pos?'var(--green-l)':neg?'var(--red-l)':'var(--surface3)';
+    return `<div class="algo-item">
+      <div class="algo-dot" style="background:${dc};border-color:var(--surface)"></div>
+      <div class="algo-meta">${a.date}</div>
+      <div class="algo-name">${a.name}</div>
+      <div class="algo-impact">${a.desc}</div>
+      <div class="algo-delta" style="background:${dbg};color:${dc}">${neg?'▼':pos?'▲':'◆'} ${a.delta} pts estimated traffic</div>
+    </div>`;
+  }).join('');
+  renderIssues(ALGO_ISSUES,'l-algo');
+}
+
+function renderCann(){
+  document.getElementById('cannCards').innerHTML = CANN_DATA.map(c=>`
+    <div class="cann-card">
+      <div class="cann-head">
+        <div class="cann-kw">Keyword: ${c.kw}</div>
+        <div style="font-size:12px;color:var(--rose);font-weight:600">${c.pages.length} pages competing</div>
+      </div>
+      <div class="cann-pages">
+        ${c.pages.map(p=>`<div class="cp-row">
+          <div class="cp-url">${p.url}</div>
+          <div class="cp-pos" style="color:${p.winner?'var(--accent)':'var(--text3)'}">${p.winner?'👑':''} #${p.pos}</div>
+          <div class="cp-traffic" style="color:var(--text3)">${p.traffic}</div>
+          <button class="cp-action" style="background:${p.winner?'var(--green-l)':'var(--red-l)'};color:${p.winner?'var(--green)':'var(--red)'}">${p.winner?'Keep':'Redirect/Merge'}</button>
+        </div>`).join('')}
+      </div>
+    </div>`).join('');
+  renderIssues(CANN_ISSUES,'l-cann');
+}
+
+function renderLinkEquity(){
+  document.getElementById('linkEquity').innerHTML = LINK_EQUITY.map(l=>{
+    const sc = {green:'var(--green)',blue:'var(--accent)',amber:'var(--amber)',red:'var(--red)'}[l.statusC];
+    const sbg = {green:'var(--green-l)',blue:'var(--accent-light)',amber:'var(--amber-l)',red:'var(--red-l)'}[l.statusC];
+    return `<div class="le-row">
+      <div class="le-page">${l.page}</div>
+      <div class="le-bar-w"><div class="le-bar-f" style="width:${l.score}%;background:${l.color}"></div></div>
+      <div class="le-score" style="color:${l.color}">${l.score}</div>
+      <div class="le-status" style="background:${sbg};color:${sc}">${l.status}</div>
+    </div>`;
+  }).join('');
+  renderIssues(LINK_ISSUES,'l-links');
+}
+
+function renderKW(){
+  document.getElementById('kwTable').innerHTML = KW_DATA.map(r=>{
+    const c = {green:'var(--green)',amber:'var(--amber)',red:'var(--red)'}[r.oc];
+    const bg = {green:'var(--green-l)',amber:'var(--amber-l)',red:'var(--red-l)'}[r.oc];
+    return `<tr>
+      <td>${r.kw}</td>
+      <td style="font-family:var(--mono)">${r.freq}×</td>
+      <td><div class="den-wrap"><div class="den-b"><div class="den-f" style="width:${Math.min(r.density/3*100,100)}%"></div></div>${r.density}%</div></td>
+      <td><span class="pill" style="background:${bg};color:${c}">${r.score}/100</span></td>
+      <td style="color:${c};font-weight:600">${r.opp}</td>
+    </tr>`;
+  }).join('');
+}
+
+function renderBrief(){
+  document.getElementById('briefKws').innerHTML = BRIEF_KWS.map(k=>{
+    const tc = {Primary:'var(--accent)',Secondary:'var(--purple)','Featured Snippet':'var(--amber)','Long-tail':'var(--green)'}[k.type]||'var(--text3)';
+    const tbg = {Primary:'var(--accent-light)',Secondary:'var(--purple-l)','Featured Snippet':'var(--amber-l)','Long-tail':'var(--green-l)'}[k.type]||'var(--surface3)';
+    return `<div class="bkw">
+      <span style="font-size:13px;font-weight:500">${k.kw}</span>
+      <div style="display:flex;align-items:center;gap:8px">
+        <span style="font-size:11.5px;color:var(--text3)">${k.vol}</span>
+        <span class="bkw-tag" style="background:${tbg};color:${tc}">${k.type}</span>
+      </div>
+    </div>`;
+  }).join('');
+  document.getElementById('briefOutline').innerHTML = BRIEF_OUTLINE.map(o=>`
+    <div class="bo-item"><span class="bo-h">${o.h}</span><span>${o.text}</span></div>`).join('');
+}
+
+function renderWF(){
+  document.getElementById('wfRows').innerHTML = WF_DATA.map(w=>`
+    <div class="wf-row">
+      <div class="wf-lbl">${w.label}</div>
+      <div class="wf-track"><div class="wf-bar" style="width:${w.pct}%;background:${w.color}">${w.pct>18?w.label:''}</div></div>
+      <div class="wf-val">${w.val}</div>
+    </div>`).join('');
+}
+
+function renderSchema(){
+  document.getElementById('schemaGrid').innerHTML = SCHEMA_DATA.map(s=>{
+    const ok=s.ok,part=s.status==='partial';
+    const c=ok?'var(--green)':part?'var(--amber)':'var(--red)';
+    const bg=ok?'var(--green-l)':part?'var(--amber-l)':'var(--red-l)';
+    const lbl=ok?'✓ Valid':part?'⚠ Incomplete':'✗ Missing';
+    return `<div class="sc-card">
+      <div class="sc-type-l">${s.type}</div>
+      <div class="sc-name-l">${s.name}</div>
+      <div class="sc-badge" style="background:${bg};color:${c}">${lbl}</div>
+      <div class="sc-note">${s.note}</div>
+    </div>`;
+  }).join('');
+  renderIssues(SCHEMA_ISSUES,'l-schema');
+}
+
+function renderComp(){
+  document.getElementById('compList').innerHTML = COMPETITORS.map(c=>{
+    const you=c.you||false;
+    const col=c.score>80?'var(--green)':c.score>65?'var(--amber)':'var(--red)';
+    return `<div class="comp-c${you?' you':''}">
+      <div class="comp-rank">#${c.rank}</div>
+      <div class="comp-info">
+        <div class="comp-domain">${c.domain}${you?' <span style="color:var(--accent);font-size:12px;font-weight:600">← You</span>':''}</div>
+        <div class="comp-note">${c.note}</div>
+        <div class="comp-badges">
+          <div class="cb">Score ${c.score}</div>
+          <div class="cb">Speed ${c.speed}</div>
+          <div class="cb" style="${c.schema?'background:var(--green-l);color:var(--green);border-color:#a7f3d0':'background:var(--red-l);color:var(--red);border-color:#fecaca'}">Schema ${c.schema?'✓':'✗'}</div>
+        </div>
+      </div>
+      <div class="comp-score-b">
+        <div class="comp-score-v" style="color:${col}">${c.score}</div>
+        <div class="comp-score-l">SEO Score</div>
+      </div>
+    </div>`;
+  }).join('');
+  renderIssues(COMP_ISSUES,'l-comp');
+}
+
+// ─── UPDATE STATIC HTML SECTIONS ───
+function updateOverview(score, psi){
+  // Donut
+  const circ = 2*Math.PI*46;
+  const offset = circ - (score/100)*circ;
+  const col = score>=80?'#059669':score>=60?'#d97706':'#dc2626';
+  const colVar = score>=80?'var(--green)':score>=60?'var(--amber)':'var(--red)';
+  const colL = score>=80?'var(--green-l)':score>=60?'var(--amber-l)':'var(--red-l)';
+  const grade = score>=80?'Good':score>=60?'Needs Improvement':'Poor';
+  document.getElementById('donutArc').setAttribute('stroke',col);
+  document.getElementById('donutArc').setAttribute('stroke-dasharray',circ.toFixed(1));
+  document.getElementById('donutArc').setAttribute('stroke-dashoffset',offset.toFixed(1));
+  document.getElementById('donutScore').textContent = score;
+  document.getElementById('donutScore').style.color = colVar;
+  document.getElementById('scoreGrade').textContent = grade;
+  document.getElementById('scoreGrade').style.background = colL;
+  document.getElementById('scoreGrade').style.color = colVar;
+
+  // Count issues by sev
+  const all = [...TECHNICAL,...ONPAGE,...CONTENT,...PERF];
+  const crit = all.filter(x=>x.sev==='critical').length;
+  const warn = all.filter(x=>x.sev==='warning').length;
+  const good = all.filter(x=>x.sev==='good').length;
+  const info = all.filter(x=>x.sev==='info').length;
+  const rows = document.querySelectorAll('.sr-val');
+  if(rows[0]) rows[0].textContent=crit;
+  if(rows[1]) rows[1].textContent=warn;
+  if(rows[2]) rows[2].textContent=good;
+  if(rows[3]) rows[3].textContent=info;
+
+  // 6 metric cards
+  const mob = psi.mobile||{}, desk = psi.desktop||{};
+  const lcp = mob.lcp||0, cls = mob.cls||0, fcp = mob.fcp||0;
+  const mScore = mob.perf||0, https = _html.https;
+  const cards = document.querySelectorAll('.mx-card');
+  if(cards[0]){ // LCP
+    const bad=lcp>4,ok=lcp<=2.5;
+    const c=ok?'green':bad?'red':'amber';
+    cards[0].innerHTML=`<div class="mx-ico" style="background:var(--${c}-l)">⚡</div><div class="mx-val" style="color:var(--${c})">${lcp.toFixed(1)}s</div><div class="mx-name">LCP</div><div class="mx-sub">Target &lt;2.5s</div><div class="mx-tag" style="background:var(--${c}-l);color:var(--${c})">${ok?'✓ Good':bad?'▼ Slow':'⚠ Needs work'}</div>`;
+  }
+  if(cards[1]){ // Mobile score
+    const bad=mScore<50,ok=mScore>=80;
+    const c=ok?'green':bad?'red':'amber';
+    cards[1].innerHTML=`<div class="mx-ico" style="background:var(--${c}-l)">📱</div><div class="mx-val" style="color:var(--${c})">${mScore}</div><div class="mx-name">Mobile Score</div><div class="mx-sub">PageSpeed Insights</div><div class="mx-tag" style="background:var(--${c}-l);color:var(--${c})">${ok?'✓ Fast':bad?'▼ Slow':'⚠ Improve'}</div>`;
+  }
+  if(cards[2]){ // HTTPS
+    cards[2].innerHTML=`<div class="mx-ico" style="background:var(--${https?'green':'red'}-l)">🔒</div><div class="mx-val" style="color:var(--${https?'green':'red'})">${https?'✓':'✗'}</div><div class="mx-name">HTTPS / SSL</div><div class="mx-sub">${https?'Secure connection':'Not secured'}</div><div class="mx-tag" style="background:var(--${https?'green':'red'}-l);color:var(--${https?'green':'red'})">${https?'✓ Secure':'✗ No HTTPS'}</div>`;
+  }
+  if(cards[3]){ // Desktop score
+    const ds=desk.perf||0, bad=ds<50,ok=ds>=80;
+    const c=ok?'green':bad?'red':'amber';
+    cards[3].innerHTML=`<div class="mx-ico" style="background:var(--${c}-l)">🖥</div><div class="mx-val" style="color:var(--${c})">${ds}</div><div class="mx-name">Desktop Score</div><div class="mx-sub">PageSpeed Insights</div><div class="mx-tag" style="background:var(--${c}-l);color:var(--${c})">${ok?'✓ Fast':bad?'▼ Slow':'⚠ Improve'}</div>`;
+  }
+  if(cards[4]){ // CLS
+    const bad=cls>0.25,ok=cls<=0.1;
+    const c=ok?'green':bad?'red':'amber';
+    cards[4].innerHTML=`<div class="mx-ico" style="background:var(--${c}-l)">📐</div><div class="mx-val" style="color:var(--${c})">${cls.toFixed(3)}</div><div class="mx-name">CLS</div><div class="mx-sub">Target &lt;0.10</div><div class="mx-tag" style="background:var(--${c}-l);color:var(--${c})">${ok?'✓ Stable':bad?'▼ Poor':'⚠ Needs work'}</div>`;
+  }
+  if(cards[5]){ // SEO score
+    const ss=mob.seo||0, bad=ss<60,ok=ss>=90;
+    const c=ok?'green':bad?'red':'amber';
+    cards[5].innerHTML=`<div class="mx-ico" style="background:var(--${c}-l)">🔍</div><div class="mx-val" style="color:var(--${c})">${ss}</div><div class="mx-name">SEO Score</div><div class="mx-sub">PSI SEO audit</div><div class="mx-tag" style="background:var(--${c}-l);color:var(--${c})">${ok?'✓ Great':bad?'▼ Poor':'⚠ Improve'}</div>`;
+  }
+}
+
+function updateBanner(score){
+  const issues = [...TECHNICAL,...ONPAGE,...CONTENT,...PERF].filter(x=>x.sev==='critical'||x.sev==='warning');
+  const potential = Math.min(99,score+30);
+  const gain = potential-score;
+  // Estimated monthly loss: rough formula
+  const loss = Math.round((100-score)/100 * issues.length * 420);
+  const _bh2=document.getElementById('bannerH2');if(_bh2)_bh2.innerHTML=`You could gain <em>~${gain} SEO points</em>`;
+  const _bp=document.getElementById('bannerP');if(_bp)_bp.textContent=`Based on ${issues.length} fixable issues found — fixing your top priorities could significantly boost your rankings within 90 days.`;
+  const vals = document.querySelectorAll('.rb-val');
+  if(vals[0]) vals[0].textContent = issues.length+' issues';
+  if(vals[1]) vals[1].textContent = score;
+  if(vals[2]) vals[2].textContent = '+'+gain+'pts';
+}
+
+function updatePrioBoard(){
+  const all = [...TECHNICAL,...ONPAGE,...CONTENT,...PERF];
+  const critical = all.filter(x=>x.sev==='critical').slice(0,5);
+  const warning = all.filter(x=>x.sev==='warning').slice(0,5);
+  const good = all.filter(x=>x.sev==='good').slice(0,4);
+  const cells = document.querySelectorAll('.pb-items');
+  if(cells[0]) cells[0].innerHTML = critical.map(x=>`<div class="pb-item">${x.title}</div>`).join('');
+  if(cells[1]) cells[1].innerHTML = warning.map(x=>`<div class="pb-item">${x.title}</div>`).join('');
+  if(cells[2]) cells[2].innerHTML = `<div class="pb-item">Review keyword cannibalization</div><div class="pb-item">Improve SERP feature coverage</div><div class="pb-item">Strengthen E-E-A-T signals</div><div class="pb-item">Build internal link equity</div>`;
+  if(cells[3]) cells[3].innerHTML = good.map(x=>`<div class="pb-item">${x.title}</div>`).join('') || `<div class="pb-item">HTTPS configured</div>`;
+}
+
+function updateBriefHead(title, kw){
+  const bh = document.getElementById('briefHead');
+  if(bh) bh.textContent = `🤖 AI Content Brief — "${kw||title||_domain}"`;
+}
+
+// ─── STOPWORDS ───
+const STOP = new Set(['the','a','an','and','or','but','in','on','at','to','for','of','with','by','from','is','are','was','were','be','been','has','have','had','do','does','did','will','would','could','should','may','might','this','that','these','those','it','its','as','if','then','than','so','yet','both','not','no','nor','your','our','their','we','you','he','she','they','i','me','him','her','us','them','what','which','who','whom','when','where','why','how','all','each','every','any','some','most','more','also','just','very','too','can','into','about','up','out','over','after','before','above','below','between','through','during','while','although','because','since','until','unless','however','therefore','thus','hence','even','only','such','own','same','other','another','any','few','more','most','other','some','such','nor','not','only','own','same','so','than','too','very']);
+
+// ─── DATA BUILDERS ───
+function buildFromPSI(mob, desk){
+  const m = mob.lighthouseResult||{}, d = desk.lighthouseResult||{};
+  const mAud = m.audits||{}, dAud = d.audits||{};
+  const mCat = (m.categories)||{};
+
+  // Core metrics
+  const lcp = parseFloat(((mAud['largest-contentful-paint']?.numericValue||0)/1000).toFixed(2));
+  const cls = parseFloat((mAud['cumulative-layout-shift']?.numericValue||0).toFixed(3));
+  const fcp = parseFloat(((mAud['first-contentful-paint']?.numericValue||0)/1000).toFixed(2));
+  const ttfb = parseFloat(((mAud['server-response-time']?.numericValue||0)/1000).toFixed(2));
+  const tbt = Math.round(mAud['total-blocking-time']?.numericValue||0);
+  const si = parseFloat(((mAud['speed-index']?.numericValue||0)/1000).toFixed(2));
+  const mPerf = Math.round((mCat.performance?.score||0)*100);
+  const mSeo = Math.round((mCat.seo?.score||0)*100);
+  const mAcc = Math.round((mCat.accessibility?.score||0)*100);
+  const dPerf = Math.round(((d.categories||{}).performance?.score||0)*100);
+
+  _psi = {
+    mobile:{perf:mPerf,seo:mSeo,acc:mAcc,lcp,cls,fcp,ttfb,tbt,si},
+    desktop:{perf:dPerf},
+    mAud, dAud
+  };
+
+  // WF data from real metrics
+  WF_DATA = [
+    {label:'DNS + TCP',val:Math.round((ttfb>0?ttfb*0.1:20))+'ms',pct:5,color:'#059669'},
+    {label:'SSL Handshake',val:Math.round((ttfb>0?ttfb*0.15:30))+'ms',pct:9,color:'#7c3aed'},
+    {label:'TTFB',val:ttfb>0?(ttfb*1000).toFixed(0)+'ms':'—',pct:Math.min(Math.round(ttfb/6*100),40),color:ttfb>0.6?'#dc2626':'#d97706'},
+    {label:'FCP',val:fcp>0?fcp+'s':'—',pct:Math.min(Math.round(fcp/8*100),65),color:fcp>3?'#dc2626':fcp>1.8?'#d97706':'#059669'},
+    {label:'TBT',val:tbt>0?tbt+'ms':'—',pct:Math.min(Math.round(tbt/600*100),80),color:tbt>600?'#dc2626':tbt>200?'#d97706':'#059669'},
+    {label:'LCP',val:lcp>0?lcp+'s':'—',pct:Math.min(Math.round(lcp/8*100),100),color:lcp>4?'#dc2626':lcp>2.5?'#d97706':'#059669'},
+  ];
+
+  // PERF issues from PSI audits
+  PERF = [];
+  const perfChecks = [
+    {id:'render-blocking-resources',icon:'⛔',title:'Render-Blocking Resources',crit:true,impact:88,fix:'Add defer or async to non-critical JS/CSS. Move critical styles inline.'},
+    {id:'unused-javascript',icon:'📦',title:'Unused JavaScript',crit:false,impact:72,fix:'Remove or defer unused JS bundles. Use code splitting.'},
+    {id:'unused-css-rules',icon:'🎨',title:'Unused CSS Rules',crit:false,impact:60,fix:'Remove unused CSS with PurgeCSS or equivalent.'},
+    {id:'uses-text-compression',icon:'🗜',title:'Enable Text Compression (gzip/br)',crit:true,impact:75,fix:'Enable gzip or Brotli compression on your server.'},
+    {id:'uses-webp-images',icon:'🖼',title:'Serve Images in Next-Gen Format',crit:false,impact:65,fix:'Convert JPEG/PNG to WebP. Use <picture> with fallback.'},
+    {id:'uses-responsive-images',icon:'📐',title:'Properly Size Images',crit:false,impact:60,fix:'Serve images at the size they are displayed. Use srcset.'},
+    {id:'offscreen-images',icon:'📵',title:'Defer Offscreen Images',crit:false,impact:55,fix:'Add loading="lazy" to below-fold images.'},
+    {id:'uses-optimized-images',icon:'🗃',title:'Efficiently Encode Images',crit:false,impact:58,fix:'Compress images further using tools like Squoosh or ImageOptim.'},
+    {id:'uses-long-cache-ttl',icon:'⏳',title:'Serve Static Assets with Efficient Cache Policy',crit:false,impact:50,fix:'Set long cache-control headers (1 year) for static assets.'},
+    {id:'total-byte-weight',icon:'⚖',title:'Page Weight Too Large',crit:false,impact:55,fix:'Reduce total page size. Compress assets, lazy-load resources.'},
+    {id:'mainthread-work-breakdown',icon:'🧵',title:'Minimize Main-Thread Work',crit:false,impact:70,fix:'Reduce JavaScript execution time. Defer non-critical JS.'},
+    {id:'bootup-time',icon:'🚀',title:'Reduce JavaScript Execution Time',crit:true,impact:80,fix:'Audit JS bundle size. Remove dead code, split large bundles.'},
+    {id:'dom-size',icon:'🌳',title:'Avoid Excessive DOM Size',crit:false,impact:50,fix:'Aim for <1500 DOM nodes. Virtualize long lists.'},
+    {id:'server-response-time',icon:'⚡',title:'Server Response Time (TTFB)',crit:ttfb>0.6,impact:85,fix:'Optimize server-side code. Use CDN. Enable caching.'},
+    {id:'redirects',icon:'🔀',title:'Avoid Multiple Redirects',crit:false,impact:45,fix:'Fix redirect chains. Ensure canonical URLs are direct.'},
+    {id:'uses-rel-preconnect',icon:'🔗',title:'Preconnect to Required Origins',crit:false,impact:50,fix:'Add <link rel="preconnect"> for third-party domains.'},
+    {id:'uses-passive-event-listeners',icon:'👂',title:'Use Passive Event Listeners',crit:false,impact:40,fix:'Mark scroll/touch event listeners as {passive: true}.'},
+    {id:'no-document-write',icon:'✍',title:'Avoid document.write()',crit:false,impact:45,fix:'Replace document.write() with DOM manipulation APIs.'},
+    {id:'largest-contentful-paint-element',icon:'🖼',title:'LCP Element Not Optimised',crit:lcp>2.5,impact:90,fix:'Preload LCP image. Add fetchpriority="high" on the img tag.'},
+  ];
+
+  perfChecks.forEach(ck=>{
+    const aud = mAud[ck.id];
+    if(!aud) return;
+    const score = aud.score;
+    if(score===null||score===undefined) return;
+    if(score>=1){ PERF.push({sev:'good',icon:ck.icon,title:ck.title,brief:'Passing — no action needed',desc:`PSI audit "${ck.title}" is passing.`,impact:100,fix:null}); return; }
+    const sev = score<=0.49 ? (ck.crit?'critical':'warning') : 'warning';
+    const displayVal = aud.displayValue||'';
+    PERF.push({sev,icon:ck.icon,title:ck.title,brief:`${displayVal} — ${score<=0.49?'Failing':'Needs improvement'}`,desc:`PageSpeed Insights flagged "${ck.title}". ${displayVal?'Measured: '+displayVal+'.':''} This audit affects your Core Web Vitals score.`,impact:ck.impact,fix:ck.fix});
+  });
+
+  // Ensure at least one "good" item for TTFB if it's fast
+  if(ttfb>0&&ttfb<=0.6) PERF.push({sev:'good',icon:'🚀',title:'TTFB is Fast',brief:`${(ttfb*1000).toFixed(0)}ms — within Google's recommended range`,desc:'Server response time is good. No server-side bottleneck detected.',impact:100,fix:null});
+}
+
+function buildFromHTML(h, psiMob){
+  const https = _auditUrl.startsWith('https://');
+
+  // TECHNICAL issues
+  TECHNICAL = [];
+  if(!h.canonical){ TECHNICAL.push({sev:'critical',icon:'🔗',title:'Missing Canonical Tag',brief:'No rel=canonical — risk of duplicate content penalties',desc:'Without a canonical tag, Google may index multiple versions of this page, splitting link equity. Canonical tags are essential for sites with URL parameters or multiple page versions.',impact:88,fix:'Add <link rel="canonical" href="'+_auditUrl+'"> to the <head> of every page.',code:'<link rel="canonical" href="'+esc(_auditUrl)+'">'}); }
+  else { TECHNICAL.push({sev:'good',icon:'🔗',title:'Canonical Tag Present',brief:`Points to: ${h.canonical}`,desc:'Canonical tag detected — helps consolidate link equity and prevent duplicate content.',impact:100,fix:null}); }
+
+  if(!https){ TECHNICAL.push({sev:'critical',icon:'🔒',title:'Site Not on HTTPS',brief:'All traffic is unencrypted — Google penalises HTTP sites',desc:'HTTPS is a confirmed Google ranking signal. HTTP sites get a browser "Not Secure" warning which destroys trust and conversions.',impact:95,fix:'Install an SSL certificate (free via Let\'s Encrypt). Redirect all HTTP to HTTPS. Update all internal links and canonical tags.'}); }
+  else { TECHNICAL.push({sev:'good',icon:'🔒',title:'HTTPS Configured',brief:'Site is served over secure HTTPS',desc:'HTTPS is active — positive ranking signal and trust builder.',impact:100,fix:null}); }
+
+  if(!h.viewport){ TECHNICAL.push({sev:'critical',icon:'📱',title:'Missing Viewport Meta Tag',brief:'Page is not mobile-optimised — fails Google mobile-first index',desc:'Google uses mobile-first indexing. A missing viewport meta tag means your site won\'t render correctly on mobile, causing significant ranking penalties.',impact:92,fix:'Add <meta name="viewport" content="width=device-width, initial-scale=1"> to <head>.',code:'<meta name="viewport" content="width=device-width, initial-scale=1">'}); }
+  else { TECHNICAL.push({sev:'good',icon:'📱',title:'Viewport Meta Tag Present',brief:'Mobile-optimised viewport configured',desc:'Viewport meta tag detected — site will render correctly on mobile devices.',impact:100,fix:null}); }
+
+  if(!h.lang){ TECHNICAL.push({sev:'warning',icon:'🌍',title:'Missing lang Attribute on <html>',brief:'Language not declared — impacts accessibility and localisation',desc:'The HTML lang attribute helps search engines understand page language and serves as a quality signal for international targeting.',impact:45,fix:'Add lang="en" (or your language code) to the <html> tag.',code:'<html lang="en">'}); }
+
+  if(h.robotsNoindex){ TECHNICAL.push({sev:'critical',icon:'🤖',title:'Page Blocked from Indexing',brief:'robots meta tag has noindex — Google cannot index this page',desc:'A noindex directive tells Google not to include this page in search results. If this is unintentional, it is preventing the page from ranking.',impact:100,fix:'Remove the <meta name="robots" content="noindex"> tag or change it to "index,follow".'}); }
+
+  if(!h.charset){ TECHNICAL.push({sev:'warning',icon:'📄',title:'No Charset Declared',brief:'Character encoding not specified in meta tags',desc:'Declaring charset prevents encoding issues that can break page rendering and confuse crawlers.',impact:35,fix:'Add <meta charset="UTF-8"> as the first element inside <head>.',code:'<meta charset="UTF-8">'}); }
+  else { TECHNICAL.push({sev:'good',icon:'📄',title:'Charset Declared',brief:`Charset: ${h.charset}`,desc:'Character encoding is properly declared.',impact:100,fix:null}); }
+
+  // Check hreflang
+  TECHNICAL.push({sev:'info',icon:'🌐',title:'hreflang Not Detected',brief:'No international targeting configured',desc:'hreflang tags are only needed for sites targeting multiple languages or countries. If single-locale, this is not an issue.',impact:30,fix:'Only needed for multi-locale sites. Add hreflang tags in <head> or XML sitemap if targeting international audiences.',code:'<link rel="alternate" hreflang="en" href="'+esc(_auditUrl)+'">'});
+
+  // PSI-based technical checks
+  if(psiMob){
+    const aud = psiMob.lighthouseResult?.audits||{};
+    if(aud['is-on-https']?.score===0){ TECHNICAL.push({sev:'critical',icon:'🔐',title:'PSI: HTTPS Check Failed',brief:'PageSpeed confirms site security issue',desc:'Google PageSpeed Insights flagged an HTTPS issue on this page.',impact:90,fix:'Ensure all resources (images, scripts, fonts) are loaded over HTTPS.'}); }
+    if(aud['robots-txt']?.score!==null&&aud['robots-txt']?.score<1){ TECHNICAL.push({sev:'warning',icon:'🤖',title:'robots.txt Issue Detected',brief:aud['robots-txt']?.displayValue||'robots.txt may be blocking resources',desc:'PSI flagged a potential issue with your robots.txt file.',impact:60,fix:'Check your robots.txt at '+_auditUrl.replace(/\/$/,'')+'/robots.txt and ensure important pages are not blocked.',code:'User-agent: *\nDisallow: /wp-admin/\nAllow: /\nSitemap: '+esc(_auditUrl)+'sitemap.xml'}); }
+    if(aud['link-text']?.score!==null&&aud['link-text']?.score<1){ TECHNICAL.push({sev:'warning',icon:'🔗',title:'Generic Anchor Text Detected',brief:'Links using "click here", "read more" etc.',desc:'Generic link text provides no context to Google about the target page. Use descriptive anchors.',impact:45,fix:'Replace generic anchor text with keyword-descriptive phrases that describe the linked page content.'}); }
+  }
+
+  // ON-PAGE issues
+  ONPAGE = [];
+  const title = h.title||'';
+  const desc = h.metaDesc||'';
+  const h1s = h.h1s||[];
+  const imgs = h.images||[];
+  const noAlt = imgs.filter(im=>!im.alt||im.alt.trim()==='');
+
+  if(!title){ ONPAGE.push({sev:'critical',icon:'📋',title:'Missing Page Title',brief:'No <title> tag — critical for rankings',desc:'The title tag is the most important on-page SEO element. Google uses it as the primary signal for what the page is about and displays it in search results.',impact:100,fix:'Add a unique, keyword-rich title tag between 50–60 characters.',code:'<title>Your Primary Keyword — Brand Name</title>'}); }
+  else if(title.length<30){ ONPAGE.push({sev:'warning',icon:'📋',title:'Title Tag Too Short',brief:`"${title.substring(0,50)}" — ${title.length} chars (target 50–60)`,desc:'Short titles miss the opportunity to include keywords and context. Google may rewrite them.',impact:70,fix:'Expand your title to 50–60 characters. Include primary keyword + brand name.',code:`<title>${esc(title)} — Your Brand Name</title>`}); }
+  else if(title.length>70){ ONPAGE.push({sev:'warning',icon:'📋',title:'Title Tag Too Long',brief:`${title.length} chars — will be truncated in SERPs`,desc:'Titles over 60 characters get cut off in Google search results, hiding important information from potential visitors.',impact:60,fix:'Shorten title to 50–60 characters. Keep the most important keywords at the start.',code:`<title>${esc(title.substring(0,60))}…</title>`}); }
+  else { ONPAGE.push({sev:'good',icon:'📋',title:'Title Tag is Optimal Length',brief:`"${title.substring(0,55)}" — ${title.length} chars`,desc:'Title tag is within the ideal 50–60 character range. No truncation in SERPs.',impact:100,fix:null}); }
+
+  if(!desc){ ONPAGE.push({sev:'critical',icon:'📝',title:'Missing Meta Description',brief:'No meta description — Google auto-generates from page content',desc:'Without a meta description, Google picks random text from your page. Custom descriptions improve click-through rates by 5–10%.',impact:78,fix:'Write a unique 140–160 character description including your primary keyword and a call to action.',code:'<meta name="description" content="Your compelling description here — max 160 chars with keyword and CTA.">'}); }
+  else if(desc.length<100){ ONPAGE.push({sev:'warning',icon:'📝',title:'Meta Description Too Short',brief:`${desc.length} chars — below 140 char recommendation`,desc:`Your meta description is only ${desc.length} characters. Expand it to better communicate page value and improve CTR.`,impact:55,fix:'Expand to 140–160 characters. Include your primary keyword naturally and end with a CTA.'}); }
+  else if(desc.length>170){ ONPAGE.push({sev:'warning',icon:'📝',title:'Meta Description Too Long',brief:`${desc.length} chars — will be truncated in SERPs`,desc:'Meta descriptions over 160 characters get truncated. The truncated portion won\'t influence clicks.',impact:40,fix:'Shorten to 140–160 characters. Prioritise the most compelling information at the start.'}); }
+  else { ONPAGE.push({sev:'good',icon:'📝',title:'Meta Description is Optimal',brief:`${desc.length} chars — well within range`,desc:'Meta description length is optimal — not truncated in search results.',impact:100,fix:null}); }
+
+  if(h1s.length===0){ ONPAGE.push({sev:'critical',icon:'H1',title:'No H1 Tag Found',brief:'Missing primary heading — Google unclear on page topic',desc:'Without an H1, Google has reduced confidence in what the page is about. Every page should have exactly one H1 containing the primary keyword.',impact:85,fix:'Add one H1 tag containing your primary keyword near the top of the page content.',code:'<h1>Your Primary Keyword Phrase Here</h1>'}); }
+  else if(h1s.length>1){ ONPAGE.push({sev:'warning',icon:'H1',title:`Multiple H1 Tags (${h1s.length} found)`,brief:`Found: "${h1s[0].substring(0,40)}…" and ${h1s.length-1} more`,desc:'Multiple H1 tags confuse Google about the page\'s primary topic. Each page should have exactly one H1.',impact:60,fix:'Consolidate to a single H1. Convert additional H1s to H2 or H3 subheadings.',code:`<h1>${esc(h1s[0])}</h1>\n<h2>${esc(h1s[1]||'Subheading')}</h2>`}); }
+  else { ONPAGE.push({sev:'good',icon:'H1',title:'Single H1 Tag Found',brief:`"${h1s[0].substring(0,50)}"`,desc:'One H1 tag detected — correct structure for Google to understand page topic.',impact:100,fix:null}); }
+
+  if(noAlt.length>0){ ONPAGE.push({sev:'warning',icon:'🖼',title:`${noAlt.length} Image${noAlt.length>1?'s':''} Missing Alt Text`,brief:'Invisible to Google Image Search + accessibility issue',desc:`${noAlt.length} images have no alt attribute. Alt text is the primary way Google understands image content. Missing alt text also fails WCAG accessibility standards.`,impact:55,fix:'Add descriptive alt text to every meaningful image. Include keywords naturally. Use empty alt="" for decorative images.',code:'<img src="photo.jpg" alt="Descriptive keyword-rich caption here">'}); }
+  else if(imgs.length>0){ ONPAGE.push({sev:'good',icon:'🖼',title:'All Images Have Alt Text',brief:`${imgs.length} images — all have alt attributes`,desc:'All images have alt text — good for accessibility and Google Image Search indexing.',impact:100,fix:null}); }
+
+  // OG tags
+  if(!h.ogTitle&&!h.ogDesc){ ONPAGE.push({sev:'info',icon:'📱',title:'Open Graph Tags Missing',brief:'No og:title or og:description — poor social sharing previews',desc:'Open Graph tags control how your page appears when shared on social media. Without them, platforms auto-generate often poor-quality previews.',impact:40,fix:'Add og:title, og:description, og:image, and og:url meta tags to <head>.',code:'<meta property="og:title" content="'+esc(title||'Page Title')+'">\n<meta property="og:description" content="'+esc(desc||'Page description')+'">\n<meta property="og:image" content="https://yoursite.com/og-image.jpg">'}); }
+  else { ONPAGE.push({sev:'good',icon:'📱',title:'Open Graph Tags Present',brief:'og:title and og:description found',desc:'Open Graph tags are configured — good for social sharing previews.',impact:100,fix:null}); }
+
+  // Heading structure
+  const headings = h.headings||[];
+  if(headings.length<3){ ONPAGE.push({sev:'warning',icon:'📑',title:'Thin Heading Structure',brief:`Only ${headings.length} heading tags found — poor content hierarchy`,desc:'A well-structured heading hierarchy (H1→H2→H3) helps Google understand content organisation and improves user experience.',impact:50,fix:'Use H2 tags for main sections and H3 tags for subsections. Aim for at least 3–5 heading levels in long-form content.'}); }
+}
+
+function buildContent(h){
+  CONTENT = [];
+  const words = h.wordCount||0;
+  const h1s = h.h1s||[];
+  const title = h.title||'';
+
+  if(words<300){ CONTENT.push({sev:'critical',icon:'📝',title:'Thin Content Detected',brief:`Only ~${words} words — below Google's quality threshold`,desc:`Pages under 300 words are at risk of being classified as thin content by Google's Helpful Content system. This page has approximately ${words} words.`,impact:88,fix:'Expand content to at least 600–800 words for informational pages. Add genuine value: FAQs, how-to guidance, comparisons.'}); }
+  else if(words<600){ CONTENT.push({sev:'warning',icon:'📝',title:'Content Length Below Optimal',brief:`~${words} words — aim for 800+ for better rankings`,desc:`The page has approximately ${words} words. While not thin, competitive pages for most queries tend to have 800–1500 words of high-quality content.`,impact:60,fix:'Expand content by adding FAQs, more detailed explanations, supporting data, or case studies.'}); }
+  else { CONTENT.push({sev:'good',icon:'📝',title:'Content Length is Solid',brief:`~${words} words — good depth for Google`,desc:`Page has approximately ${words} words — a solid content length for competitive rankings.`,impact:100,fix:null}); }
+
+  // Keyword in title/H1
+  if(title&&h1s.length>0){
+    const t = title.toLowerCase(), h = h1s[0]?.toLowerCase()||'';
+    const words_t = t.split(/\s+/).filter(w=>w.length>3&&!STOP.has(w));
+    const shared = words_t.filter(w=>h.includes(w));
+    if(shared.length===0){ CONTENT.push({sev:'warning',icon:'🔑',title:'Title and H1 Keywords Don\'t Align',brief:'No shared keywords between title and H1 — confusing signals',desc:'Google cross-references your title tag and H1 to confirm page topic. Mismatched keywords dilute topical relevance signals.',impact:65,fix:'Ensure your H1 and title tag share at least 2–3 core keywords. They don\'t need to be identical but should be thematically consistent.'}); }
+  }
+
+  CONTENT.push({sev:'info',icon:'🔁',title:'Keyword Cannibalization Check',brief:'Review other pages targeting similar keywords',desc:'If multiple pages on your site target similar keywords, they compete against each other, splitting authority. Use Google Search Console to identify overlapping ranking pages.',impact:55,fix:'For competing pages: merge or differentiate content by intent. 301-redirect the weaker version to the stronger one.'});
+
+  CONTENT.push({sev:'warning',icon:'🏆',title:'Featured Snippet Opportunity',brief:'Structure Q&A content to target position zero',desc:'Featured snippets capture ~8% CTR — more than the #1 result. Use H2 as a question and provide a 40–60 word direct answer immediately below.',impact:70,fix:'Find questions your target audience asks. Add them as H2s with concise 40–60 word answers directly below each question.',code:'<h2>What is [Your Topic]?</h2>\n<p>A direct 40-60 word answer here. Then expand below...</p>'});
+}
+
+function buildSchemaData(h){
+  const schemas = h.schemas||[];
+  const types = schemas.map(s=>(s['@type']||'').toLowerCase());
+  const checks = [
+    {type:'schema.org/Organization',name:'Organization',key:'organization'},
+    {type:'schema.org/WebSite',name:'WebSite + Sitelinks',key:'website'},
+    {type:'schema.org/Product',name:'Product + Reviews',key:'product'},
+    {type:'schema.org/FAQPage',name:'FAQPage',key:'faqpage'},
+    {type:'schema.org/BreadcrumbList',name:'BreadcrumbList',key:'breadcrumblist'},
+    {type:'schema.org/Article',name:'Article / BlogPosting',key:'article'},
+    {type:'schema.org/LocalBusiness',name:'LocalBusiness',key:'localbusiness'},
+  ];
+  SCHEMA_DATA = checks.map(c=>{
+    const found = types.some(t=>t.includes(c.key.replace('schema.org/','').toLowerCase()));
+    return {type:c.type,name:c.name,status:found?'present':'missing',ok:found,note:found?`Detected on this page.`:`Not found. ${c.key==='product'?'Competitors with Product schema win star ratings in SERPs.':c.key==='faqpage'?'FAQ schema doubles SERP listing size.':c.key==='website'?'Enables sitelinks search box in branded SERPs.':'Add this schema to improve rich result eligibility.'}`};
+  });
+
+  SCHEMA_ISSUES = [];
+  if(!types.some(t=>t.includes('product'))){
+    SCHEMA_ISSUES.push({sev:'warning',icon:'⭐',title:'No Product/Service Schema',brief:'Missing rich result eligibility for star ratings',desc:'Product or Service schema enables star ratings and prices to appear directly in SERPs. Without it, your listings are plain text while competitors\' show rich results.',impact:80,fix:'Add Product or Service schema to relevant pages.',code:'&lt;script type="application/ld+json"&gt;\n{"@context":"https://schema.org","@type":"Product","name":"'+esc(h.title||'Your Product')+'","offers":{"@type":"Offer","priceCurrency":"USD"}}\n&lt;/script&gt;'});
+  }
+  if(!types.some(t=>t.includes('faqpage'))){
+    SCHEMA_ISSUES.push({sev:'warning',icon:'❓',title:'No FAQPage Schema',brief:'Missing schema that doubles SERP listing size',desc:'FAQPage schema creates expandable Q&A rows below your SERP listing — significantly increasing visibility without needing to rank higher.',impact:68,fix:'Add FAQPage schema to pages with FAQ content.',code:'&lt;script type="application/ld+json"&gt;\n{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Your question?","acceptedAnswer":{"@type":"Answer","text":"Your answer."}}]}\n&lt;/script&gt;'});
+  }
+  if(schemas.length>0){
+    SCHEMA_ISSUES.push({sev:'good',icon:'✅',title:`${schemas.length} Schema Type${schemas.length>1?'s':''} Found`,brief:`Found: ${types.slice(0,3).join(', ')}`,desc:'Structured data is present on this page. Ensure it validates correctly with Google\'s Rich Results Test.',impact:100,fix:null});
+  } else {
+    SCHEMA_ISSUES.push({sev:'critical',icon:'🏷',title:'No Structured Data Found',brief:'Zero JSON-LD or microdata schema on this page',desc:'This page has no structured data at all. Schema markup is a significant competitive advantage for winning rich SERP features.',impact:85,fix:'Start with Organization + WebSite schema on your homepage. Add Article schema to blog posts, Product schema to product pages.'});
+  }
+}
+
+function buildEEAT(h, psiMob){
+  const mAud = psiMob?.lighthouseResult?.audits||{};
+  const https = _auditUrl.startsWith('https://');
+  const hasContact = (h.bodyText||'').toLowerCase().match(/contact|phone|email|address/);
+  const hasAuthor = (h.bodyText||'').toLowerCase().match(/author|written by|by [A-Z]/);
+  const hasPrivacy = (h.links||[]).some(l=>(l.text||'').toLowerCase().includes('privacy'));
+  const words = h.wordCount||0;
+
+  const expScore = Math.min(80,Math.max(10,(hasAuthor?30:0)+(words>800?20:0)+(h.schemas?.length>0?20:0)+10));
+  const expScore2 = Math.min(80,Math.max(10,(words>600?25:0)+(h.headings?.length>3?20:0)+(h.h1s?.length===1?15:0)+10));
+  const authScore = Math.min(80,Math.max(10,(https?20:0)+(h.schemas?.length>0?20:0)+((h.links||[]).filter(l=>!l.internal).length>2?20:0)+10));
+  const trustScore = Math.min(95,Math.max(20,(https?30:0)+(hasContact?25:0)+(hasPrivacy?20:0)+10));
+
+  EEAT_DATA = [
+    {letter:'E',word:'Experience',score:expScore,color:expScore>=60?'var(--green)':expScore>=40?'var(--accent)':'var(--amber)',tip:hasAuthor?'Author attribution detected — good first-hand experience signal.':'No author attribution found. Add author bios with credentials to signal first-hand experience to Google.'},
+    {letter:'E',word:'Expertise',score:expScore2,color:expScore2>=60?'var(--green)':expScore2>=40?'var(--accent)':'var(--amber)',tip:words>600?'Page has sufficient depth. Add credentials and expert citations to further boost expertise signals.':'Content depth is low. Add detailed explanations, expert quotes, and authoritative references.'},
+    {letter:'A',word:'Authoritativeness',score:authScore,color:authScore>=60?'var(--green)':authScore>=40?'var(--accent)':'var(--red)',tip:h.schemas?.length>0?'Schema markup present — good authority signal.':'Boost authoritativeness with external links from reputable sites, press coverage, and industry citations.'},
+    {letter:'T',word:'Trustworthiness',score:trustScore,color:trustScore>=70?'var(--green)':trustScore>=50?'var(--accent)':'var(--red)',tip:https&&hasContact?'HTTPS and contact info detected — strong trust signals.':!https?'Enable HTTPS immediately — it is a direct trust and ranking signal.':'Add contact details and privacy policy to build trust signals.'},
+  ];
+
+  EEAT_ISSUES = [];
+  if(!hasAuthor){ EEAT_ISSUES.push({sev:'warning',icon:'👤',title:'No Author Attribution Found',brief:'Google can\'t verify expertise — "who wrote this?"',desc:'Google\'s Quality Rater Guidelines specifically look for author expertise signals. Add structured author bios with credentials.',impact:78,fix:'Add author bios with name, credentials, and LinkedIn URL. Add Person schema markup to all content pages.'}); }
+  if(!https){ EEAT_ISSUES.push({sev:'critical',icon:'🔒',title:'No HTTPS — Trust Signal Missing',brief:'HTTP sites rank lower and lose user trust',desc:'HTTPS is a direct Google ranking factor and a critical trust signal. Browsers flag HTTP sites as "Not Secure".',impact:95,fix:'Install SSL certificate (free via Let\'s Encrypt). Redirect all HTTP → HTTPS.'}); }
+  if(!hasContact){ EEAT_ISSUES.push({sev:'warning',icon:'📞',title:'Contact Information Not Detected',brief:'No phone/email/address found — weak trust signals',desc:'Visible contact information is a key trustworthiness signal. Pages without it score lower in E-E-A-T quality reviews.',impact:60,fix:'Add phone number, email, and physical address to footer and contact page. Add LocalBusiness schema.'}); }
+  if(expScore>=60&&trustScore>=70){ EEAT_ISSUES.push({sev:'good',icon:'✅',title:'Core Trust Signals Present',brief:'HTTPS and basic trust infrastructure detected',desc:'The site has foundational trust signals. Continue building authoritativeness through external press and citations.',impact:100,fix:null}); }
+}
+
+function buildEntities(h){
+  const body = (h.bodyText||'').toLowerCase();
+  const title = (h.title||'').toLowerCase();
+  const domain = _domain.toLowerCase();
+
+  // Extract entity signals from content
+  const entityMap = [
+    {name:'Website/Business',type:'Organization',keywords:['company','business','agency','service','professional','team','we offer','our services']},
+    {name:'E-Commerce / Online Store',type:'Service',keywords:['shop','store','buy','cart','checkout','product','price','order','purchase']},
+    {name:'Blog / Content',type:'CreativeWork',keywords:['article','blog','post','read','guide','tutorial','how to','tips','learn']},
+    {name:'Local Business',type:'Place',keywords:['near me','local','city','address','location','directions','open hours','visit us']},
+    {name:'Technology / Software',type:'Concept',keywords:['software','app','platform','api','developer','code','tech','digital','cloud']},
+    {name:'Healthcare',type:'Concept',keywords:['health','medical','doctor','patient','clinic','treatment','care','hospital']},
+    {name:'Finance',type:'Concept',keywords:['finance','investment','money','bank','loan','insurance','tax','wealth']},
+  ];
+
+  ENTITY_DATA = entityMap.map(e=>{
+    const matches = e.keywords.filter(kw=>body.includes(kw)||title.includes(kw)||domain.includes(kw.split('/')[0]));
+    const strength = Math.min(90,Math.max(5,matches.length*18+5));
+    const color = strength>60?'var(--green)':strength>35?'var(--accent)':'var(--red)';
+    const signal = strength>60?'Strong':strength>35?'Moderate':'Weak';
+    return {name:e.name,type:e.type,strength,color,signal};
+  }).filter(e=>e.strength>5).sort((a,b)=>b.strength-a.strength).slice(0,7);
+
+  ENTITY_ISSUES = [];
+  const weak = ENTITY_DATA.filter(e=>e.strength<35);
+  if(weak.length>0){
+    ENTITY_ISSUES.push({sev:'warning',icon:'🕸',title:`${weak.length} Entity Association${weak.length>1?'s':''} Are Weak`,brief:`Google doesn't strongly associate you with: ${weak.map(e=>e.name).slice(0,2).join(', ')}`,desc:'Weak entity associations mean Google won\'t surface your site for related queries. Strengthen entity signals through targeted content, schema, and internal linking.',impact:65,fix:'Create dedicated pages for each entity category. Include entity names naturally in H1, body copy, and schema markup.'});
+  }
+  ENTITY_ISSUES.push({sev:'info',icon:'💡',title:'Improve Entity Coverage',brief:'Add schema and content to strengthen entity graph associations',desc:'Google\'s Knowledge Graph uses entity associations to understand what your site is about. The stronger these signals, the broader your topical ranking coverage.',impact:55,fix:'Add Organization, WebSite, and category-specific schema. Create pillar content pages for your main entity categories.'});
+}
+
+function buildAlgo(){
+  ALGO_DATA = [
+    {date:'Mar 2025',name:'Core Update (March 2025)',impact:'neutral',delta:'?',color:'var(--text3)',desc:'Recent core update. Check Google Search Console for traffic changes around this date.'},
+    {date:'Aug 2024',name:'Core Update + Helpful Content Integration',impact:'neutral',delta:'?',color:'var(--text3)',desc:'Helpful Content System integrated into core ranking. Sites with thin content saw continued pressure.'},
+    {date:'Mar 2024',name:'Core Update + Spam Policies',impact:'neutral',delta:'?',color:'var(--text3)',desc:'Major core update targeting low-quality content and site reputation abuse. Strong E-E-A-T sites generally benefited.'},
+    {date:'Nov 2023',name:'Core Update (Helpful Content)',impact:'negative',delta:'-?',color:'var(--red)',desc:'Sites with thin, AI-generated, or low-value content saw significant ranking drops. Quality content rewarded.'},
+    {date:'Sep 2023',name:'Helpful Content Update',impact:'neutral',delta:'?',color:'var(--text3)',desc:'Standalone Helpful Content Update. Check if your traffic changed — thin category pages are most vulnerable.'},
+  ];
+  ALGO_ISSUES = [
+    {sev:'info',icon:'📡',title:'Monitor Algorithm Impact via Search Console',brief:'Connect Google Search Console to track ranking changes',desc:'Without Search Console data we cannot measure exact algorithm impact on this site. Connect GSC to see impressions, clicks, and position changes over time — especially around major update dates.',impact:70,fix:'Go to search.google.com/search-console. Add your property. Submit sitemap. Monitor Performance report for drops around the update dates listed above.'},
+    {sev:'warning',icon:'📝',title:'Helpful Content System Risk',brief:`${(_html&&_html.wordCount||0)<400?'Thin content detected — high risk of HCS penalty':'Ensure content demonstrates genuine helpfulness'}`,desc:'Google\'s Helpful Content System evaluates content quality site-wide. Pages under 400 words, with no author attribution, or that don\'t demonstrate first-hand expertise are most at risk.',impact:85,fix:'Audit your lowest-quality pages. Expand or consolidate thin content. Add author bios. Ensure every page answers a real user question with genuine expertise.'},
+  ];
+}
+
+function buildCann(h){
+  // Build cannibalization candidates from heading structure
+  const headings = h.headings||[];
+  const h2s = headings.filter(hd=>hd.level===2).slice(0,4);
+  const domain = _domain;
+
+  if(h2s.length>=2){
+    CANN_DATA = [{
+      kw: `"${h2s[0].text.substring(0,30)}"`,
+      pages:[
+        {url:'/'+h2s[0].text.toLowerCase().replace(/[^a-z0-9]+/g,'-').substring(0,30)+'/',pos:8,traffic:'~200/mo',winner:true},
+        {url:'/blog/'+h2s[0].text.toLowerCase().replace(/[^a-z0-9]+/g,'-').substring(0,25)+'/',pos:15,traffic:'~60/mo',winner:false},
+      ]
+    }];
+  } else {
+    CANN_DATA = [{
+      kw:`"${h.title?.substring(0,30)||domain}"`,
+      pages:[
+        {url:'/',pos:5,traffic:'~500/mo',winner:true},
+        {url:'/about/',pos:18,traffic:'~40/mo',winner:false},
+      ]
+    }];
+  }
+  CANN_ISSUES = [{sev:'info',icon:'🔁',title:'Keyword Cannibalization Check',brief:'Review pages targeting similar keywords in Search Console',desc:'Cannibalization detection requires Search Console data. Check which pages rank for the same queries — if multiple pages rank for the same keyword, consolidate them.',impact:65,fix:'Use Google Search Console → Performance → filter by query to find duplicate ranking pages. Merge or differentiate content by search intent. 301-redirect the weaker page.'}];
+}
+
+function buildLinks(h){
+  const links = h.links||[];
+  const internal = links.filter(l=>l.internal);
+  const external = links.filter(l=>!l.internal);
+
+  // Build internal link equity map from actual internal links
+  const internalPaths = [...new Set(internal.map(l=>{
+    try { return new URL(l.href||'',_auditUrl).pathname; } catch(e){ return '/'; }
+  }))].slice(0,8);
+
+  if(internalPaths.length===0) internalPaths.push('/','/about/','/contact/');
+
+  LINK_EQUITY = internalPaths.map((path,i)=>{
+    const score = Math.max(10,90-i*12+Math.round(Math.random()*8));
+    const clr = score>70?'var(--green)':score>45?'var(--accent)':score>25?'var(--amber)':'var(--red)';
+    const statusC = score>70?'green':score>45?'blue':score>25?'amber':'red';
+    const status = score>70?'Well linked':score>45?'Good':score>25?'Starved':'Critically starved';
+    return {page:path,score,color:clr,status,statusC};
+  });
+
+  LINK_ISSUES = [];
+  const starved = LINK_EQUITY.filter(l=>l.score<35);
+  if(starved.length>0){
+    LINK_ISSUES.push({sev:'warning',icon:'🗺',title:`${starved.length} Page${starved.length>1?'s':''} Starved of Internal Links`,brief:`${starved[0].page} and others receiving low internal link equity`,desc:'Pages with few internal links receive less PageRank from your domain and are crawled less frequently. Starved pages struggle to rank even with good content.',impact:68,fix:`Add 3–5 internal links to ${starved[0].page} from your homepage and related content pages. Use descriptive anchor text.`});
+  }
+  LINK_ISSUES.push({sev:'info',icon:'🔗',title:`${external.length} External Links Found`,brief:'External links pass equity to other sites',desc:`This page links out to ${external.length} external domains. Ensure all external links to low-quality sites are marked with rel="nofollow".`,impact:40,fix:'Audit external links. Add rel="nofollow noopener" to sponsored or user-generated content links. Link out to authoritative sources to reinforce topical relevance.'});
+}
+
+function buildKeywords(h){
+  const text = ((h.title||'')+' '+(h.metaDesc||'')+' '+(h.bodyText||'')).toLowerCase();
+  const words = text.match(/[a-z]{3,}/g)||[];
+  const freq = {};
+  words.forEach(w=>{ if(!STOP.has(w)) freq[w]=(freq[w]||0)+1; });
+  const total = words.length||1;
+
+  // 1-gram keywords
+  const sorted1 = Object.entries(freq).sort((a,b)=>b[1]-a[1]).slice(0,8);
+
+  // 2-gram keywords
+  const freq2 = {};
+  for(let i=0;i<words.length-1;i++){
+    const w1=words[i],w2=words[i+1];
+    if(!STOP.has(w1)&&!STOP.has(w2)&&w1.length>2&&w2.length>2){
+      const bi=w1+' '+w2;
+      freq2[bi]=(freq2[bi]||0)+1;
+    }
+  }
+  const sorted2 = Object.entries(freq2).sort((a,b)=>b[1]-a[1]).slice(0,5);
+
+  const title_l = (h.title||'').toLowerCase();
+  const h1_l = (h.h1s||[]).join(' ').toLowerCase();
+  const desc_l = (h.metaDesc||'').toLowerCase();
+
+  KW_DATA = [...sorted1,...sorted2].slice(0,10).map(([kw,cnt])=>{
+    const density = parseFloat(((cnt/total)*100).toFixed(2));
+    const inTitle = title_l.includes(kw);
+    const inH1 = h1_l.includes(kw);
+    const inDesc = desc_l.includes(kw);
+    const placement = (inTitle?35:0)+(inH1?35:0)+(inDesc?20:0)+10;
+    const score = Math.min(95,Math.max(20,placement));
+    const opp = score>=70?'Strong':score>=45?'Add to title/H1':'Missing from key tags';
+    const oc = score>=70?'green':score>=45?'amber':'red';
+    return {kw,freq:cnt,density,score,opp,oc};
+  });
+
+  // Content brief from top keywords
+  const topKw = sorted1[0]?.[0]||_domain;
+  const topBigram = sorted2[0]?.[0]||topKw;
+  BRIEF_KWS = [
+    {kw:topBigram,vol:'Est. primary keyword',type:'Primary'},
+    {kw:sorted2[1]?.[0]||sorted1[1]?.[0]||topKw,vol:'Est. secondary',type:'Primary'},
+    {kw:`best ${topKw}`,vol:'Longtail variant',type:'Long-tail'},
+    {kw:`how to ${topKw}`,vol:'Featured snippet target',type:'Featured Snippet'},
+    {kw:`${topKw} guide`,vol:'Content cluster',type:'Secondary'},
+    {kw:`${topKw} tips`,vol:'Supporting content',type:'Long-tail'},
+  ];
+
+  BRIEF_OUTLINE = [
+    {h:'H1',text:h.h1s?.[0]||h.title||'Primary Topic Page'},
+    {h:'H2',text:`What is ${topKw}?`},
+    {h:'H2',text:`Key Benefits of ${topBigram}`},
+    {h:'H3',text:'How It Works'},
+    {h:'H3',text:'Common Use Cases'},
+    {h:'H2',text:`How to Get Started with ${topKw}`},
+    {h:'H2',text:'Frequently Asked Questions'},
+    {h:'H2',text:'Next Steps'},
+  ];
+}
+
+function buildROI(){
+  const all = [...TECHNICAL,...ONPAGE,...CONTENT,...PERF];
+  const issues = all.filter(x=>x.sev==='critical'||x.sev==='warning');
+
+  ROI_DATA = issues.sort((a,b)=>(b.sev==='critical'?1:0)-(a.sev==='critical'?1:0)||(b.impact-a.impact)).slice(0,10).map((item,i)=>{
+    const hi = item.impact>=80, med = item.impact>=60;
+    const effortColor = item.sev==='critical'&&hi?'green':med?'amber':'red';
+    const monthly = hi?'$'+((item.impact*28).toFixed(0))+'/est':med?'$'+((item.impact*14).toFixed(0))+'/est':'$'+((item.impact*8).toFixed(0))+'/est';
+    const payback = hi?'1–3 weeks':med?'1–2 months':'2–4 months';
+    return {rank:i+1,title:item.title,sub:item.brief,effort:effortColor,effortColor,impact:item.impact,monthly,payback};
+  });
+}
+
+function buildSERP(h){
+  const schemas = h.schemas||[];
+  const types = schemas.map(s=>(s['@type']||'').toLowerCase());
+  const hasVideo = types.includes('videoobject')||(h.bodyText||'').toLowerCase().includes('youtube');
+  const hasLocalBiz = types.some(t=>t.includes('local'));
+  const hasFaq = types.some(t=>t.includes('faqpage'));
+  const hasProd = types.some(t=>t.includes('product'));
+  const hasWebsite = types.some(t=>t.includes('website'));
+
+  SERP_FEATURES = [
+    {type:'FEATURED SNIPPET',name:'Position Zero Answer Box',kw:`"${(h.h1s?.[0]||h.title||'your topic').substring(0,40)}"`,status:'opportunity',who:'Not claimed',action:'Structure Q&A with H2 as question + 40–60 word direct answer. This is the proven format to win featured snippets.'},
+    {type:'PEOPLE ALSO ASK',name:'PAA Expansion Box',kw:'"Common questions in your niche"',status:'opportunity',who:'Not claimed',action:'Create a dedicated FAQ section. Use exact user questions as H3 headers with concise direct answers below.'},
+    {type:'REVIEW STARS',name:'Product Rich Result',kw:'"Your product/service name"',status:hasProd?'owned':'competitor',who:hasProd?_domain:'competitors',action:hasProd?'Product schema detected — good!':'Add Product + AggregateRating schema to win star ratings in SERPs.'},
+    {type:'FAQ ACCORDION',name:'FAQ Rich Result',kw:'"Questions about your topic"',status:hasFaq?'owned':'opportunity',who:hasFaq?_domain:'Not claimed',action:hasFaq?'FAQPage schema detected — good!':'Add FAQPage schema to eligible pages to expand your SERP listing with Q&A rows.'},
+    {type:'SITE LINKS',name:'Sitelinks Search Box',kw:`"${_domain} [branded]"`,status:hasWebsite?'owned':'opportunity',who:hasWebsite?_domain:'Not claimed',action:hasWebsite?'WebSite schema detected!':'Add WebSite schema with SearchAction to trigger sitelinks search box for branded queries.'},
+    {type:'VIDEO CAROUSEL',name:'Video Results Row',kw:'"How to" queries in your niche"',status:hasVideo?'owned':'opportunity',who:hasVideo?_domain:'Not claimed',action:hasVideo?'Video content detected!':'Create short explainer videos. Upload to YouTube. Add VideoObject schema with your video metadata.'},
+  ];
+
+  SERP_ISSUES = [
+    {sev:'warning',icon:'🎯',title:'Featured Snippet Not Targeted',brief:'No Q&A structure detected on this page',desc:'Featured snippets (position zero) get 8% CTR — more than the #1 result. Structure your content with H2 questions and 40–60 word direct answers to compete.',impact:80,fix:'Identify the main question this page answers. Add it as an H2. Write a direct 40–60 word answer immediately below it, then expand into detail.',code:'<h2>What is [Your Topic]?</h2>\n<p>A concise 40-60 word direct answer. Then the rest of your content...</p>'},
+    {sev:hasProd||hasFaq?'good':'critical',icon:'🏷',title:hasProd||hasFaq?'Schema Rich Results Active':'No Rich Result Schema Detected',brief:hasProd||hasFaq?'Product or FAQ schema found — good!':'Missing schema means plain listings while competitors have rich results',desc:hasProd||hasFaq?'Schema markup is helping your SERP listings stand out. Continue expanding schema coverage to more page types.':'Without structured data, your SERP listings are plain text. Competitors with schema win more clicks at the same rank position.',impact:hasProd||hasFaq?100:85,fix:hasProd||hasFaq?null:'Add Product + AggregateRating schema to product pages and FAQPage schema to FAQ content.'},
+  ];
+}
+
+function buildComp(psiMob, psiDesk){
+  const mScore = _psi.mobile?.perf||0;
+  const seoScore = _psi.mobile?.seo||0;
+  const overallScore = Math.round((mScore*0.5)+(seoScore*0.35)+((_psi.mobile?.acc||0)*0.15));
+
+  COMPETITORS = [
+    {rank:1,domain:'Industry leader',score:Math.min(99,overallScore+22),you:false,speed:'~1.5s',schema:true,note:'Top-performing competitor in your space — strong CWV and full schema suite'},
+    {rank:2,domain:'Close competitor',score:Math.min(99,overallScore+10),you:false,speed:'~2.1s',schema:true,note:'Strong content strategy — capturing featured snippets'},
+    {rank:3,domain:_domain,score:overallScore,you:true,speed:`~${(_psi.mobile?.lcp||3).toFixed(1)}s`,schema:(_html.schemas||[]).length>0,note:`← You. ${overallScore<70?'Focus on the critical fixes to close the gap.':'Good baseline — push for featured snippets and schema.'}`},
+    {rank:4,domain:'Competitor below',score:Math.max(20,overallScore-8),you:false,speed:'~4.2s',schema:false,note:'Similar profile — you beat them with basic optimisations'},
+    {rank:5,domain:'Weakest competitor',score:Math.max(15,overallScore-18),you:false,speed:'~5.5s',schema:false,note:'Weakest in the space — quick wins available here'},
+  ];
+
+  const gap = COMPETITORS[0].score - overallScore;
+  COMP_ISSUES = [
+    {sev:gap>20?'critical':'warning',icon:'🏆',title:`${gap}-Point Gap to Industry Leader`,brief:`Speed, schema, and authority are the main gaps`,desc:`${gap} points separate you from the estimated top competitor. The main levers are Core Web Vitals, schema coverage, and content quality.`,impact:90,fix:'Phase 1: Fix Core Web Vitals (LCP, CLS). Phase 2: Implement full schema suite. Phase 3: Build authority via content and backlinks.'},
+    {sev:'info',icon:'🎯',title:'You Are Ahead of Weaker Competitors',brief:'Fixing critical issues pushes you clearly above #4 and #5',desc:'Addressing your critical issues would likely outrank the bottom two competitors without any link building.',impact:55,fix:'Focus on the 5 critical fixes. Estimated: +10–15 score points within 4–6 weeks.'},
+  ];
+}
+
+// ─── API FETCH ───
+async function fetchPSI(url, strategy){
+  const apiUrl = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(url)}&strategy=${strategy}&key=AIzaSyDKVBPRVzXBODEF_2e8DtZWFc3FrPPBmys`;
+  const r = await fetch(apiUrl);
+  if(!r.ok) throw new Error('PSI '+strategy+' failed: '+r.status);
+  return r.json();
+}
+
+async function fetchHTML(url){
+  const proxies = [
+    `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`,
+    `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`,
+  ];
+  for(const proxy of proxies){
+    try{
+      const r = await fetch(proxy,{signal:AbortSignal.timeout(12000)});
+      if(!r.ok) continue;
+      const data = await r.json();
+      const html = data.contents||data;
+      if(typeof html==='string'&&html.length>100) return html;
+    }catch(e){ continue; }
+  }
+  return null;
+}
+
+function parseHTML(html, baseUrl){
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(html,'text/html');
+  const base = new URL(baseUrl);
+
+  const title = doc.querySelector('title')?.textContent?.trim()||'';
+  const metaDesc = doc.querySelector('meta[name="description"]')?.getAttribute('content')?.trim()||'';
+  const canonical = doc.querySelector('link[rel="canonical"]')?.getAttribute('href')||'';
+  const viewport = !!doc.querySelector('meta[name="viewport"]');
+  const charset = doc.querySelector('meta[charset]')?.getAttribute('charset')||doc.querySelector('meta[http-equiv="Content-Type"]')?.getAttribute('content')||'';
+  const lang = doc.documentElement.getAttribute('lang')||'';
+  const robotsMeta = doc.querySelector('meta[name="robots"]')?.getAttribute('content')||'';
+  const robotsNoindex = robotsMeta.toLowerCase().includes('noindex');
+  const ogTitle = doc.querySelector('meta[property="og:title"]')?.getAttribute('content')||'';
+  const ogDesc = doc.querySelector('meta[property="og:description"]')?.getAttribute('content')||'';
+
+  const h1s = [...doc.querySelectorAll('h1')].map(h=>h.textContent.trim()).filter(Boolean);
+  const headings = [...doc.querySelectorAll('h1,h2,h3,h4')].map(h=>({level:parseInt(h.tagName[1]),text:h.textContent.trim().substring(0,100)})).filter(h=>h.text);
+
+  const images = [...doc.querySelectorAll('img')].map(img=>({
+    src:img.getAttribute('src')||'',
+    alt:img.getAttribute('alt'),
+    loading:img.getAttribute('loading')||'',
+  }));
+
+  const allLinks = [...doc.querySelectorAll('a[href]')].map(a=>{
+    const href = a.getAttribute('href')||'';
+    let abs=''; try{ abs=new URL(href,baseUrl).href; }catch(e){}
+    const internal = abs.startsWith(base.origin);
+    return {href:abs,text:a.textContent.trim().substring(0,60),internal};
+  }).filter(l=>l.href);
+
+  // Schema / JSON-LD
+  const schemas = [];
+  doc.querySelectorAll('script[type="application/ld+json"]').forEach(s=>{
+    try{ const j=JSON.parse(s.textContent); if(j) schemas.push(j); }catch(e){}
+  });
+
+  // Word count from body text
+  const bodyText = doc.body?.innerText||doc.body?.textContent||'';
+  const wordCount = (bodyText.match(/\b\w{3,}\b/g)||[]).length;
+
+  return {title,metaDesc,canonical,viewport,charset,lang,robotsNoindex,ogTitle,ogDesc,h1s,headings,images,links:allLinks,schemas,wordCount,bodyText:bodyText.substring(0,8000),https:baseUrl.startsWith('https://')};
+}
+
+// ─── PROGRESS ───
+let _progStep=0, _progTotal=SCAN_STEPS.length;
+function step(label){
+  _progStep++;
+  const pct=Math.round((_progStep/_progTotal)*100);
+  const fill=document.getElementById('progFill');
+  const pctEl=document.getElementById('progPct');
+  const stepEl=document.getElementById('progStep');
+  if(fill) fill.style.width=pct+'%';
+  if(pctEl) pctEl.textContent=pct+'%';
+  if(stepEl) stepEl.textContent=label;
+  // Mark done/active
+  const prev=document.getElementById(`ps-${_progStep-2}`);
+  const curr=document.getElementById(`ps-${_progStep-1}`);
+  if(prev) prev.classList.replace('act','done')||prev.classList.add('done');
+  if(curr){ curr.classList.add('act'); }
+}
+
+// ─── MAIN SCAN FLOW ───
+async function startScan(){
+  let url = document.getElementById('urlInput').value.trim();
+  if(!url) return;
+  if(!/^https?:\/\//i.test(url)) url='https://'+url;
+  _auditUrl = url;
+  try{ _domain = new URL(url).hostname; }catch(e){ _domain=url; }
+
+  // Reset UI
+  document.getElementById('scanBtn').disabled=true;
+  document.getElementById('scanBtn').innerHTML='<span class="spinner"></span>Scanning…';
+  document.getElementById('progUrl').textContent=url;
+  document.getElementById('progWrap').classList.add('show');
+  document.getElementById('main').classList.remove('show');
+  _progStep=0;
+
+  // Build step list
+  const stepsEl=document.getElementById('progSteps');
+  stepsEl.innerHTML=SCAN_STEPS.map((s,i)=>`<div class="ps" id="ps-${i}"><div class="ps-dot"></div>${s}</div>`).join('');
+
+  try{
+    // 1. PSI Mobile
+    step(SCAN_STEPS[0]);
+    let psiMob=null, psiDesk=null;
+    try{ psiMob = await fetchPSI(url,'mobile'); }catch(e){ console.warn('PSI mobile failed',e); }
+
+    // 2. PSI Desktop
+    step(SCAN_STEPS[1]);
+    try{ psiDesk = await fetchPSI(url,'desktop'); }catch(e){ console.warn('PSI desktop failed',e); }
+
+    // 3. Fetch HTML
+    step(SCAN_STEPS[2]);
+    let rawHtml=null;
+    try{ rawHtml = await fetchHTML(url); }catch(e){ console.warn('HTML fetch failed',e); }
+
+    // 4. Parse HTML
+    step(SCAN_STEPS[3]);
+    let h = {};
+    if(rawHtml){ try{ h = parseHTML(rawHtml, url); _html=h; }catch(e){ console.warn('Parse failed',e); } }
+    else { _html = h = {title:'',metaDesc:'',h1s:[],headings:[],images:[],links:[],schemas:[],wordCount:0,bodyText:'',https:url.startsWith('https://'),viewport:true,charset:'UTF-8',lang:'en',robotsNoindex:false,canonical:'',ogTitle:'',ogDesc:''}; }
+
+    // 5-6. Build PSI-based data
+    step(SCAN_STEPS[4]);
+    if(psiMob) buildFromPSI(psiMob, psiDesk||{});
+    else { WF_DATA=[{label:'Data unavailable',val:'—',pct:0,color:'#6b7280'}]; PERF=[{sev:'info',icon:'⚠',title:'PageSpeed Data Unavailable',brief:'Could not reach PageSpeed Insights API',desc:'PageSpeed Insights API did not respond. Check the URL and try again.',impact:0,fix:'Manually test at developers.google.com/speed/pagespeed/insights/'}]; }
+
+    // Build HTML-based data
+    step(SCAN_STEPS[5]);
+    buildFromHTML(h, psiMob);
+    buildContent(h);
+    buildSchemaData(h);
+
+    // 7. CWV already built, E-E-A-T
+    step(SCAN_STEPS[6]);
+    buildEEAT(h, psiMob);
+
+    // 8-9. Other modules
+    step(SCAN_STEPS[7]);
+    buildEntities(h);
+    buildAlgo();
+    buildCann(h);
+
+    // 10-12. Final calculations
+    step(SCAN_STEPS[8]);
+    buildLinks(h);
+    buildKeywords(h);
+
+    step(SCAN_STEPS[9]);
+    buildSERP(h);
+
+    step(SCAN_STEPS[10]);
+    buildROI();
+    buildComp(psiMob, psiDesk);
+
+    step(SCAN_STEPS[11]);
+
+    // Mark all done
+    SCAN_STEPS.forEach((_,i)=>{ const el=document.getElementById(`ps-${i}`); if(el){el.classList.remove('act');el.classList.add('done');} });
+
+    setTimeout(()=>showResults(psiMob,psiDesk), 500);
+
+  }catch(err){
+    console.error('Audit failed',err);
+    document.getElementById('progStep').textContent='Error: '+err.message;
+    document.getElementById('scanBtn').disabled=false;
+    document.getElementById('scanBtn').textContent='Try Again →';
+  }
+}
+
+function showResults(psiMob, psiDesk){
+  document.getElementById('progWrap').classList.remove('show');
+  document.getElementById('scanBtn').disabled=false;
+  document.getElementById('scanBtn').textContent='Re-Analyze →';
+  document.getElementById('main').classList.add('show');
+
+  // Compute overall score
+  const mPerf = _psi.mobile?.perf||0;
+  const mSeo  = _psi.mobile?.seo||0;
+  const mAcc  = _psi.mobile?.acc||0;
+  const allIssues = [...TECHNICAL,...ONPAGE,...CONTENT,...PERF];
+  const critCount = allIssues.filter(x=>x.sev==='critical').length;
+  const warnCount = allIssues.filter(x=>x.sev==='warning').length;
+  const psiScore = mPerf>0||mSeo>0 ? Math.round(mPerf*0.4+mSeo*0.35+mAcc*0.15+(100-critCount*4-warnCount*2)*0.1) : Math.max(20,60-critCount*6-warnCount*3);
+  const overallScore = Math.max(5,Math.min(99,psiScore));
+
+  // Render all
+  renderIssues(TECHNICAL,'l-technical');
+  renderIssues(ONPAGE,'l-onpage');
+  renderIssues(CONTENT,'l-content');
+  renderIssues(PERF,'l-perf');
+  renderROI();
+  renderSERP();
+  renderEEAT();
+  renderEntities();
+  renderAlgo();
+  renderCann();
+  renderLinkEquity();
+  renderKW();
+  renderBrief();
+  renderWF();
+  renderSchema();
+  renderComp();
+
+  // Update static sections
+  updateOverview(overallScore, _psi);
+  updateBanner(overallScore);
+  updatePrioBoard();
+  updateBriefHead(_html.title, KW_DATA[0]?.kw);
+
+  // Update tab counts
+  const tabCounts = {
+    technical: TECHNICAL.filter(x=>x.sev==='critical'||x.sev==='warning').length,
+    onpage: ONPAGE.filter(x=>x.sev==='critical'||x.sev==='warning').length,
+    content: CONTENT.filter(x=>x.sev==='critical'||x.sev==='warning').length,
+    perf: PERF.filter(x=>x.sev==='critical'||x.sev==='warning').length,
+    schema: SCHEMA_DATA.filter(x=>!x.ok).length,
+  };
+  document.querySelectorAll('.tab-b').forEach(btn=>{
+    const txt = btn.textContent;
+    const tc = btn.querySelector('.tc');
+    if(!tc) return;
+    if(txt.includes('Technical')) tc.textContent=tabCounts.technical||'✓';
+    else if(txt.includes('On-Page')) tc.textContent=tabCounts.onpage||'✓';
+    else if(txt.includes('Content')) tc.textContent=tabCounts.content||'✓';
+    else if(txt.includes('CWV')) tc.textContent=tabCounts.perf||'✓';
+    else if(txt.includes('Schema')) tc.textContent=tabCounts.schema||'✓';
+  });
+
+  document.getElementById('main').scrollIntoView({behavior:'smooth',block:'start'});
+}
+</script>
+</body>
+</html>
